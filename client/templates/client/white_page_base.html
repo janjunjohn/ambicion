@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- OGP -->
+    {% block OGP %}
+    {% endblock OGP %}
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="static/favicon.ico">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="static/css/styles.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@100;300;400;500;700;800;900&family=Prompt:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <!--  Font Awesome-->
+    <script src="https://kit.fontawesome.com/fea1fb9366.js" crossorigin="anonymous"></script>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <!-- Google reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+    <title>AMBICIÓN</title>
+  </head>
+
+  <body class="white-page">
+
+  <!-- Page Heading -->
+  <div class="page-heading">
+
+    <!-- Navigation Bar -->
+    <nav class="sticky-top white-page-nav navbar navbar-expand-lg navbar-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{{ url_for('home') }}">
+        <img class="navbar-logo" src="static/images/design_pieces/logo_white.png" alt="logo">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav-contents" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="nav-contents">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('home') + '#order-nav-target' }}">オーダー</a>
+            <hr class="nav-hr-white">
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('home') + '#product-nav-target' }}">プロダクト</a>
+            <hr class="nav-hr">
+          </li>          
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('home') + '#about-nav-target' }}">アバウト</a>
+            <hr class="nav-hr-white">
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('home') + '#news-nav-target' }}">ニュース</a>
+            <hr class="nav-hr-white">
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('home') + '#contact-nav-target' }}">コンタクト</a>
+          </li>
+        </ul>
+      </div>
+      </div>
+
+    </nav>
+      <div class="heading-container container-fluid">
+
+        <div id="line">
+        <div id="line2">
+        <div id=line-header class="before-appear">
+          {% block heading %}
+          {% endblock %}
+        </div>
+        </div>
+        </div>
+      </div>
+      <!-- Background Picture -->
+        {% block bg_picture %}
+        {% endblock %}
+      <!--Shadow -->
+      <div class="shadow-container container-fluid">
+        <img class="shadow container-fluid" src="static/images/design_pieces/black-square.png" alt="shadow">
+      </div>
+    </div>
+
+  <div id="price-nav-target"></div> <!-- navigation btn target -->
+  <div id="greeting-nav-target"></div>
+
+
+
+    <!-- Order Navigation -->
+    <div class="navigation">
+      <div id="second-navigation" class="before-appear">
+        {% block navigation %}
+        {% endblock %}
+      </div>
+    </div>
+
+
+    <!-- Main Contents -->
+    <div class="main-contents">
+      {% block contents %}
+      {% endblock %}
+    </div>
+
+
+    <!-- Footer -->
+    <footer id="footer" style="background-color: #121212; color: #fff;">
+        <div class="footer-icons">
+          <a href="https://mobile.twitter.com/ryota410h">
+            <i id="twitter" class="footer-icon-light fab fa-twitter"></i>
+          </a>
+            <a href="https://www.instagram.com/ambicion_japan/">
+          <i id="instagram" class="footer-icon-light fab fa-instagram"></i>
+            </a>
+          <a href="https://m.facebook.com/ryota410hayashi/">
+            <i id="facebook" class="footer-icon-light fab fa-facebook-f"></i>
+          </a>
+        </div>
+        <p class="english-only">© Copyright {{ year }} AMBICIÓN</p>
+    </footer>
+  <script>
+  $(window).on('load', function() { // after loading
+    var header_height = 23;
+    var url_hash = location.hash;
+    var fade_up_sections = [  //each section
+      '#price-section',
+      '#choice-section', '#fabrics', '#necks', '#sleeves',
+      '#preorder-section',
+       '#greeting-section', '#greeting-first', '#greeting-second',
+       '#product-section',
+       '#photo-gallery-section'
+       ];
+
+    $('a[href^="#"]').click(function() {
+    var speed = 500; // scroll speed /ms
+    var href = $(this).attr('href');
+    var target = $(href == '#' || href == '' ? 'html' : href);
+    var position = target.offset().top;
+    $('html').animate({scrollTop:position}, speed, 'swing');
+    return false;
+    });
+
+    if (url_hash) {
+      var position = $(url_hash).offset().top - header_height; // move navbar proper position
+      $('html, body').animate({ scrollTop: position }, 0);
+    }
+
+    $('#line').addClass('line'); // header animations
+    $('#line2').addClass('line2');
+    $('#line-header').addClass('lineinappear');
+    $('#second-navigation').addClass('fadeIn');
+
+    $(window).scroll(function(){
+
+
+       for (const section of fade_up_sections) { // animation by scrolling
+         if ($(section).length) {
+           var top = $(section).offset().top;
+           var position = top - $(window).height() + 280;
+           if($(window).scrollTop() > position){
+             $(section).addClass("fadeUp");
+         }
+        }
+       }
+    })
+  });
+  </script>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    -->
+
+  </body>
+</html>
