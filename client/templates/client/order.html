@@ -1,4 +1,6 @@
-{% extends 'white_page_base.html' %}
+{% extends 'client/white_page_base.html' %}
+{% load static %}
+
   {% block OGP %}
     <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/ fb# prefix属性: http://ogp.me/ns/ prefix属性#">
     <meta property="og:url" content="https://ambicion-jp.com/order" />
@@ -7,22 +9,22 @@
     <meta property="og:description" content="    あなたのデザインをプロクオリティで形にします。
     昇華式完全オリジナルユニフォーム 上下セット4000円~。" />
     <meta property="og:site_name" content="AMBICIÓNで唯一無二のオリジナルユニフォームを。" />
-    <meta property="og:image" content="static/images/main_slide/order_ogp.jpg" />
+    <meta property="og:image" content="{% static 'client/images/main_slide/order_ogp.jpg' %}" />
     <meta name="twitter:card" content="Summary Card" />
     <meta name="twitter:site" content="@Ryota410h" />
   {% endblock OGP %}
 
   {% block heading %}
-    {% if submitted == 'success': %}
+    {% if submitted == 'success' %}
       <h1 class="heading-text">メール送信完了。<br>{{ username }}さん、 <br> ありがとうございます！！</h1>
-    {% elif submitted == 'failed': %}
-      <h1 class="header">メールの送信に失敗しました。</h1>
-    {% else: %}
+    {% elif submitted == 'fail' %}
+      <h1 class="heading-text">メールの送信に失敗しました。</h1>
+    {% else %}
       <h1 class="heading-text">あなたのデザインを、<br> プロクオリティで形にします。</h1>
     {% endif %}
   {% endblock %}
   {% block bg_picture %}
-    <img class="background-img container-fluid" src="static/images/ryota-with-stuff.jpg" alt="ryota and stuffs">
+    <img class="background-img container-fluid" src="{% static 'client/images/ryota-with-stuff.jpg' %}" alt="ryota and stuffs">
   {% endblock %}
   {% block navigation %}
     <a href="#price-nav-target">
@@ -37,6 +39,33 @@
   {% endblock %}
 
   {% block contents %}
+  <!-- Modal -->
+  <div class="modal fade" id="sample-modal" tabindex="-1" aria-labelledby="sample-modal-label" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title" id="sample-modal-label">デフォルトデザイン</h1>
+
+        </div>
+        <div class="modal-body">
+          <p class="modal-text">
+            こちらは、AMBICIÓNで作成した <br>デザインデータのサンプルたちです。<br>
+            AMBICIÓNでは、データをもとに印刷する <br>昇華式のユニフォームをお作りします。<br>
+            お好きなデザインをお選びいただき、<br><strong>お好みでフリースペースにカラーの変更等をご指示ください。</strong>
+            
+          </p>
+          <div class="row">
+            {% for sample in sample_list %}
+            <img class="col-lg-4 col-md-4 col-sm-6" src="{{ sample.img.url }}" alt="ai data sample">
+            {% endfor %}
+          </div>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="modal-quit btn btn-primary" data-bs-dismiss="modal">とじる</button>
+      </div>
+      </div>
+    </div>
+  </div>
   <!-- Price Section -->
     <section id="price-section" class="before-appear">
 
@@ -194,7 +223,7 @@
 
       </div>
 
-      <a href="#uni-selector"><img id="uni-selector" class="allow-img" src="static/images/design_pieces/allow-black.png" alt=""></a>
+      <a href="#uni-selector"><img id="uni-selector" class="allow-img" src="{% static 'client/images/design_pieces/allow-black.png' %}" alt=""></a>
 
       <h2 class="small-header">内容を打ち込むと、予算が分かります。</h2>
       <div class="price-selector row">
@@ -261,18 +290,18 @@
             <strong id="a-set-of-price">¥0（税込）</strong>
           </li>
         </ul>
-        <a href="{{ url_for('about') + '#product-nav-target' }}">
+        <a href="/about#product-nav-target">
           <p>どうしてこんなに安いの？　品質は？</p>
         </a>
         <script>
         $(function(){
           var uniform = $('#uniform').val();
+          var sleeve = $('#sleeve').val();
           var socks = $('#socks').val();
           var number = $('#number').val();
           const choices = document.getElementById('choices');
           const fabric_choices = choices.fabric;
           const neck_choices = choices.neck;
-          const sleeve_choices = choices.sleeve;
           const uni_dict = {
             'default': {0: 0, 1: 0, 2: 0},
             'set': {0: 5500, 1: 4500, 2: 4000},
@@ -377,10 +406,8 @@
           $('#choices').change(function() {
             var fabric = fabric_choices.value;
             var neck = neck_choices.value;
-            var sleeve = sleeve_choices.value;
             change_selected(id='fabric-selected', selected=fabric);
             change_selected(id='neck-selected', selected=neck);
-            change_selected(id='sleeve-selected', selected=sleeve);
           });
 
           //Validation
@@ -422,7 +449,7 @@
                 <input id="tsuru" class="choice-btn" type="radio" name="fabric" value="tsuru">
                 <label class="frame-label" for="tsuru">
                   <i class="check-mark fa-solid fa-check"></i>
-                  <img class="choice-img" src="static/images/choice_images/fabric-a.jpg" alt="fabric_a">
+                  <img class="choice-img" src="{% static 'client/images/choice_images/fabric-a.jpg' %}" alt="fabric_a">
                 </label>
               </div>
               <h2 class="choice-label">ツルツル</h2>
@@ -436,7 +463,7 @@
                 <input id="zara" type="radio" name="fabric" value="zara">
                 <label class="frame-label" for="zara">
                     <i class="check-mark fa-solid fa-check"></i>
-                    <img class="choice-img" src="static/images/choice_images/fabric-b.jpg" alt="fabric_b">
+                    <img class="choice-img" src="{% static 'client/images/choice_images/fabric-b.jpg' %}" alt="fabric_b">
                 </label>
               </div>
               <h2 class="choice-label">ザラザラ</h2>
@@ -447,7 +474,7 @@
           </div>
         </div>
 
-        <a href="#neck-selector"><img id="neck-selector" class="allow-img" src="static/images/design_pieces/allow-black.png" alt=""></a>
+        <a href="#neck-selector"><img id="neck-selector" class="allow-img" src="{% static 'client/images/design_pieces/allow-black.png' %}" alt=""></a>
 
         <div id="necks" class="before-appear">
           <h2 class="choice-header">ネック</h2>
@@ -458,7 +485,7 @@
                 <input id="round" type="radio" name="neck" value="round">
                 <label class="frame-label" for="round">
                     <i class="check-mark fa-solid fa-check"></i>
-                    <img class="choice-img" src="static/images/choice_images/r.jpg" alt="round">
+                    <img class="choice-img" src="{% static 'client/images/choice_images/r.jpg' %}" alt="round">
                 </label>
               </div>
               <h2 class="choice-label">ラウンド</h2>
@@ -469,7 +496,7 @@
                 <input id="round-neck" type="radio" name="neck" value="round_neck">
                 <label class="frame-label" for="round-neck">
                     <i class="check-mark fa-solid fa-check"></i>
-                    <img class="choice-img" src="static/images/choice_images/dan_r.jpg" alt="round-sm">
+                    <img class="choice-img" src="{% static 'client/images/choice_images/dan_r.jpg' %}" alt="round-sm">
                 </label>
               </div>
               <h2 class="choice-label">ラウンドスモール</h2>
@@ -484,7 +511,7 @@
                 <input id="v-sm" type="radio" name="neck" value="v_sm_neck">
                 <label class="frame-label" for="v-sm">
                     <i class="check-mark fa-solid fa-check"></i>
-                    <img class="choice-img" src="static/images/choice_images/eri_sm.jpg" alt="v-sm"><br>
+                    <img class="choice-img" src="{% static 'client/images/choice_images/eri_sm.jpg' %}" alt="v-sm"><br>
                 </label>
               </div>
               <h2 class="choice-label">Vスモール</h2>
@@ -495,7 +522,7 @@
                 <input id="v-lg" type="radio" name="neck" value="v_lg_neck">
                 <label class="frame-label" for="v-lg">
                     <i class="check-mark fa-solid fa-check"></i>
-                    <img class="choice-img" src="static/images/choice_images/eri_v.jpg" alt="v-lg"><br>
+                    <img class="choice-img" src="{% static 'client/images/choice_images/eri_v.jpg' %}" alt="v-lg"><br>
                 </label>
               </div>
               <h2 class="choice-label">Vラージ</h2>
@@ -520,11 +547,12 @@
       納得していただいた後、<br>データの共有、オーダーしていただければ嬉しいです。</p>
       <h2 class="contact-small-header small-header">一緒に最高のユニフォームを創りましょう！！</h2>
 
-      <a href="#contact-form"><img id="contact-form" class="allow-img" src="static/images/design_pieces/allow-black.png" alt=""></a>
+      <a href="#contact-form"><img id="contact-form" class="allow-img" src="{% static 'client/images/design_pieces/allow-black.png' %}" alt=""></a>
 
       <h2 class="small-header">選んでいただいた内容</h2>
 
-      <form id="order-mail-form" class="needs-validation" action="{{ url_for('order') }}" method="post" novalidate>
+      <form id="order-mail-form" class="needs-validation" action="{% url 'client:order' %}" method="post" novalidate>
+      {% csrf_token %}  
       <div class="feedback">
         <p>ユニフォーム <i class="fa-solid fa-angles-right"></i>
           <a href="#uni-selector">
@@ -550,6 +578,13 @@
           <a href="#neck-selector"><span class="selected-item" id="neck-selected">未選択</span></a>
           <input type="hidden" id="neck-selected-data" name="form-neck">
         </p>
+        <!-- Button trigger modal -->
+        <button type="button"
+          class="modal-btn btn btn-outline-primary rounded-0"
+          data-bs-toggle="modal"
+          data-bs-target="#sample-modal">
+          デフォルトデザインから選ぶ
+        </button>
       </div>
 
       <div class="submit-area">
@@ -573,17 +608,77 @@
           <span class="rounded-0 input-group-text"><i class="fa-solid fa-pen-to-square text-light"></i></span>
           <textarea rows="3" maxlength="250" class="form-input rounded-0 form-control" name="free-text" placeholder="フリースペース"></textarea>
         </div>
-        <div class="g-recaptcha input-group mx-auto" data-callback="validateRecaptcha" data-sitekey="{{ sitekey }}"></div>
+        <p class="terms-header">プライバシーポリシー</p>
+        <p class="terms-attention">(メールの送信には最下部の同意が必要です。)</p>
+        <div class="mx-auto terms-container">
+          <h3>個人情報の取り扱いについて</h3>
+          <hr>
+          <p class="terms-text">当社は、お客さまの個人情報を正確かつ最新の状態に保ち、個人情報への不正アクセス・紛失・破損・改ざん・漏洩などを防止するため、セキュリティシステムの維持・管理体制の整備・社員教育の徹底等の必要な措置を講じ、安全対策を実施し個人情報の厳重な管理を行ないます。</p>
+          <h3>個人情報の利用目的</h3>
+          <hr>
+          <p class="terms-text">お客さまからお預かりした個人情報は、当社からのご連絡や業務のご案内やご質問に対する回答として、電子メールや資料のご送付に利用いたします。</p>
+          <h3>個人情報の第三者への開示・提供の禁止</h3>
+          <hr>
+          <p class="terms-text">当社は、お客さまよりお預かりした個人情報を適切に管理し、次のいずれかに該当する場合を除き、個人情報を第三者に開示いたしません。</p>
+          <ul>
+            <li><p class="terms-text">お客さまの同意がある場合</p></li>
+            <li><p class="terms-text">お客さまが希望されるサービスを行なうために当社が業務を委託する業者に対して開示する場合</p></li>
+            <li><p class="terms-text">法令に基づき開示することが必要である場合</p></li>
+          </ul>
+          <h3>個人情報の安全対策</h3>
+          <hr>
+          <p class="terms-text">当社は、個人情報の正確性及び安全性確保のために、セキュリティに万全の対策を講じています。</p>
+          <h3>ご本人の照会</h3>
+          <hr>
+          <p class="terms-text">お客さまがご本人の個人情報の照会・修正・削除などをご希望される場合には、ご本人であることを確認の上、対応させていただきます。</p>
+          <h3>法令、規範の遵守と見直し</h3>
+          <hr>
+          <p class="terms-text">当社は、保有する個人情報に関して適用される日本の法令、その他規範を遵守するとともに、本ポリシーの内容を適宜見直し、その改善に努めます。</p>
+          <br>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="terms-checkbox">
+            <label class="form-check-label" for="terms-checkbox">
+              上記のプライバシーポリシーに同意します。
+            </label>
+          </div>
+        </div>
+        <div class="g-recaptcha input-group mx-auto" data-callback="validateRecaptcha" data-sitekey="{{ recaptcha_sitekey }}"></div>
         <button class="recaptcha rounded-0 email-submit btn btn-primary btn-lg" type="submit" disabled>メールを送信</button>
       </div>
       </form>
 
     </section>
-    <script> // reCAPTCHA succeeded, enable submit button
+    <script> 
+      // if terms checkbox is false, submit btn got be disabled.
+      $(window).on('load', function() {
+        is_terms_checked = false;
+        is_recaptcha_checked = false;
+        const check_terms = function() {
+          is_terms_checked = $('#terms-checkbox').prop('checked');
+          console.log('terms:', is_terms_checked);
+          console.log('recaptcha:', is_recaptcha_checked);
+          if ( is_terms_checked && is_recaptcha_checked ) {
+            $('.recaptcha').prop('disabled', false);
+          }else{
+            $('.recaptcha').prop('disabled', true);
+          }
+        };
+        check_terms();
+        $('#terms-checkbox').change(function() {
+          check_terms();
+        });
+      });
+    
+    
+      // reCAPTCHA succeeded, enable submit button
       function validateRecaptcha ( code ) {
         if ( !!code ) {
-          var form = document.querySelector(".recaptcha");
-          form.removeAttribute('disabled');
+          is_recaptcha_checked = true;
+          console.log('terms:', is_terms_checked);
+          console.log('recaptcha:', is_recaptcha_checked);
+          if ( is_terms_checked ) {
+            $('.recaptcha').prop('disabled', false);
+          }
         }
       }
     </script>

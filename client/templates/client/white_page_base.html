@@ -1,3 +1,5 @@
+{% load static %}
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -13,10 +15,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     
     <!-- Favicon -->
-    <link rel="icon" href="static/favicon.ico">
+    <link rel="icon" href="{% static 'favicon.ico' %}">
     
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="static/css/styles.css">
+    <link rel="stylesheet" href="{% static 'client/css/styles.css' %}">
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -43,8 +45,8 @@
     <!-- Navigation Bar -->
     <nav class="sticky-top white-page-nav navbar navbar-expand-lg navbar-dark">
       <div class="container-fluid">
-        <a class="navbar-brand" href="{{ url_for('home') }}">
-        <img class="navbar-logo" src="static/images/design_pieces/logo_white.png" alt="logo">
+        <a class="navbar-brand" href="{% url 'client:top' %}">
+        <img class="navbar-logo" src="{% static 'client/images/design_pieces/logo_white.png' %}" alt="logo">
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav-contents" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -52,23 +54,23 @@
       <div class="collapse navbar-collapse" id="nav-contents">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('home') + '#order-nav-target' }}">オーダー</a>
+            <a class="nav-link" href="/#order-nav-target">オーダー</a>
             <hr class="nav-hr-white">
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('home') + '#product-nav-target' }}">プロダクト</a>
+            <a class="nav-link" href="/#product-nav-target">プロダクト</a>
             <hr class="nav-hr">
           </li>          
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('home') + '#about-nav-target' }}">アバウト</a>
+            <a class="nav-link" href="/#about-nav-target">アバウト</a>
             <hr class="nav-hr-white">
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('home') + '#news-nav-target' }}">ニュース</a>
+            <a class="nav-link" href="/#news-nav-target">ニュース</a>
             <hr class="nav-hr-white">
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('home') + '#contact-nav-target' }}">コンタクト</a>
+            <a class="nav-link" href="/#contact-nav-target">コンタクト</a>
           </li>
         </ul>
       </div>
@@ -91,7 +93,7 @@
         {% endblock %}
       <!--Shadow -->
       <div class="shadow-container container-fluid">
-        <img class="shadow container-fluid" src="static/images/design_pieces/black-square.png" alt="shadow">
+        <img class="shadow container-fluid" src="{% static 'client/images/design_pieces/black-square.png' %}" alt="shadow">
       </div>
     </div>
 
@@ -164,8 +166,6 @@
     $('#second-navigation').addClass('fadeIn');
 
     $(window).scroll(function(){
-
-
        for (const section of fade_up_sections) { // animation by scrolling
          if ($(section).length) {
            var top = $(section).offset().top;
