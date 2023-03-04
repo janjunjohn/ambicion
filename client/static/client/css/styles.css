@@ -424,6 +424,10 @@ nav {
     position: relative;
 }
 
+.modal-choice-img-frame {
+    position: relative;
+}
+
 .frame-label {
    width: 100%;
 }
@@ -436,6 +440,20 @@ nav {
     top: 7rem;
     left: 8.5rem;
     visibility: hidden;
+}
+
+.modal-check-mark {
+    color: #121212;
+    font-size: 20rem;
+    position: absolute;
+    z-index: 1;
+    top: 18.5rem;
+    left: 26rem;
+    visibility: hidden;
+}
+
+.color-patch {
+    width: 90rem;
 }
 
 .choice-img {
@@ -452,6 +470,31 @@ nav {
 
 #choices input[type="radio"]:checked + label .check-mark {
    visibility: visible;
+}
+
+#default-design input[type="radio"] { /* invisible radio btn */
+    display: none;
+}
+
+#default-design input[type="radio"]:checked + label .choice-img {
+   opacity: 0.6;
+}
+
+#default-design input[type="radio"]:checked + label .modal-check-mark {
+   visibility: visible;
+}
+
+.default-design-btn {
+    width: 30rem;
+    height: 25rem;
+}
+
+#default-cancel-btn {
+    margin-top: 1rem;
+}
+
+#default-design-display {
+    font-size: 1.5rem;
 }
 
 .choice-label {
@@ -714,6 +757,11 @@ nav {
     width: 4.1rem;
     }
 
+    .default-design-btn {
+        width: 37rem;
+        height: 30rem;
+    }
+
     .form-control {
         font-size: 2rem;
     }
@@ -810,6 +858,16 @@ nav {
         font-size: 13rem;
         top: 5.3rem;
         left: 6rem;
+    }
+
+    .modal-check-mark {
+        font-size: 19rem;
+        top: 15rem;
+        left: 22.5rem
+    }
+
+    .color-patch {
+        width: 60rem;
     }
 
      .feedback p, span{

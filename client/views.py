@@ -88,6 +88,7 @@ class OrderView(TemplateView):
       fabric = request.POST.get('form-fabric')
       neck = request.POST.get('form-neck')
       sleeve = request.POST.get('form-sleeve')
+      default = request.POST.get('form-default')
       message = request.POST.get('free-text')
       if not user_email in BLOCK_LIST:
         send_mail(f'{username} 様',
@@ -98,6 +99,7 @@ class OrderView(TemplateView):
                   f'生地: {fabric} \n' \
                   f'襟: {neck} \n' \
                   f'袖: {sleeve} \n' \
+                  f'デフォルトデザイン: {default} \n' \
                   f'備考: {message} \n',
                   PYTHON_EMAIL,
                   [AMBICION_EMAIL],

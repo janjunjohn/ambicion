@@ -50,15 +50,26 @@
         <div class="modal-body">
           <p class="modal-text">
             こちらは、AMBICIÓNで作成した <br>デザインデータのサンプルたちです。<br>
-            AMBICIÓNでは、データをもとに印刷する <br>昇華式のユニフォームをお作りします。<br>
-            お好きなデザインをお選びいただき、<br><strong>お好みでフリースペースにカラーの変更等をご指示ください。</strong>
-            
+            お好きなデザインをお選びいただき、<br><strong>お好みでフリースペースにカラーの変更等をご指示ください。</strong><br>
+            (最下部のカラーチャートをご参考ください。)<br>
+            ご持参いただいたエンブレムデータ等を<br>
+            組み合わせることも可能です。
           </p>
-          <div class="row">
-            {% for sample in sample_list %}
-            <img class="col-lg-4 col-md-4 col-sm-6" src="{{ sample.img.url }}" alt="ai data sample">
-            {% endfor %}
-          </div>
+
+          <form id="default-design">
+            <div class="row">
+              {% for sample in sample_list %}
+              <div class="col-lg-6 col-sm-12 modal-choice-img-frame">
+                <input id="{{ sample.name }}" class="choice-btn" type="radio" name="design" value="{{sample.name}}:{{ sample.img.url }}">
+                <label class="frame-label" for="{{ sample.name }}">
+                  <img class="choice-img" src="{{ sample.img.url }}" alt="ai data sample">
+                  <i class="modal-check-mark fa-solid fa-check"></i>
+                </label>
+              </div>
+              {% endfor %}
+            </div>
+          </form>
+          <img src="{% static 'client/images/color_patch.png' %}" alt="color patch" class="color-patch">
         </div>
         <div class="modal-footer">
         <button type="button" class="modal-quit btn btn-primary" data-bs-dismiss="modal">とじる</button>
@@ -552,99 +563,126 @@
       <h2 class="small-header">選んでいただいた内容</h2>
 
       <form id="order-mail-form" class="needs-validation" action="{% url 'client:order' %}" method="post" novalidate>
-      {% csrf_token %}  
-      <div class="feedback">
-        <p>ユニフォーム <i class="fa-solid fa-angles-right"></i>
-          <a href="#uni-selector">
-            <span class="selected-item" id="uni-selected">未選択</span>
-            <input type="hidden" id="uni-selected-data" name="form-uniform">
-            <span class="selected-item" id="socks-selected">/ 未選択</span>
-            <input type="hidden" id="socks-selected-data" name="form-socks">
-          </a>
-        </p>
-        <p>スリーブ <i class="fa-solid fa-angles-right"></i>
-          <a href="#uni-selector"><span class="selected-item" id="sleeve-selected">未選択</span></a>
-          <input type="hidden" id="sleeve-selected-data" name="form-sleeve">
-        </p>
-        <p>枚数 <i class="fa-solid fa-angles-right"></i>
-          <a href="#uni-selector"><span class="selected-item" id="num-selected">未選択</span></a>
-          <input type="hidden" id="num-selected-data" name="form-number">
-        </p>
-        <p>ファブリック <i class="fa-solid fa-angles-right"></i>
-          <a href="#fab-selector"><span class="selected-item" id="fabric-selected">未選択</span></a>
-          <input type="hidden" id="fabric-selected-data" name="form-fabric">
-        </p>
-        <p>ネック <i class="fa-solid fa-angles-right"></i>
-          <a href="#neck-selector"><span class="selected-item" id="neck-selected">未選択</span></a>
-          <input type="hidden" id="neck-selected-data" name="form-neck">
-        </p>
-        <!-- Button trigger modal -->
-        <button type="button"
-          class="modal-btn btn btn-outline-primary rounded-0"
-          data-bs-toggle="modal"
-          data-bs-target="#sample-modal">
-          デフォルトデザインから選ぶ
-        </button>
-      </div>
-
-      <div class="submit-area">
-        <div class="input-group mx-auto">
-          <span class="rounded-0 input-group-text"><i class="fa-solid fa-user text-light"></i></span>
-          <input type="text" class="form-input rounded-0 form-control" name="username" placeholder="お名前" required>
-          <div class="invalid-feedback">
-            名前を入力してください。
-          </div>
-        </div>
-
-        <div class="input-group mx-auto">
-          <span class="rounded-0 input-group-text"><i class="fa-solid fa-envelope text-light"></i></span>
-          <input type="email" class="form-input rounded-0 form-control" name="email" placeholder="返信用メールアドレス" required>
-          <div class="invalid-feedback">
-            メールアドレスを入力してください。
-          </div>
-        </div>
-
-        <div class="input-group mx-auto">
-          <span class="rounded-0 input-group-text"><i class="fa-solid fa-pen-to-square text-light"></i></span>
-          <textarea rows="3" maxlength="250" class="form-input rounded-0 form-control" name="free-text" placeholder="フリースペース"></textarea>
-        </div>
-        <p class="terms-header">プライバシーポリシー</p>
-        <p class="terms-attention">(メールの送信には最下部の同意が必要です。)</p>
-        <div class="mx-auto terms-container">
-          <h3>個人情報の取り扱いについて</h3>
-          <hr>
-          <p class="terms-text">当社は、お客さまの個人情報を正確かつ最新の状態に保ち、個人情報への不正アクセス・紛失・破損・改ざん・漏洩などを防止するため、セキュリティシステムの維持・管理体制の整備・社員教育の徹底等の必要な措置を講じ、安全対策を実施し個人情報の厳重な管理を行ないます。</p>
-          <h3>個人情報の利用目的</h3>
-          <hr>
-          <p class="terms-text">お客さまからお預かりした個人情報は、当社からのご連絡や業務のご案内やご質問に対する回答として、電子メールや資料のご送付に利用いたします。</p>
-          <h3>個人情報の第三者への開示・提供の禁止</h3>
-          <hr>
-          <p class="terms-text">当社は、お客さまよりお預かりした個人情報を適切に管理し、次のいずれかに該当する場合を除き、個人情報を第三者に開示いたしません。</p>
-          <ul>
-            <li><p class="terms-text">お客さまの同意がある場合</p></li>
-            <li><p class="terms-text">お客さまが希望されるサービスを行なうために当社が業務を委託する業者に対して開示する場合</p></li>
-            <li><p class="terms-text">法令に基づき開示することが必要である場合</p></li>
-          </ul>
-          <h3>個人情報の安全対策</h3>
-          <hr>
-          <p class="terms-text">当社は、個人情報の正確性及び安全性確保のために、セキュリティに万全の対策を講じています。</p>
-          <h3>ご本人の照会</h3>
-          <hr>
-          <p class="terms-text">お客さまがご本人の個人情報の照会・修正・削除などをご希望される場合には、ご本人であることを確認の上、対応させていただきます。</p>
-          <h3>法令、規範の遵守と見直し</h3>
-          <hr>
-          <p class="terms-text">当社は、保有する個人情報に関して適用される日本の法令、その他規範を遵守するとともに、本ポリシーの内容を適宜見直し、その改善に努めます。</p>
+        {% csrf_token %}  
+        <div class="feedback">
+          <p>ユニフォーム <i class="fa-solid fa-angles-right"></i>
+            <a href="#uni-selector">
+              <span class="selected-item" id="uni-selected">未選択</span>
+              <input type="hidden" id="uni-selected-data" name="form-uniform">
+              <span class="selected-item" id="socks-selected">/ 未選択</span>
+              <input type="hidden" id="socks-selected-data" name="form-socks">
+            </a>
+          </p>
+          <p>スリーブ <i class="fa-solid fa-angles-right"></i>
+            <a href="#uni-selector"><span class="selected-item" id="sleeve-selected">未選択</span></a>
+            <input type="hidden" id="sleeve-selected-data" name="form-sleeve">
+          </p>
+          <p>枚数 <i class="fa-solid fa-angles-right"></i>
+            <a href="#uni-selector"><span class="selected-item" id="num-selected">未選択</span></a>
+            <input type="hidden" id="num-selected-data" name="form-number">
+          </p>
+          <p>ファブリック <i class="fa-solid fa-angles-right"></i>
+            <a href="#fab-selector"><span class="selected-item" id="fabric-selected">未選択</span></a>
+            <input type="hidden" id="fabric-selected-data" name="form-fabric">
+          </p>
+          <p>ネック <i class="fa-solid fa-angles-right"></i>
+            <a href="#neck-selector"><span class="selected-item" id="neck-selected">未選択</span></a>
+            <input type="hidden" id="neck-selected-data" name="form-neck">
+          </p>
+          <!-- Button trigger modal -->
+          <button type="button"
+            class="default-design-btn btn btn-outline-primary rounded-0"
+            data-bs-toggle="modal"
+            data-bs-target="#sample-modal">
+            <div id="default-design-display">デフォルトデザインから選ぶ</div>
+          </button>
           <br>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="terms-checkbox">
-            <label class="form-check-label" for="terms-checkbox">
-              上記のプライバシーポリシーに同意します。
-            </label>
-          </div>
+          <button id="default-cancel-btn" type="button" class="btn-close" aria-label="Close"></button>
+          <input type="hidden" id="default-selected-data" name="form-default">
         </div>
-        <div class="g-recaptcha input-group mx-auto" data-callback="validateRecaptcha" data-sitekey="{{ recaptcha_sitekey }}"></div>
-        <button class="recaptcha rounded-0 email-submit btn btn-primary btn-lg" type="submit" disabled>メールを送信</button>
-      </div>
+        <script> 
+          $(function(){
+            const change_default = function(name, url) {
+              $('#default-design-display').html('<img class="choice-img" src="' + url + '" alt="ai data sample">'); //contact sectionに反映
+              $('#default-selected-data').val(name + '[http://localhost:8000' + url + ']'); //メール送信用に格納
+            };
+            const cancel_default = function() {
+              $('#default-design-display').html('デフォルトデザインから選ぶ'); //contact sectionに反映
+              $('#default-selected-data').val(''); //メール送信用に格納
+            }
+            const default_design_choices = document.getElementById('default-design').design;
+            $('#default-design').change(function() {
+              var default_design_value = default_design_choices.value;
+              var default_design_name = default_design_value.split(':')[0]
+              var default_design_url = default_design_value.split(':')[1]
+              change_default(default_design_name, default_design_url);
+            });
+            $('#default-cancel-btn').on('click', function() {
+              cancel_default();
+            });
+          });
+        </script>
+
+        <div class="submit-area">
+          <div class="input-group mx-auto">
+            <span class="rounded-0 input-group-text"><i class="fa-solid fa-user text-light"></i></span>
+            <input type="text" class="form-input rounded-0 form-control" name="username" placeholder="お名前" required>
+            <div class="invalid-feedback">
+              名前を入力してください。
+            </div>
+          </div>
+
+          <div class="input-group mx-auto">
+            <span class="rounded-0 input-group-text"><i class="fa-solid fa-envelope text-light"></i></span>
+            <input type="email" class="form-input rounded-0 form-control" name="email" placeholder="返信用メールアドレス" required>
+            <div class="invalid-feedback">
+              メールアドレスを入力してください。
+            </div>
+          </div>
+
+          <div class="input-group mx-auto">
+            <span class="rounded-0 input-group-text"><i class="fa-solid fa-pen-to-square text-light"></i></span>
+            <textarea rows="3" maxlength="250" class="form-input rounded-0 form-control" name="free-text"
+             placeholder="フリースペース
+ex)ベースカラー：#249, 模様：#260, エンブレム持参あり。"></textarea>
+          </div>
+          <p class="terms-header">プライバシーポリシー</p>
+          <p class="terms-attention">(メールの送信には最下部の同意が必要です。)</p>
+          <div class="mx-auto terms-container">
+            <h3>個人情報の取り扱いについて</h3>
+            <hr>
+            <p class="terms-text">当社は、お客さまの個人情報を正確かつ最新の状態に保ち、個人情報への不正アクセス・紛失・破損・改ざん・漏洩などを防止するため、セキュリティシステムの維持・管理体制の整備・社員教育の徹底等の必要な措置を講じ、安全対策を実施し個人情報の厳重な管理を行ないます。</p>
+            <h3>個人情報の利用目的</h3>
+            <hr>
+            <p class="terms-text">お客さまからお預かりした個人情報は、当社からのご連絡や業務のご案内やご質問に対する回答として、電子メールや資料のご送付に利用いたします。</p>
+            <h3>個人情報の第三者への開示・提供の禁止</h3>
+            <hr>
+            <p class="terms-text">当社は、お客さまよりお預かりした個人情報を適切に管理し、次のいずれかに該当する場合を除き、個人情報を第三者に開示いたしません。</p>
+            <ul>
+              <li><p class="terms-text">お客さまの同意がある場合</p></li>
+              <li><p class="terms-text">お客さまが希望されるサービスを行なうために当社が業務を委託する業者に対して開示する場合</p></li>
+              <li><p class="terms-text">法令に基づき開示することが必要である場合</p></li>
+            </ul>
+            <h3>個人情報の安全対策</h3>
+            <hr>
+            <p class="terms-text">当社は、個人情報の正確性及び安全性確保のために、セキュリティに万全の対策を講じています。</p>
+            <h3>ご本人の照会</h3>
+            <hr>
+            <p class="terms-text">お客さまがご本人の個人情報の照会・修正・削除などをご希望される場合には、ご本人であることを確認の上、対応させていただきます。</p>
+            <h3>法令、規範の遵守と見直し</h3>
+            <hr>
+            <p class="terms-text">当社は、保有する個人情報に関して適用される日本の法令、その他規範を遵守するとともに、本ポリシーの内容を適宜見直し、その改善に努めます。</p>
+            <br>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="terms-checkbox">
+              <label class="form-check-label" for="terms-checkbox">
+                上記のプライバシーポリシーに同意します。
+              </label>
+            </div>
+          </div>
+          <div class="g-recaptcha input-group mx-auto" data-callback="validateRecaptcha" data-sitekey="{{ recaptcha_sitekey }}"></div>
+          <button class="recaptcha rounded-0 email-submit btn btn-primary btn-lg" type="submit" disabled>メールを送信</button>
+        </div>
       </form>
 
     </section>
