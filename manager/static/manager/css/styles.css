@@ -1,0 +1,106 @@
+html {
+  font-size: 0.7vw;
+}
+
+body {
+  font-size: 1.6rem;
+  font-family: 'M PLUS 1p', sans-serif;
+}
+
+.navbar-logo {
+  width: 4.5rem;
+  margin: 1rem;
+  }
+
+.navbar-title {
+    font-size: 1.7rem;
+  }
+
+.account-btn {
+  font-size: 1.5rem;
+}
+
+.dropdown-item {
+  font-size: 1.4rem;
+}
+
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  padding: 6rem 0 0;
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+  z-index: 99;
+}
+
+@media (max-width: 767.98px) {
+  .sidebar {
+    top: 11.5rem;
+    padding: 0;
+  }
+}
+
+.navbar {
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .1);
+}
+
+.nav-item {
+  margin: 0.8rem;
+}
+
+@media (min-width: 767.98px) {
+  .navbar {
+    top: 0;
+    position: sticky;
+    z-index: 999;
+  }
+}
+
+.sidebar .nav-link {
+  color: #333;
+}
+
+.sidebar .nav-link.active {
+  color: #0d6efd;
+}
+
+.sidebar-item {
+  font-size: 1.7rem;
+}
+
+.sidebar-logo {
+  margin-right: 0.8rem;
+}
+
+/* Contents ************************************************/
+.contents-area {
+  text-align: center;
+  padding: 0;
+}
+
+.contents-title {
+  font-size: 2.5rem;
+  margin: 1rem;
+}
+/* Main Slide **********************************************/
+.gallery-img {
+  width: 38rem;
+  border-radius: 100%;
+  margin: 1.5rem;
+}
+
+.gallery-text {
+  margin: 0 auto 7rem auto;
+  font-size: 1.5rem;
+}
+
+.main-slide-contents {
+  background-color: #121212;
+  height: 100%;
+  color: #fff;
+  padding-top: 8rem;
+
+}
