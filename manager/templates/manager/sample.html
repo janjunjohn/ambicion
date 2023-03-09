@@ -1,0 +1,15 @@
+{% extends 'manager/base.html' %}
+{% load static %}
+{% block contents %}
+<h1 class="contents-title">Sample</h1>
+<div class="sample-contents row">
+  {% for sample in sample_list %}
+  <div class="col-4">
+    <img class="hover-item sample-img" src="{{ sample.img.url }}" alt="ai data sample" aslign="bottom">
+    <p class="hover-item sample-name">{{ sample.name }}</p>
+  </div>
+  {% endfor %}
+</div>
+</div>
+{% endblock %}
+  
