@@ -9,6 +9,11 @@
     <p class="hover-item sample-name">{{ sample.name }}</p>
   </div>
   {% endfor %}
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.img }}
+  </form>
+
 </div>
 </div>
 {% endblock %}

@@ -8,12 +8,12 @@
     <div class="carousel-indicators">
       {% for gallery in gallery_list %}
       {% if gallery.pk == 1 %}
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ gallery.pk|add:'-1' }}" class="active" aria-current="true" aria-label="Slide {{ gallery.pk }}"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ forloop.counter|add:'-1' }}" class="active" aria-current="true" aria-label="Slide {{ forloop.counter }}"></button>
       {% else %}
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ gallery.pk|add:'-1' }}" aria-label="Slide {{ gallery.pk }}"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ forloop.counter|add:'-1' }}" aria-label="Slide {{ forloop.counter }}"></button>
       {% endif %}
       {% endfor %}
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ gallery_count }}" aria-label="Slide {{ gallery_count|add:'-1' }}"></button>
     </div>
     <div class="carousel-inner">
       {% for gallery in gallery_list %}
@@ -21,16 +21,16 @@
       <div class="carousel-item active">
         <form method="post" enctype="multipart/form-data">
           {% csrf_token %}
-          <label for="{{ form.img.id_for_label }}">
+          <label for="gallery-img-{{ forloop.counter }}-input" class="gallery-img-label">
             <img class="hover-item gallery-img"
             src="{{ gallery.img.url }}"
-            alt="gallery">
+            alt="gallery"
+            id="gallery-img-{{ forloop.counter }}">
           </label>
-          {{ form.img|add_class:"form-control"|attr:"" }}
-          <label class="gallery-text-label" for="{{ form.title.id_for_label }}">
-            <h2 class="hover-item gallery-text">{{ gallery.title }}</h2>
-          </label>
+          <input type="file" class="gallery-img-input form-control" id="gallery-img-{{ forloop.counter }}-input" name="img" accept="image/*" hidden>
+          <h2 class="gallery-text">{{ gallery.title }}</h2>
           {{ form.title|add_class:"gallery-text-input form-control hover-item" }}
+          <input type="hidden" name="pk" value="{{ gallery.pk }}">
           <button type="submit" class="gallery-update-btn btn btn-success">Update</button>
         </form>
       </div>
@@ -38,16 +38,16 @@
       <div class="carousel-item">
         <form method="post" enctype="multipart/form-data">
           {% csrf_token %}
-          <label for="{{ form.img.id_for_label }}">
+          <label for="gallery-img-{{ forloop.counter }}-input" class="gallery-img-label">
             <img class="hover-item gallery-img"
             src="{{ gallery.img.url }}"
-            alt="gallery">
+            alt="gallery"
+            id="gallery-img-{{ forloop.counter }}">
           </label>
-          {{ form.img|add_class:"form-control"|attr:"hidden" }}
-          <label class="gallery-text-label" for="{{ form.title.id_for_label }}">
-            <h2 class="hover-item gallery-text">{{ gallery.title }}</h2>
-          </label>
+          <input type="file" class="gallery-img-input form-control" id="gallery-img-{{ forloop.counter }}-input" name="img" accept="image/*" hidden>
+          <h2 class="gallery-text">{{ gallery.title }}</h2>
           {{ form.title|add_class:"gallery-text-input form-control hover-item" }}
+          <input type="hidden" name="pk" value="{{ gallery.pk }}">
           <button type="submit" class="gallery-update-btn btn btn-success">Update</button>
         </form>
       </div>
@@ -56,15 +56,14 @@
       <div class="carousel-item">
         <form method="post" enctype="multipart/form-data">
           {% csrf_token %}
-          <label for="{{ form.img.id_for_label }}">
+          <label for="new-gallery-img-input">
             <img class="hover-item gallery-img"
+            id="new-gallery-img"
             src="{% static 'manager/images/logo_ogp.png' %}"
             alt="gallery">
           </label>
-          {{ form.img|add_class:"form-control"|attr:"hidden" }}
-          <label class="gallery-text-label" for="{{ form.title.id_for_label }}">
-            <h2 class="hover-item gallery-text">New</h2>
-          </label>
+          <input type="file" class="form-control" id="new-gallery-img-input" name="img" accept="image/*" hidden>
+          <h2 class="gallery-text">New</h2>
           {{ form.title|add_class:"gallery-text-input form-control hover-item" }}
           <button type="submit" class="gallery-update-btn btn btn-primary">Add</button>
         </form>
@@ -80,5 +79,28 @@
     </button>
   </div>
 </div>
+<script>
+$(function(){
+  $('#new-gallery-img-input').on('change', function() {
+    const file = $(this).prop('files')[0];
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function() {
+      $('#new-gallery-img').attr('src', reader.result);
+    }
+  });
+
+  $('.gallery-img-input').on('change', function() {
+    const input_id = $(this).prop('id');
+    const img_id = '#' + input_id.replace('-input', '');
+    const file = $(this).prop('files')[0];
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function() {
+      $(img_id).attr('src', reader.result);
+    }
+  });
+});
+</script>
 {% endblock %}
   

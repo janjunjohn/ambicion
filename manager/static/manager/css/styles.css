@@ -10,11 +10,11 @@ body {
 .navbar-logo {
   width: 4.5rem;
   margin: 1rem;
-  }
+}
 
 .navbar-title {
-    font-size: 1.7rem;
-  }
+  font-size: 1.7rem;
+}
 
 .account-btn {
   font-size: 1.5rem;
@@ -85,6 +85,11 @@ body {
   font-size: 2.5rem;
   margin: 1rem;
 }
+
+.hover-item {
+  cursor: pointer;
+}
+
 /* Main Slide **********************************************/
 .gallery-img {
   width: 38rem;
