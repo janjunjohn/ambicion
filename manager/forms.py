@@ -13,3 +13,4 @@ class SampleForm(forms.ModelForm):
   class Meta:
     model = Sample
     fields = ['img', 'name']
+       

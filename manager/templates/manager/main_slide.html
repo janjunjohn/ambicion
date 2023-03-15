@@ -2,8 +2,8 @@
 {% load static %}
 {% load widget_tweaks %}
 {% block contents %}
-<h1 class="contents-title">Main Slide</h1>
 <div class="main-slide-contents">
+  <h1 class="contents-title">Main Slide</h1>
   <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-interval=false>
     <div class="carousel-indicators">
       {% for gallery in gallery_list %}
@@ -32,6 +32,7 @@
           {{ form.title|add_class:"gallery-text-input form-control hover-item" }}
           <input type="hidden" name="pk" value="{{ gallery.pk }}">
           <button type="submit" class="gallery-update-btn btn btn-success">Update</button>
+          <a href="{% url 'manager:delete' 'main_slide' gallery.pk  %}" onclick="return confirm('削除しますか？');" class="gallery-update-btn btn btn-danger">Delete</a>
         </form>
       </div>
       {% else %}
@@ -49,6 +50,7 @@
           {{ form.title|add_class:"gallery-text-input form-control hover-item" }}
           <input type="hidden" name="pk" value="{{ gallery.pk }}">
           <button type="submit" class="gallery-update-btn btn btn-success">Update</button>
+          <a href="{% url 'manager:delete' 'main_slide' gallery.pk  %}" onclick="return confirm('削除しますか？');" class="gallery-update-btn btn btn-danger">Delete</a>
         </form>
       </div>
       {% endif %}

@@ -89,8 +89,14 @@ body {
 .hover-item {
   cursor: pointer;
 }
-
 /* Main Slide **********************************************/
+.main-slide-contents {
+  background-color: #121212;
+  height: 100%;
+  color: #fff;
+  padding-top: 1rem;
+}
+
 .gallery-img {
   width: 38rem;
   border-radius: 100%;
@@ -123,13 +129,6 @@ body {
   margin: 0;
   position: relative;
   bottom: 5rem;
-}
-
-.main-slide-contents {
-  background-color: #121212;
-  height: 100%;
-  color: #fff;
-  padding-top: 5rem;
 }
 
 /* Sample **************************************************/
