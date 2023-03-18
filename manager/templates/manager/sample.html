@@ -1,20 +1,45 @@
 {% extends 'manager/base.html' %}
 {% load static %}
 {% block contents %}
+{% for message in messages %}
+<div {% if message.tags %}class="{{ message.tags }}"{% endif %}>
+    {{ message }}
+</div>
+{% endfor %}
 <h1 class="contents-title">Sample</h1>
 <div class="sample-contents row">
   {% for sample in sample_list %}
   <div class="col-4">
-    <img class="hover-item sample-img" src="{{ sample.img.url }}" alt="ai data sample" aslign="bottom">
-    <p class="hover-item sample-name">{{ sample.name }}</p>
+    <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+      <input type="text" class="sample-name-input form-control" value="{{ sample.name }}" name='name'>
+      <label for="sample-img-{{ forloop.counter }}-input">
+        <img class="hover-item sample-img" 
+        src="{{ sample.img.url }}" 
+        alt="ai data sample" 
+        aslign="bottom"
+        id="sample-img-{{ forloop.counter }}">
+      </label>
+      <input type="file" class="sample-img-input form-control" id="sample-img-{{ forloop.counter }}-input" name="img" accept="image/*" hidden>
+      <input type="hidden" name="pk" value="{{ sample.pk }}">
+      <button onClick="submit();" type="button" class="sample-update-btn btn btn-success">Update</button>
+    </form>
   </div>
   {% endfor %}
-  <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.img }}
-  </form>
-
 </div>
 </div>
+<script>
+  $(function(){
+    $('.sample-img-input').on('change', function() {
+      const input_id = $(this).prop('id');
+      const img_id = '#' + input_id.replace('-input', '');
+      const file = $(this).prop('files')[0];
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = function() {
+        $(img_id).attr('src', reader.result);
+      }
+    });
+  });
+</script>
 {% endblock %}
-  

@@ -26,8 +26,8 @@ class TopView(TemplateView):
     current_year = datetime.now().year
     context = super().get_context_data(**kwargs)
     context['year'] = current_year
-    context['gallery_list'] = Gallery.objects.all()
-    context['sample_list'] = Sample.objects.all()
+    context['gallery_list'] = Gallery.objects.filter(is_standby=False).all()
+    context['sample_list'] = Sample.objects.filter(is_standby=False).all()
     context['recaptcha_sitekey'] = RECAPTCHA_SITEKEY
     return context
   
@@ -69,7 +69,7 @@ class OrderView(TemplateView):
     current_year = datetime.now().year
     context['year'] = current_year
     context['recaptcha_sitekey'] = RECAPTCHA_SITEKEY
-    context['sample_list'] = Sample.objects.all()
+    context['sample_list'] = Sample.objects.filter(is_standby=False).all()
     return context
   
   def post(self, request, *args, **kwargs):
@@ -133,5 +133,5 @@ class FamilyView(TemplateView):
     context = super().get_context_data(**kwargs)
     current_year = datetime.now().year
     context['year'] = current_year
-    context['family_list'] = Family.objects.all()
+    context['family_list'] = Family.objects.filter(is_standby=False).all()
     return context

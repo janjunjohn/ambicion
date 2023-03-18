@@ -2,6 +2,8 @@ from django.shortcuts import redirect
 from django.views.generic import TemplateView, CreateView, View
 from client.models import Gallery, Sample, Family
 from .forms import GalleryForm, SampleForm
+from django.contrib import messages
+
 
 
 class TopView(TemplateView):
@@ -19,9 +21,20 @@ class MainSlideView(CreateView):
     return context
   
   def post(self, request, *args, **kwargs):
-      Gallery.objects.update_or_create(id=request.POST.get('pk'), defaults={'title': request.POST.get('title'), 'img': request.FILES.get('img')})
-      return redirect('manager:main_slide')
-    
+    target_pk = request.POST.get('pk')
+    target_img = request.FILES.get('img')
+    if target_img is None:
+      target_img = Gallery.objects.get(pk=target_pk).img
+    target_title = request.POST.get('title')
+    if target_title == '':
+      target_title = Gallery.objects.get(pk=target_pk).title
+    try:
+      Gallery.objects.update_or_create(pk=target_pk, defaults={'img': target_img, 'title': target_title})
+      messages.success(request, '更新完了！')
+    except:
+      messages.error(request, '同じタイトルは使えない！') 
+    return redirect('manager:main_slide')
+  
 
 class SampleView(CreateView):
   template_name = 'manager/sample.html'
@@ -33,7 +46,19 @@ class SampleView(CreateView):
     return context
   
   def post(self, request, *args, **kwargs):
-    Sample.objects.update_or_create(id=request.POST.get('pk'))
+    target_pk = request.POST.get('pk')
+    target_img = request.FILES.get('img')
+    if target_img is None:
+      target_img = Sample.objects.get(pk=target_pk).img
+    target_name = request.POST.get('name')
+    if target_name == '':
+      target_name = Sample.objects.get(pk=target_pk).name
+    try:
+      Sample.objects.update_or_create(id=target_pk,  defaults={'img': target_img, 'name': target_name})
+      messages.success(request, '更新完了！')
+    except:
+      messages.error(request, '同じ名前は使えない！')
+    return redirect('manager:sample')
 
   
 class FamilyView(CreateView):

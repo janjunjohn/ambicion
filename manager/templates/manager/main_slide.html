@@ -3,6 +3,11 @@
 {% load widget_tweaks %}
 {% block contents %}
 <div class="main-slide-contents">
+{% for message in messages %}
+  <div {% if message.tags %}class="{{ message.tags }}"{% endif %}>
+  {{ message }}
+  </div>
+{% endfor %}
   <h1 class="contents-title">Main Slide</h1>
   <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-interval=false>
     <div class="carousel-indicators">
@@ -13,7 +18,9 @@
       <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ forloop.counter|add:'-1' }}" aria-label="Slide {{ forloop.counter }}"></button>
       {% endif %}
       {% endfor %}
+      {% if gallery_count < 6 %}
       <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ gallery_count }}" aria-label="Slide {{ gallery_count|add:'-1' }}"></button>
+      {% endif %}
     </div>
     <div class="carousel-inner">
       {% for gallery in gallery_list %}
@@ -29,10 +36,10 @@
           </label>
           <input type="file" class="gallery-img-input form-control" id="gallery-img-{{ forloop.counter }}-input" name="img" accept="image/*" hidden>
           <h2 class="gallery-text">{{ gallery.title }}</h2>
-          {{ form.title|add_class:"gallery-text-input form-control hover-item" }}
+          <input type="text" class="gallery-text-input form-control hover-item" name="title" value="{{ gallery.title }}">
           <input type="hidden" name="pk" value="{{ gallery.pk }}">
-          <button type="submit" class="gallery-update-btn btn btn-success">Update</button>
-          <a href="{% url 'manager:delete' 'main_slide' gallery.pk  %}" onclick="return confirm('削除しますか？');" class="gallery-update-btn btn btn-danger">Delete</a>
+          <button onClick="submit();" type="button" class="gallery-update-btn btn btn-success">Update</button>
+          <a href="{% url 'manager:delete' 'main_slide' gallery.pk  %}" onclick="return confirm('削除する？');" class="gallery-update-btn btn btn-danger">Delete</a>
         </form>
       </div>
       {% else %}
@@ -47,16 +54,17 @@
           </label>
           <input type="file" class="gallery-img-input form-control" id="gallery-img-{{ forloop.counter }}-input" name="img" accept="image/*" hidden>
           <h2 class="gallery-text">{{ gallery.title }}</h2>
-          {{ form.title|add_class:"gallery-text-input form-control hover-item" }}
+          <input type="text" class="gallery-text-input form-control hover-item" name="title" value="{{ gallery.title }}">
           <input type="hidden" name="pk" value="{{ gallery.pk }}">
-          <button type="submit" class="gallery-update-btn btn btn-success">Update</button>
-          <a href="{% url 'manager:delete' 'main_slide' gallery.pk  %}" onclick="return confirm('削除しますか？');" class="gallery-update-btn btn btn-danger">Delete</a>
+          <button onClick="submit();" type="button" class="gallery-update-btn btn btn-success">Update</button>
+          <a href="{% url 'manager:delete' 'main_slide' gallery.pk  %}" onclick="return confirm('削除する？');" class="gallery-update-btn btn btn-danger">Delete</a>
         </form>
       </div>
       {% endif %}
       {% endfor %}
+      {% if gallery_count < 6 %}
       <div class="carousel-item">
-        <form method="post" enctype="multipart/form-data">
+        <form method="post" enctype="multipart/form-data" id="add-new-form">
           {% csrf_token %}
           <label for="new-gallery-img-input">
             <img class="hover-item gallery-img"
@@ -66,10 +74,11 @@
           </label>
           <input type="file" class="form-control" id="new-gallery-img-input" name="img" accept="image/*" hidden>
           <h2 class="gallery-text">New</h2>
-          {{ form.title|add_class:"gallery-text-input form-control hover-item" }}
-          <button type="submit" class="gallery-update-btn btn btn-primary">Add</button>
+          {{ form.title|add_class:"gallery-text-input form-control hover-item"|attr:"id:new-gallery-title-input" }}
+          <button type="button" class="gallery-update-btn btn btn-primary" id="add-new-btn">Add</button>
         </form>
       </div>
+      {% endif %}
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -101,6 +110,18 @@ $(function(){
     reader.onload = function() {
       $(img_id).attr('src', reader.result);
     }
+  });
+
+  $('#add-new-btn').on('click', function(){
+    if($('#new-gallery-img-input').val() === ''){
+      alert('画像を選択して！');
+      $(this).focus();
+      return false;
+    } else if ($('#new-gallery-title-input').val() === ''){
+      alert('タイトルを入力して！');
+      return false;
+    }
+    $('#add-new-form').submit();
   });
 });
 </script>

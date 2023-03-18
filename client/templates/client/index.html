@@ -132,7 +132,7 @@
              data-bs-ride="carousel" data-bs-interval="3800" data-bs-pause=False>
             <div class="gallery carousel-inner">
               {% for gallery in gallery_list %}
-              {% if gallery.pk == 1 %}
+              {% if forloop.counter == 1 %}
               <div class="carousel-item active">
                 <img class="gallery-img"
                      src="{{ gallery.img.url }}"
