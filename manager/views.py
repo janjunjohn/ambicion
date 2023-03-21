@@ -29,7 +29,7 @@ class MainSlideView(CreateView):
     if target_title == '':
       target_title = Gallery.objects.get(pk=target_pk).title
     try:
-      Gallery.objects.update_or_create(pk=target_pk, defaults={'img': target_img, 'title': target_title})
+      Gallery.objects.update_or_create(pk=target_pk, defaults={'img': target_img, 'title': target_title, 'is_standby': False})
       messages.success(request, '更新完了！')
     except:
       messages.error(request, '同じタイトルは使えない！') 
@@ -54,7 +54,7 @@ class SampleView(CreateView):
     if target_name == '':
       target_name = Sample.objects.get(pk=target_pk).name
     try:
-      Sample.objects.update_or_create(id=target_pk,  defaults={'img': target_img, 'name': target_name})
+      Sample.objects.update_or_create(id=target_pk,  defaults={'img': target_img, 'name': target_name, 'is_standby': False})
       messages.success(request, '更新完了！')
     except:
       messages.error(request, '同じ名前は使えない！')
@@ -72,9 +72,9 @@ class DeleteView(View):
     page_name = self.kwargs['page_name']
     target_pk = self.kwargs['pk']
     if page_name == 'main_slide':
-      Gallery.objects.get(id=target_pk).delete()
+      Gallery.objects.update_or_create(pk=target_pk, defaults={'is_standby': True})
     elif page_name == 'sample':
-      Sample.objects.get(id=target_pk).delete()
+      Sample.objects.update_or_create(pk=target_pk, defaults={'is_standby': True})
     elif page_name == 'family':
-      Family.objects.get(id='pk').delete()
+      Family.objects.update_or_create(pk=target_pk, defaults={'is_standby': True})
     return redirect(f'manager:{page_name}')

@@ -6,8 +6,7 @@ class GalleryForm(forms.ModelForm):
   class Meta:
     model = Gallery
     fields = ['img', 'title']
-    
-    
+
 
 class SampleForm(forms.ModelForm):
   class Meta:

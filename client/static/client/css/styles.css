@@ -424,10 +424,6 @@ nav {
     position: relative;
 }
 
-.modal-choice-img-frame {
-    position: relative;
-}
-
 .frame-label {
    width: 100%;
 }
@@ -450,6 +446,11 @@ nav {
     top: 18.5rem;
     left: 26rem;
     visibility: hidden;
+}
+
+.modal-choice-img-frame {
+    position: relative;
+   margin: 3rem auto 5rem auto;
 }
 
 .color-patch {

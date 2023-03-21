@@ -2,128 +2,142 @@
 {% load static %}
 {% load widget_tweaks %}
 {% block contents %}
-<div class="main-slide-contents">
-{% for message in messages %}
-  <div {% if message.tags %}class="{{ message.tags }}"{% endif %}>
-  {{ message }}
-  </div>
-{% endfor %}
-  <h1 class="contents-title">Main Slide</h1>
-  <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-interval=false>
-    <div class="carousel-indicators">
-      {% for gallery in gallery_list %}
-      {% if gallery.pk == 1 %}
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ forloop.counter|add:'-1' }}" class="active" aria-current="true" aria-label="Slide {{ forloop.counter }}"></button>
-      {% else %}
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ forloop.counter|add:'-1' }}" aria-label="Slide {{ forloop.counter }}"></button>
-      {% endif %}
-      {% endfor %}
-      {% if gallery_count < 6 %}
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ gallery_count }}" aria-label="Slide {{ gallery_count|add:'-1' }}"></button>
-      {% endif %}
+  <div class="main-slide-contents">
+    {% for message in messages %}
+      <div {% if message.tags %}class="{{ message.tags }}"{% endif %}>
+      {{ message }}
+      </div>
+    {% endfor %}
+    <h1 class="contents-title">Main Slide</h1>
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-interval=false>
+      <div class="carousel-indicators">
+        {% for gallery in gallery_list %}
+          {% if forloop.counter == 1 %}
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ forloop.counter|add:'-1' }}" class="active" aria-current="true" aria-label="Slide {{ forloop.counter }}"></button>
+          {% else %}
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ forloop.counter|add:'-1' }}" aria-label="Slide {{ forloop.counter }}"></button>
+          {% endif %}
+        {% endfor %}
+      </div>
+      <div class="carousel-inner">
+        {% for gallery in gallery_list %}
+          {% if forloop.counter == 1 %}
+            <div class="carousel-item active">
+              {% if gallery.is_standby %}
+                <form method="post" enctype="multipart/form-data" id="add-new-form-{{ forloop.counter }}">
+                  {% csrf_token %}
+                  <label for="gallery-img-{{ forloop.counter }}-input" class="gallery-img-label">
+                    <img class="hover-item gallery-img"
+                    src="{% static 'manager/images/main_slide_standby.png' %}"
+                    id="gallery-img-{{ forloop.counter }}">
+                  </label>
+                  <input type="file" class="gallery-img-input form-control" id="gallery-img-{{ forloop.counter }}-input" name="img" accept="image/*" hidden>
+                  <h2 class="gallery-title">New</h2>
+                  <input type="text" class="gallery-title-input form-control hover-item" name="title" id="gallery-title-{{ forloop.counter }}-input">
+                  <input type="hidden" name="pk" value="{{ gallery.pk }}">
+                  <button type="button" class="gallery-add-btn btn btn-primary" id="gallery-add-btn-{{ forloop.counter }}">Add</button>
+                </form>
+              {% else %}
+                <form method="post" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <label for="gallery-img-{{ forloop.counter }}-input" class="gallery-img-label">
+                    <img class="hover-item gallery-img"
+                    src="{{ gallery.img.url }}"
+                    id="gallery-img-{{ forloop.counter }}">
+                  </label>
+                  <input type="file" class="gallery-img-input form-control" id="gallery-img-{{ forloop.counter }}-input" name="img" accept="image/*" hidden>
+                  <h2 class="gallery-title">{{ gallery.title }}</h2>
+                  <input type="text" class="gallery-title-input form-control hover-item" name="title" value="{{ gallery.title }}">
+                  <input type="hidden" name="pk" value="{{ gallery.pk }}">
+                  <button onClick="submit();" type="button" class="gallery-update-btn btn btn-success">Update</button>
+                  <a href="{% url 'manager:delete' 'main_slide' gallery.pk  %}" onclick="return confirm('削除する？');" class="gallery-update-btn btn btn-danger">Delete</a>
+                </form>
+              {% endif %}
+            </div>
+          {% else %}
+            <div class="carousel-item">
+              {% if gallery.is_standby %}
+                <form method="post" enctype="multipart/form-data" id="add-new-form-{{ forloop.counter }}">
+                  {% csrf_token %}
+                  <label for="gallery-img-{{ forloop.counter }}-input" class="gallery-img-label">
+                    <img class="hover-item gallery-img"
+                    src="{% static 'manager/images/main_slide_standby.png' %}"
+                    id="gallery-img-{{ forloop.counter }}">
+                  </label>
+                  <input type="file" class="gallery-img-input form-control" id="gallery-img-{{ forloop.counter }}-input" name="img" accept="image/*" hidden>
+                  <h2 class="gallery-title">New</h2>
+                  <input type="text" class="gallery-title-input form-control hover-item" name="title" id="gallery-title-{{ forloop.counter }}-input">
+                  <input type="hidden" name="pk" value="{{ gallery.pk }}">
+                  <button type="button" class="gallery-add-btn btn btn-primary" id="gallery-add-btn-{{ forloop.counter }}">Add</button>
+                </form>
+              {% else %}
+                <form method="post" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <label for="gallery-img-{{ forloop.counter }}-input" class="gallery-img-label">
+                    <img class="hover-item gallery-img"
+                    src="{{ gallery.img.url }}"
+                    id="gallery-img-{{ forloop.counter }}">
+                  </label>
+                  <input type="file" class="gallery-img-input form-control" id="gallery-img-{{ forloop.counter }}-input" name="img" accept="image/*" hidden>
+                  <h2 class="gallery-title">{{ gallery.title }}</h2>
+                  <input type="text" class="gallery-title-input form-control hover-item" name="title" value="{{ gallery.title }}">
+                  <input type="hidden" name="pk" value="{{ gallery.pk }}">
+                  <button onClick="submit();" type="button" class="gallery-update-btn btn btn-success">Update</button>
+                  <a href="{% url 'manager:delete' 'main_slide' gallery.pk  %}" onclick="return confirm('削除する？');" class="gallery-update-btn btn btn-danger">Delete</a>
+                </form>
+              {% endif %}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
     </div>
-    <div class="carousel-inner">
-      {% for gallery in gallery_list %}
-      {% if gallery.pk == 1 %}
-      <div class="carousel-item active">
-        <form method="post" enctype="multipart/form-data">
-          {% csrf_token %}
-          <label for="gallery-img-{{ forloop.counter }}-input" class="gallery-img-label">
-            <img class="hover-item gallery-img"
-            src="{{ gallery.img.url }}"
-            alt="gallery"
-            id="gallery-img-{{ forloop.counter }}">
-          </label>
-          <input type="file" class="gallery-img-input form-control" id="gallery-img-{{ forloop.counter }}-input" name="img" accept="image/*" hidden>
-          <h2 class="gallery-text">{{ gallery.title }}</h2>
-          <input type="text" class="gallery-text-input form-control hover-item" name="title" value="{{ gallery.title }}">
-          <input type="hidden" name="pk" value="{{ gallery.pk }}">
-          <button onClick="submit();" type="button" class="gallery-update-btn btn btn-success">Update</button>
-          <a href="{% url 'manager:delete' 'main_slide' gallery.pk  %}" onclick="return confirm('削除する？');" class="gallery-update-btn btn btn-danger">Delete</a>
-        </form>
-      </div>
-      {% else %}
-      <div class="carousel-item">
-        <form method="post" enctype="multipart/form-data">
-          {% csrf_token %}
-          <label for="gallery-img-{{ forloop.counter }}-input" class="gallery-img-label">
-            <img class="hover-item gallery-img"
-            src="{{ gallery.img.url }}"
-            alt="gallery"
-            id="gallery-img-{{ forloop.counter }}">
-          </label>
-          <input type="file" class="gallery-img-input form-control" id="gallery-img-{{ forloop.counter }}-input" name="img" accept="image/*" hidden>
-          <h2 class="gallery-text">{{ gallery.title }}</h2>
-          <input type="text" class="gallery-text-input form-control hover-item" name="title" value="{{ gallery.title }}">
-          <input type="hidden" name="pk" value="{{ gallery.pk }}">
-          <button onClick="submit();" type="button" class="gallery-update-btn btn btn-success">Update</button>
-          <a href="{% url 'manager:delete' 'main_slide' gallery.pk  %}" onclick="return confirm('削除する？');" class="gallery-update-btn btn btn-danger">Delete</a>
-        </form>
-      </div>
-      {% endif %}
-      {% endfor %}
-      {% if gallery_count < 6 %}
-      <div class="carousel-item">
-        <form method="post" enctype="multipart/form-data" id="add-new-form">
-          {% csrf_token %}
-          <label for="new-gallery-img-input">
-            <img class="hover-item gallery-img"
-            id="new-gallery-img"
-            src="{% static 'manager/images/logo_ogp.png' %}"
-            alt="gallery">
-          </label>
-          <input type="file" class="form-control" id="new-gallery-img-input" name="img" accept="image/*" hidden>
-          <h2 class="gallery-text">New</h2>
-          {{ form.title|add_class:"gallery-text-input form-control hover-item"|attr:"id:new-gallery-title-input" }}
-          <button type="button" class="gallery-update-btn btn btn-primary" id="add-new-btn">Add</button>
-        </form>
-      </div>
-      {% endif %}
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
   </div>
-</div>
-<script>
-$(function(){
-  $('#new-gallery-img-input').on('change', function() {
-    const file = $(this).prop('files')[0];
-    let reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = function() {
-      $('#new-gallery-img').attr('src', reader.result);
-    }
-  });
+  <script>
+  $(function(){
+    $('.gallery-img-input').on('change', function() {
+      const input_id = $(this).prop('id');
+      const img_id = '#' + input_id.replace('-input', '');
+      const file = $(this).prop('files')[0];
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = function() {
+        $(img_id).attr('src', reader.result);
+      }
+    });
 
-  $('.gallery-img-input').on('change', function() {
-    const input_id = $(this).prop('id');
-    const img_id = '#' + input_id.replace('-input', '');
-    const file = $(this).prop('files')[0];
-    let reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = function() {
-      $(img_id).attr('src', reader.result);
-    }
-  });
+    $(document).ready(function() {
+      $(window).keydown(function(event){
+        if(event.keyCode == 13) {
+          event.preventDefault();
+          return false;
+        }
+      });
+    });
 
-  $('#add-new-btn').on('click', function(){
-    if($('#new-gallery-img-input').val() === ''){
-      alert('画像を選択して！');
-      $(this).focus();
-      return false;
-    } else if ($('#new-gallery-title-input').val() === ''){
-      alert('タイトルを入力して！');
-      return false;
-    }
-    $('#add-new-form').submit();
+    $('.gallery-add-btn').on('click', function(){
+      const input_id = $(this).prop('id');
+      const img_input_id = '#' + input_id.replace('add-btn', 'img') + '-input'
+      const title_input_id = '#' + input_id.replace('add-btn', 'title') + '-input'
+      const form_id = '#' + input_id.replace('gallery-add-btn', 'add-new-form')
+      if($(img_input_id).val() === ''){
+        alert('画像を選択して！');
+        $(this).focus();
+        return false;
+      } else if ($(title_input_id).val() === ''){
+        alert('タイトルを入力して！');
+        return false;
+      }
+      $(form_id).submit();
+    });
   });
-});
-</script>
+  </script>
 {% endblock %}
   
