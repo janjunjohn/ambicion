@@ -3,6 +3,14 @@ import environ
 import os
 from django.contrib import messages
 
+
+# Set Custom User
+AUTH_USER_MODEL = 'manager.User'
+
+# Login Error Page
+LOGIN_URL = 'login/'
+
+
 # Set Environment Variables
 env = environ.Env()
 environ.Env.read_env()

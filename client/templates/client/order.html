@@ -604,7 +604,7 @@
           $(function(){
             const change_default = function(name, url) {
               $('#default-design-display').html('<img class="choice-img" src="' + url + '" alt="ai data sample">'); //contact sectionに反映
-              $('#default-selected-data').val(name + '[http://localhost:8000' + url + ']'); //メール送信用に格納
+              $('#default-selected-data').val(name + '[https://ambicion-jp.com/' + url + ']'); //メール送信用に格納
             };
             const cancel_default = function() {
               $('#default-design-display').html('デフォルトデザインから選ぶ'); //contact sectionに反映

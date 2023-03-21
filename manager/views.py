@@ -1,16 +1,26 @@
 from django.shortcuts import redirect
+from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView, CreateView, View
 from client.models import Gallery, Sample, Family
-from .forms import GalleryForm, SampleForm
+from .forms import GalleryForm, SampleForm, LoginForm
 from django.contrib import messages
 
 
+class Login(LoginView):
+  template_name = 'manager/login.html'
+  from_class = LoginForm
+  
 
-class TopView(TemplateView):
+class Logout(LogoutView):
+  template_name = 'manager/login.html'
+  
+
+class TopView(LoginRequiredMixin, TemplateView):
   template_name = 'manager/top.html'
   
 
-class MainSlideView(CreateView):
+class MainSlideView(LoginRequiredMixin, CreateView):
   template_name = 'manager/main_slide.html'
   form_class = GalleryForm
   
@@ -36,7 +46,7 @@ class MainSlideView(CreateView):
     return redirect('manager:main_slide')
   
 
-class SampleView(CreateView):
+class SampleView(CreateView, LoginRequiredMixin):
   template_name = 'manager/sample.html'
   form_class = SampleForm
   
@@ -61,12 +71,12 @@ class SampleView(CreateView):
     return redirect('manager:sample')
 
   
-class FamilyView(CreateView):
+class FamilyView(CreateView, LoginRequiredMixin):
   template_name = 'manager/family.html'
   model = Family
 
 
-class DeleteView(View):
+class DeleteView(View, LoginRequiredMixin):
   
   def get(self, request, *args, **kwargs):
     page_name = self.kwargs['page_name']
