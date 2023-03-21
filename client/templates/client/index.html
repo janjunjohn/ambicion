@@ -97,10 +97,6 @@
             <hr class="nav-hr">
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#news-nav-target">ニュース</a>
-            <hr class="nav-hr">
-          </li>
-          <li class="nav-item">
             <a class="nav-link" href="#contact-nav-target">コンタクト</a>
           </li>
         </ul>
@@ -259,24 +255,13 @@
                         allowfullscreen>
                 </iframe>
                 <br>
+                <div id="contact-nav-target"></div>
                 <a href="{% url 'client:about' %}">
                     <button type="button" class="section-btn btn btn-primary ">詳しく</button>
                 </a>
             </div>
         </div>
     </section>
-    <a href="#news-nav-target">
-      <img id="news-nav-target"
-           class="allow-img"
-           src="{% static 'client/images/design_pieces/allow-white.png' %}"
-           alt="">
-    </a>
-    <!--  News Section -->
-    <section id="sns-section" class="before-appear">
-        <!-- Section Header -->
-        <h1 class="header">ニュース</h1>
-    </section>
-    <span id="contact-nav-target"></span>
     <!-- Contact Section -->
     <section id="contact-mail-section" class="before-appear">
         <h1>質問はこちらから。</h1>
@@ -410,7 +395,7 @@
   $(window).on('load', function() { // after loading
     var header_height = 23;
     var url_hash = location.hash;
-    var fade_up_sections = ['#order-section', '#product-section', '#about-section', '#sns-section', '#contact-mail-section']; //each section
+    var fade_up_sections = ['#order-section', '#product-section', '#about-section', '#contact-mail-section']; //each section
     if (url_hash) {
       var position = $(url_hash).offset().top - header_height; // move navbar proper position
       $('html, body').animate({ scrollTop: position }, 0);

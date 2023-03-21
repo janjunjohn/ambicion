@@ -701,15 +701,6 @@ nav {
         padding: 5rem;
     }
 
-    .news-description {
-        margin: 1.5rem 0;
-        font-size: 2rem;
-    }
-
-    .news-image {
-        width: 60%;
-    }
-
     .heading-text {
         font-size: 5rem;
     }
@@ -816,10 +807,6 @@ nav {
 
     #order-section {
         padding: 1rem 5rem 0 5rem;
-    }
-
-    .news-header {
-        font-size: 2.5rem
     }
 
     .main-contents {
