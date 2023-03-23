@@ -1,0 +1,34 @@
+html {
+  font-size: 0.7vw;
+}
+
+body {
+  font-size: 1.6rem;
+  font-family: 'M PLUS 1p', sans-serif;
+  background-color: #121212;
+  text-align: center;
+  padding-top: 20rem;
+}
+
+.logo {
+  width: 18rem;
+  margin-bottom: 5rem;
+}
+
+.form-container {
+  width: 26rem;
+  margin: 0 auto;
+}
+
+.form-item {
+  height: 2.8rem;
+  margin-bottom: 2rem;
+  font-size: 1.2rem;
+}
+
+.form-btn {
+  height: 2.8rem;
+  margin-bottom: 2rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
