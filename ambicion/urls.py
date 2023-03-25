@@ -12,5 +12,5 @@ environ.Env.read_env()
 urlpatterns = [
     path(env('ADMIN_URL') + '/admin/', admin.site.urls),
     path('', include('client.urls')),
-    path('manager/', include('manager.urls')),
+    path(env('MANAGER_URL') + '/manager/', include('manager.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
