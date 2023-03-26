@@ -3,7 +3,6 @@ import environ
 import os
 from django.contrib import messages
 
-
 # Set Custom User
 AUTH_USER_MODEL = 'manager.User'
 
@@ -86,7 +85,7 @@ WSGI_APPLICATION = 'ambicion.wsgi.application'
 from socket import gethostname
 hostname = gethostname()
 
-if "COMPUTER-NAME" in hostname:
+if "JUNnoMacBook-Air-2.local" in hostname:
     # デバッグ環境
     # DEBUG = True 
     DATABASES = {
