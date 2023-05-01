@@ -5,7 +5,6 @@ from django.views.generic import TemplateView, CreateView, View
 from client.models import Gallery, Sample, Family
 from .forms import GalleryForm, SampleForm, LoginForm
 from django.contrib import messages
-from .gd_client import GoogleDriveClient
 
 
 class Login(LoginView):
@@ -34,7 +33,6 @@ class MainSlideView(LoginRequiredMixin, CreateView):
     def post(self, request, *args, **kwargs):
         target_pk = request.POST.get('pk')
         target_img = request.FILES.get('img')
-        before_img_name = Gallery.objects.get(pk=target_pk).img.name
         if target_img is None:
             target_img = Gallery.objects.get(pk=target_pk).img
         else:
@@ -51,13 +49,6 @@ class MainSlideView(LoginRequiredMixin, CreateView):
                     'is_standby': False,
                 },
             )
-            if is_update_img:
-                gdc = GoogleDriveClient()
-                if len(before_img_name) > 2:
-                    print(before_img_name)
-                    gdc.delete_file(before_img_name, 'gallery')
-                gdc.upload_file(Gallery.objects.get(pk=target_pk).img.url, 'gallery')
-
             messages.success(request, '更新完了！')
         except:
             import traceback
@@ -91,12 +82,7 @@ class SampleView(CreateView, LoginRequiredMixin):
                 id=target_pk,
                 defaults={'img': target_img, 'name': target_name, 'is_standby': False},
             )
-            if is_update_img:
-                gdc = GoogleDriveClient()
-                if len(before_img_name) > 2:
-                    gdc.delete_file(before_img_name, 'sample')
-                gdc.upload_file(Sample.objects.get(pk=target_pk).img.url, 'sample')
-                messages.success(request, '更新完了！')
+            messages.success(request, '更新完了！')
         except:
             import traceback
             traceback.print_exc()
