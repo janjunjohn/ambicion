@@ -12,7 +12,7 @@ class Gallery(models.Model):  # トップページのメインスライド
     def __str__(self):
         if self.is_standby:
             return f'[{self.pk}] is on standby.'
-        return f'[{self.pk}]{self.title}'
+        return f'[{self.pk}]{self.title} PATH:{self.img.url}'
 
 
 class Sample(models.Model):  # デザインデータサンプル画像
@@ -26,7 +26,7 @@ class Sample(models.Model):  # デザインデータサンプル画像
     def __str__(self):
         if self.is_standby:
             return f'[{self.pk}] is on standby.'
-        return f'[{self.pk}]{self.name}{self.img.url}'
+        return f'[{self.pk}]{self.name} PATH:{self.img.url}'
 
 
 class Family(models.Model):  # ファミリー
