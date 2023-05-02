@@ -96,7 +96,7 @@ class SampleView(CreateView, LoginRequiredMixin):
                 if len(before_img_name) > 2:
                     gdc.delete_file(before_img_name, 'sample')
                 gdc.upload_file(Sample.objects.get(pk=target_pk).img.url, 'sample')
-                messages.success(request, '更新完了！')
+            messages.success(request, '更新完了！')
         except:
             import traceback
             traceback.print_exc()
