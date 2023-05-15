@@ -1,87 +1,135 @@
-{% extends 'manager/base.html' %}
-{% load static %}
-{% block contents %}
-  {% for message in messages %}
-    <div {% if message.tags %}class="{{ message.tags }}"{% endif %}>
-      {{ message }}
-    </div>
-  {% endfor %}
-  <h1 class="contents-title">Sample</h1>
-  <div class="sample-contents row">
-    {% for sample in sample_list %}
-      <div class="col-4">
-        {% if sample.is_standby %}
-          <form method="post" enctype="multipart/form-data" id="add-new-form-{{ forloop.counter }}">
-            {% csrf_token %}
-            <label for="sample-img-{{ forloop.counter }}-input">
-              <div class="sample-add-img-frame">
-                <img class="hover-item sample-img" 
-                src="{% static 'manager/images/logo_black.png' %}"  
-                aslign="bottom"
-                id="sample-img-{{ forloop.counter }}">
-              </div>
-            </label>
-            <input type="file" class="sample-img-input form-control" id="sample-img-{{ forloop.counter }}-input" name="img" accept="image/*" hidden>
-            <input type="hidden" name="pk" value="{{ sample.pk }}">
-            <input type="text" class="sample-name-input form-control" name='name' id="sample-name-{{ forloop.counter }}-input">
-            <button type="button" class="sample-add-btn btn btn-primary" id="sample-add-btn-{{ forloop.counter }}">Add</button>
-          </form>
-        {% else %}
-          <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            <label for="sample-img-{{ forloop.counter }}-input">
-              <img class="hover-item sample-img" 
-              src="{{ sample.img.url }}" 
-              aslign="bottom"
-              id="sample-img-{{ forloop.counter }}">
-            </label>
-            <input type="file" class="sample-img-input form-control" id="sample-img-{{ forloop.counter }}-input" name="img" accept="image/*" hidden>
-            <input type="hidden" name="pk" value="{{ sample.pk }}">
-            <input type="text" class="sample-name-input form-control" value="{{ sample.name }}" name='name'>
-            <button onClick="submit();" type="button" class="sample-update-btn btn btn-success">Update</button>
-            <a href="{% url 'manager:delete' 'sample' sample.pk  %}" onclick="return confirm('削除する？');" class="sample-update-btn btn btn-danger">Delete</a>
-          </form>
-        {% endif %}
-      </div>
-    {% endfor %}
+{% extends 'manager/base.html' %} {% load static %} {% block contents %} {% for
+message in messages %}
+<div {% if message.tags %}class="{{ message.tags }}" {% endif %}>
+  {{ message }}
+</div>
+{% endfor %}
+<h1 class="contents-title">Sample</h1>
+<div class="sample-contents row">
+  {% for sample in sample_list %}
+  <div class="col-4">
+    {% if sample.is_standby %}
+    <form
+      method="post"
+      enctype="multipart/form-data"
+      id="add-new-form-{{ forloop.counter }}"
+    >
+      {% csrf_token %}
+      <label for="sample-img-{{ forloop.counter }}-input">
+        <div class="sample-add-img-frame">
+          <img
+            class="hover-item sample-img"
+            src="{% static 'manager/images/logo_black.png' %}"
+            aslign="bottom"
+            id="sample-img-{{ forloop.counter }}"
+          />
+        </div>
+      </label>
+      <input
+        type="file"
+        class="sample-img-input form-control"
+        id="sample-img-{{ forloop.counter }}-input"
+        name="img"
+        accept="image/*"
+        hidden
+      />
+      <input type="hidden" name="pk" value="{{ sample.pk }}" />
+      <input
+        type="text"
+        class="sample-name-input form-control"
+        name="name"
+        id="sample-name-{{ forloop.counter }}-input"
+      />
+      <button
+        type="button"
+        class="sample-add-btn btn btn-primary"
+        id="sample-add-btn-{{ forloop.counter }}"
+      >
+        Add
+      </button>
+    </form>
+    {% else %}
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <label for="sample-img-{{ forloop.counter }}-input">
+        <img
+          class="hover-item sample-img"
+          src="{{ sample.img.url }}"
+          aslign="bottom"
+          id="sample-img-{{ forloop.counter }}"
+        />
+      </label>
+      <input
+        type="file"
+        class="sample-img-input form-control"
+        id="sample-img-{{ forloop.counter }}-input"
+        name="img"
+        accept="image/*"
+        hidden
+      />
+      <input type="hidden" name="pk" value="{{ sample.pk }}" />
+      <input
+        type="text"
+        class="sample-name-input form-control"
+        value="{{ sample.name }}"
+        name="name"
+      />
+      <button
+        onClick="submit();"
+        type="button"
+        class="sample-update-btn btn btn-success"
+      >
+        Update
+      </button>
+      <a
+        href="{% url 'manager:delete' 'sample' sample.pk  %}"
+        onclick="return confirm('削除する？');"
+        class="sample-update-btn btn btn-danger"
+        >Delete</a
+      >
+    </form>
+    {% endif %}
   </div>
-  <script>
-    $(function(){
-      $('.sample-img-input').on('change', function() {
-        const input_id = $(this).prop('id');
-        const img_id = '#' + input_id.replace('-input', '');
-        const file = $(this).prop('files')[0];
-        let reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = function() {
-          $(img_id).attr('src', reader.result);
-        }
-      });
+  {% endfor %}
+</div>
+<script>
+  $(function () {
+    $(".sample-img-input").on("change", function () {
+      const input_id = $(this).prop("id");
+      const img_id = "#" + input_id.replace("-input", "");
+      const file = $(this).prop("files")[0];
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = function () {
+        $(img_id).attr("src", reader.result);
+      };
+    });
 
-      $(document).ready(function() {
-        $(window).keydown(function(event){
-          if(event.keyCode == 13) {
-            event.preventDefault();
-            return false;
-          }
-        });
-      });
-
-      $('.sample-add-btn').on('click', function(){
-        const input_id = $(this).prop('id');
-        const img_input_id = '#' + input_id.replace('add-btn', 'img') + '-input'
-        const name_input_id = '#' + input_id.replace('add-btn', 'name') + '-input'
-        const form_id = '#' + input_id.replace('sample-add-btn', 'add-new-form')
-        if($(img_input_id).val() === ''){
-          alert('画像を選択して！');
-          $(this).focus();
-          return false;
-        } else if ($(name_input_id).val() === ''){
-          alert('名前を入力して！');
+    $(document).ready(function () {
+      $(window).keydown(function (event) {
+        if (event.keyCode == 13) {
+          event.preventDefault();
           return false;
         }
-        $(form_id).submit();
       });
     });
-  </script>
+
+    $(".sample-add-btn").on("click", function () {
+      const input_id = $(this).prop("id");
+      const img_input_id = "#" + input_id.replace("add-btn", "img") + "-input";
+      const name_input_id =
+        "#" + input_id.replace("add-btn", "name") + "-input";
+      const form_id = "#" + input_id.replace("sample-add-btn", "add-new-form");
+      if ($(img_input_id).val() === "") {
+        alert("画像を選択して！");
+        $(this).focus();
+        return false;
+      } else if ($(name_input_id).val() === "") {
+        alert("名前を入力して！");
+        return false;
+      }
+      $(form_id).submit();
+    });
+  });
+</script>
 {% endblock %}

@@ -1,58 +1,75 @@
-{% extends 'client/white_page_base.html' %}
-{% load static %}
-
-  {% block OGP %}
-    <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/ fb# prefix属性: http://ogp.me/ns/ prefix属性#">
-    <meta property="og:url" content="https://ambicion-jp.com/order" />
-    <meta property="og:type" content="article" />
-    <meta property="og:title" content="オーダーページ" />
-    <meta property="og:description" content="    あなたのデザインをプロクオリティで形にします。
-    昇華式完全オリジナルユニフォーム 上下セット4000円~。" />
-    <meta property="og:site_name" content="AMBICIÓNで唯一無二のオリジナルユニフォームを。" />
-    <meta property="og:image" content="{% static 'ambicion/order_ogp.jpg' %}" />
-    <meta name="twitter:card" content="Summary Card" />
-    <meta name="twitter:site" content="@Ryota410h" />
-  {% endblock OGP %}
-
-  {% block heading %}
-    {% if submitted == 'success' %}
-      <h1 class="heading-text">メール送信完了。<br>{{ username }}さん、 <br> ありがとうございます！！</h1>
-    {% elif submitted == 'fail' %}
-      <h1 class="heading-text">メールの送信に失敗しました。</h1>
-    {% else %}
-      <h1 class="heading-text">あなたのデザインを、<br> プロクオリティで形にします。</h1>
-    {% endif %}
-  {% endblock %}
-  {% block bg_picture %}
-    <img class="background-img container-fluid" src="{% static 'client/images/ryota-with-stuff.jpg' %}" alt="ryota and stuffs">
-  {% endblock %}
-  {% block navigation %}
-    <a href="#price-nav-target">
-        <div class="nav-btn">プライス</div>
-    </a>
-    <a href="#choice-nav-target">
-        <div class="nav-btn">チョイス</div>
-    </a>
-    <a href="#contact-nav-target">
-        <div class="nav-btn">コンタクト</div>
-    </a>
-  {% endblock %}
-
-  {% block contents %}
+{% extends 'client/white_page_base.html' %} {% load static %} {% block OGP %}
+<head
+  prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/ fb# prefix属性: http://ogp.me/ns/ prefix属性#"
+>
+  <meta property="og:url" content="https://ambicion-jp.com/order" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="オーダーページ" />
+  <meta
+    property="og:description"
+    content="    あなたのデザインをプロクオリティで形にします。
+    昇華式完全オリジナルユニフォーム 上下セット4000円~。"
+  />
+  <meta
+    property="og:site_name"
+    content="AMBICIÓNで唯一無二のオリジナルユニフォームを。"
+  />
+  <meta property="og:image" content="{% static 'ambicion/order_ogp.jpg' %}" />
+  <meta name="twitter:card" content="Summary Card" />
+  <meta name="twitter:site" content="@Ryota410h" />
+  {% endblock OGP %} {% block heading %} {% if submitted == 'success' %}
+  <h1 class="heading-text">
+    メール送信完了。<br />{{ username }}さん、 <br />
+    ありがとうございます！！
+  </h1>
+  {% elif submitted == 'fail' %}
+  <h1 class="heading-text">メールの送信に失敗しました。</h1>
+  {% else %}
+  <h1 class="heading-text">
+    あなたのデザインを、<br />
+    プロクオリティで形にします。
+  </h1>
+  {% endif %} {% endblock %} {% block bg_picture %}
+  <img
+    class="background-img container-fluid"
+    src="{% static 'client/images/ryota-with-stuff.jpg' %}"
+    alt="ryota and stuffs"
+  />
+  {% endblock %} {% block navigation %}
+  <a href="#price-nav-target">
+    <div class="nav-btn">プライス</div>
+  </a>
+  <a href="#choice-nav-target">
+    <div class="nav-btn">チョイス</div>
+  </a>
+  <a href="#contact-nav-target">
+    <div class="nav-btn">コンタクト</div>
+  </a>
+  {% endblock %} {% block contents %}
   <!-- Modal -->
-  <div class="modal fade" id="sample-modal" tabindex="-1" aria-labelledby="sample-modal-label" aria-hidden="true">
+  <div
+    class="modal fade"
+    id="sample-modal"
+    tabindex="-1"
+    aria-labelledby="sample-modal-label"
+    aria-hidden="true"
+  >
     <div class="modal-dialog modal-fullscreen modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title" id="sample-modal-label">デフォルトデザイン</h1>
-
+          <h1 class="modal-title" id="sample-modal-label">
+            デフォルトデザイン
+          </h1>
         </div>
         <div class="modal-body">
           <p class="modal-text">
-            こちらは、AMBICIÓNで作成した <br>デザインデータのサンプルたちです。<br>
-            お好きなデザインをお選びいただき、<br><strong>お好みでフリースペースにカラーの変更等をご指示ください。</strong><br>
-            (最下部のカラーチャートをご参考ください。)<br>
-            ご持参いただいたエンブレムデータ等を<br>
+            こちらは、AMBICIÓNで作成した
+            <br />デザインデータのサンプルたちです。<br />
+            お好きなデザインをお選びいただき、<br /><strong
+              >お好みでフリースペースにカラーの変更等をご指示ください。</strong
+            ><br />
+            (最下部のカラーチャートをご参考ください。)<br />
+            ご持参いただいたエンブレムデータ等を<br />
             組み合わせることも可能です。
           </p>
 
@@ -60,184 +77,205 @@
             <div class="row">
               {% for sample in sample_list %}
               <div class="col-lg-6 col-sm-12 modal-choice-img-frame">
-                <input id="{{ sample.name }}" class="choice-btn" type="radio" name="design" value="{{sample.name}}:{{ sample.img.url }}">
+                <input
+                  id="{{ sample.name }}"
+                  class="choice-btn"
+                  type="radio"
+                  name="design"
+                  value="{{sample.name}}:{{ sample.img.url }}"
+                />
                 <label class="frame-label" for="{{ sample.name }}">
-                  <img class="choice-img" src="{{ sample.img.url }}" alt="ai data sample">
+                  <img
+                    class="choice-img"
+                    src="{{ sample.img.url }}"
+                    alt="ai data sample"
+                  />
                   <i class="modal-check-mark fa-solid fa-check"></i>
                 </label>
               </div>
               {% endfor %}
             </div>
           </form>
-          <img src="{% static 'client/images/color_patch.png' %}" alt="color patch" class="color-patch">
+          <img
+            src="{% static 'client/images/color_patch.png' %}"
+            alt="color patch"
+            class="color-patch"
+          />
         </div>
         <div class="modal-footer">
-        <button type="button" class="modal-quit btn btn-primary" data-bs-dismiss="modal">とじる</button>
-      </div>
+          <button
+            type="button"
+            class="modal-quit btn btn-primary"
+            data-bs-dismiss="modal"
+          >
+            とじる
+          </button>
+        </div>
       </div>
     </div>
   </div>
   <!-- Price Section -->
-    <section id="price-section" class="before-appear">
+  <section id="price-section" class="before-appear">
+    <h1 class="header">見積もりは1分で。</h1>
+    <hr />
+    <p>
+      完全オリジナル昇華ユニフォーム。<br />どんなデザインでも、どの生地でも同じ値段。<br />（リストの中は税別表記）
+    </p>
+    <div class="price-list table-responsive">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th style="width: 20%"></th>
+            <th style="width: 16%">
+              <div class="price-list-row">14枚以下</div>
+            </th>
+            <th style="width: 16%">
+              <div class="price-list-row">15枚以上</div>
+            </th>
+            <th style="width: 16%">
+              <div class="price-list-row">50枚以上</div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">
+              <div class="price-list-row">
+                <i class="price-list-icon fa-solid fa-shirt"></i>
+                <img
+                  class="icons8-icon"
+                  src="https://img.icons8.com/external-kmg-design-glyph-kmg-design/32/000000/external-pants-american-football-kmg-design-glyph-kmg-design.png"
+                />
+                上下セット
+              </div>
+            </th>
+            <td>
+              <div class="price-list-row">¥5,500 / 枚</div>
+            </td>
+            <td>
+              <div class="price-list-row">¥4,500 / 枚</div>
+            </td>
+            <td>
+              <div class="price-list-row">¥4,000 / 枚</div>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row" class="list-select-row">
+              <div class="price-list-row">
+                <i class="price-list-icon fa-solid fa-shirt"></i>
+                シャツのみ
+              </div>
+            </th>
+            <td>
+              <div class="price-list-row">¥4,000 / 枚</div>
+            </td>
+            <td colspan="2">
+              <div class="price-list-row">¥3,500 / 枚</div>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row" class="list-select-row">
+              <div class="price-list-row">
+                <img
+                  class="icons8-icon"
+                  src="https://img.icons8.com/external-solidglyph-m-oki-orlando/32/000000/external-long-mens-fashion-solid-solidglyph-m-oki-orlando.png"
+                  alt="long-T"
+                />
+                ロング
+              </div>
+            </th>
+            <td colspan="3">
+              <div class="price-list-row">シャツ代金 + ¥750 / 枚</div>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">
+              <div class="price-list-row">
+                <img
+                  class="icons8-icon"
+                  src="https://img.icons8.com/external-kmg-design-glyph-kmg-design/32/000000/external-pants-american-football-kmg-design-glyph-kmg-design.png"
+                />
+                パンツのみ
+              </div>
+            </th>
+            <td>
+              <div class="price-list-row">¥3,000 / 枚</div>
+            </td>
+            <td colspan="2">
+              <div class="price-list-row">¥2,500 / 枚</div>
+            </td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th scope="row">
+              <div class="price-list-row">
+                <i class="price-list-icon fa-solid fa-socks"></i>
+                ソックス
+              </div>
+            </th>
+            <td>
+              <div class="price-list-row">¥1,500 / 枚</div>
+            </td>
+            <td colspan="2">
+              <div class="price-list-row">¥1,000 / 枚</div>
+            </td>
+          </tr>
+        </tbody>
 
-      <h1 class="header">見積もりは1分で。</h1>
-      <hr>
-      <p>完全オリジナル昇華ユニフォーム。<br>どんなデザインでも、どの生地でも同じ値段。<br>（リストの中は税別表記）</p>
-      <div class="price-list table-responsive">
-          <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <th scope="row" class="">
+              <div class="price-list-row">
+                <i class="price-list-icon fa-solid fa-plane"></i>
+                国際輸送料
+              </div>
+            </th>
+            <td>
+              <div class="price-list-row">¥5,000</div>
+            </td>
+            <td colspan="2">
+              <div class="price-list-row">¥250 / 枚</div>
+            </td>
+          </tr>
+        </tbody>
 
-            <thead>
-              <tr>
-                <th style="width: 20%;"></th>
-                <th style="width: 16%;"><div class="price-list-row">14枚以下</div></th>
-                <th style="width: 16%;"><div class="price-list-row">15枚以上</div></th>
-                <th style="width: 16%;"><div class="price-list-row">50枚以上</div></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">
-                  <div class="price-list-row">
-                    <i class="price-list-icon fa-solid fa-shirt"></i>
-                    <img class="icons8-icon" src="https://img.icons8.com/external-kmg-design-glyph-kmg-design/32/000000/external-pants-american-football-kmg-design-glyph-kmg-design.png"/>
-                    上下セット
-                  </div>
-                </th>
-                <td>
-                  <div class="price-list-row">
-                    ¥5,500 / 枚
-                  </div>
-                </td>
-                <td>
-                  <div class="price-list-row">
-                    ¥4,500 / 枚
-                  </div>
-                </td>
-                <td>
-                  <div class="price-list-row">
-                    ¥4,000 / 枚
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row" class="list-select-row">
-                  <div class="price-list-row">
-                    <i class="price-list-icon fa-solid fa-shirt"></i>
-                    シャツのみ
-                  </div>
-                </th>
-                <td>
-                  <div class="price-list-row">
-                    ¥4,000 / 枚
-                  </div>
-                </td>
-                <td colspan="2">
-                  <div class="price-list-row">
-                    ¥3,500 / 枚
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row" class="list-select-row">
-                  <div class="price-list-row">
-                    <img class="icons8-icon" src="https://img.icons8.com/external-solidglyph-m-oki-orlando/32/000000/external-long-mens-fashion-solid-solidglyph-m-oki-orlando.png" alt="long-T"/>
-                    ロング
-                  </div>
-                </th>
-                <td colspan=3>
-                  <div class="price-list-row">
-                  シャツ代金  + ¥750 / 枚
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">
-                  <div class="price-list-row">
-                    <img class="icons8-icon" src="https://img.icons8.com/external-kmg-design-glyph-kmg-design/32/000000/external-pants-american-football-kmg-design-glyph-kmg-design.png"/>
-                    パンツのみ
-                  </div>
-                </th>
-                <td>
-                  <div class="price-list-row">
-                    ¥3,000 / 枚
-                  </div>
-                </td>
-                <td colspan="2">
-                  <div class="price-list-row">
-                    ¥2,500 / 枚
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-            <tbody>
-              <tr>
-                <th scope="row">
-                  <div class="price-list-row">
-                    <i class="price-list-icon fa-solid fa-socks"></i>
-                    ソックス
-                  </div>
-                </th>
-                <td>
-                  <div class="price-list-row">
-                    ¥1,500 / 枚
-                  </div>
-                </td>
-                <td colspan="2">
-                  <div class="price-list-row">
-                    ¥1,000 / 枚
-                  </div>
-                </td>
-              </tr>
-            </tbody>
+        <tbody>
+          <tr>
+            <th scope="row" class="">
+              <div class="price-list-row">
+                <i class="price-list-icon fa-solid fa-truck"></i>
+                国内配送料
+              </div>
+            </th>
+            <td colspan="3">
+              <div class="price-list-row">全国一律 ¥1,000</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <a href="https://icons8.com/icon/FKMLK2Dk1YDz/pants"
+        ><p class="icons8-link">Pants icon by Icons8</p></a
+      >
+      <br />
+      <a
+        target="_blank"
+        href="https://icons8.com/icon/zqImYabYvsXe/long"
+        rel="noopener noreferrer"
+        ><p class="icons8-link">Long icon by Icons8</p></a
+      >
+    </div>
 
-            <tbody>
-              <tr>
-                <th scope="row" class="">
-                  <div class="price-list-row">
-                    <i class="price-list-icon fa-solid fa-plane"></i>
-                    国際輸送料
-                  </div>
-                </th>
-                <td>
-                  <div class="price-list-row">
-                    ¥5,000
-                  </div>
-                </td>
-                <td colspan="2">
-                  <div class="price-list-row">
-                    ¥250 / 枚
-                  </div>
-                </td>
-              </tr>
-            </tbody>
+    <a href="#uni-selector"
+      ><img
+        id="uni-selector"
+        class="allow-img"
+        src="{% static 'client/images/design_pieces/allow-black.png' %}"
+        alt=""
+    /></a>
 
-            <tbody>
-              <tr>
-                <th scope="row" class="">
-                  <div class="price-list-row">
-                    <i class="price-list-icon fa-solid fa-truck"></i>
-                    国内配送料
-                  </div>
-                </th>
-                <td colspan="3">
-                  <div class="price-list-row">
-                    全国一律 ¥1,000
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-
-          </table>
-        <a href="https://icons8.com/icon/FKMLK2Dk1YDz/pants"><p class="icons8-link">Pants icon by Icons8</p></a>
-        <br>
-        <a target="_blank" href="https://icons8.com/icon/zqImYabYvsXe/long" rel="noopener noreferrer"><p class="icons8-link">Long icon by Icons8</p></a>
-
-      </div>
-
-      <a href="#uni-selector"><img id="uni-selector" class="allow-img" src="{% static 'client/images/design_pieces/allow-black.png' %}" alt=""></a>
-
-      <h2 class="small-header">内容を打ち込むと、予算が分かります。</h2>
-      <div class="price-selector row">
+    <h2 class="small-header">内容を打ち込むと、予算が分かります。</h2>
+    <div class="price-selector row">
       <div class="col-lg-2"></div>
       <div class="col-lg-2 col-3">
         <label for="uniform" class="form-label">ユニフォーム</label>
@@ -264,461 +302,620 @@
       </div>
       <div class="col-lg-2 col-3">
         <label for="number" class="form-label">枚数</label>
-        <input type="number" min="0" max="100" class="rounded-0 select-text form-control" id="number" placeholder="半角数字で入力" required="">
+        <input
+          type="number"
+          min="0"
+          max="100"
+          class="rounded-0 select-text form-control"
+          id="number"
+          placeholder="半角数字で入力"
+          required=""
+        />
       </div>
-      </div>
-      <div class="checkout">
-        <ul class="rounded-0 list-group mb-3">
-          <li class="list-group-item d-flex justify-content-between lh-sm">
-            <div>
-              <h6>ユニフォーム代金</h6>
-            </div>
-            <span id="uni-price" class="text-muted">¥0</span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between lh-sm">
-            <div>
-              <h6>国際輸送料</h6>
-            </div>
-            <span id="trans-price" class="text-muted">¥0</span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between lh-sm">
-            <div>
-              <h6>国内配送料</h6>
-            </div>
-            <span id="delivery-cost" class="text-muted">¥0</span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between lh-sm bg-light">
-            <div class="text-success">
-              <h6>税</h6>
-            </div>
-            <span id="tax" class="text-success">¥0</span>
-          </li>
-          <li class="total list-group-item d-flex justify-content-between">
-            <span>合計</span>
-            <strong id="with-tax">¥0（税込）</strong>
-          </li><li class="each-price list-group-item d-flex justify-content-between">
-            <span>1枚あたり</span>
-            <strong id="a-set-of-price">¥0（税込）</strong>
-          </li>
-        </ul>
-        <a href="/about#product-nav-target">
-          <p>どうしてこんなに安いの？　品質は？</p>
-        </a>
-        <script>
-        $(function(){
-          var uniform = $('#uniform').val();
-          var sleeve = $('#sleeve').val();
-          var socks = $('#socks').val();
-          var number = $('#number').val();
-          const choices = document.getElementById('choices');
+    </div>
+    <div class="checkout">
+      <ul class="rounded-0 list-group mb-3">
+        <li class="list-group-item d-flex justify-content-between lh-sm">
+          <div>
+            <h6>ユニフォーム代金</h6>
+          </div>
+          <span id="uni-price" class="text-muted">¥0</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between lh-sm">
+          <div>
+            <h6>国際輸送料</h6>
+          </div>
+          <span id="trans-price" class="text-muted">¥0</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between lh-sm">
+          <div>
+            <h6>国内配送料</h6>
+          </div>
+          <span id="delivery-cost" class="text-muted">¥0</span>
+        </li>
+        <li
+          class="list-group-item d-flex justify-content-between lh-sm bg-light"
+        >
+          <div class="text-success">
+            <h6>税</h6>
+          </div>
+          <span id="tax" class="text-success">¥0</span>
+        </li>
+        <li class="total list-group-item d-flex justify-content-between">
+          <span>合計</span>
+          <strong id="with-tax">¥0（税込）</strong>
+        </li>
+        <li class="each-price list-group-item d-flex justify-content-between">
+          <span>1枚あたり</span>
+          <strong id="a-set-of-price">¥0（税込）</strong>
+        </li>
+      </ul>
+      <a href="/about#product-nav-target">
+        <p>どうしてこんなに安いの？　品質は？</p>
+      </a>
+      <script>
+        $(function () {
+          var uniform = $("#uniform").val();
+          var sleeve = $("#sleeve").val();
+          var socks = $("#socks").val();
+          var number = $("#number").val();
+          const choices = document.getElementById("choices");
           const fabric_choices = choices.fabric;
           const neck_choices = choices.neck;
           const uni_dict = {
-            'default': {0: 0, 1: 0, 2: 0},
-            'set': {0: 5500, 1: 4500, 2: 4000},
-            'shirt': {0: 4000, 1: 3500, 2: 3500},
-            'pants': {0: 3000, 1: 2500, 2: 2500},
+            default: { 0: 0, 1: 0, 2: 0 },
+            set: { 0: 5500, 1: 4500, 2: 4000 },
+            shirt: { 0: 4000, 1: 3500, 2: 3500 },
+            pants: { 0: 3000, 1: 2500, 2: 2500 },
           };
           const long_sleeve_cost = 750;
-          const socks_dict = {0: 1500, 1: 1000, 2: 1000};
-          const trans_dict = {1: 250, 2: 250};
+          const socks_dict = { 0: 1500, 1: 1000, 2: 1000 };
+          const trans_dict = { 1: 250, 2: 250 };
           const delivery_cost = 1000;
           const text_dict = {
-            'default': '未選択',
-            'set': '上下セット',
-            'shirt': 'シャツのみ',
-            'pants': 'パンツのみ',
-            'short': 'ショート',
-            'long': 'ロング',
-            'no-socks': '/ ソックスなし',
-            'socks': '/ ソックスあり',
-            'tsuru': 'ツルツル',
-            'zara': 'ザラザラ',
-            'round': 'ラウンドネック',
-            'round_neck': 'ラウンドネック ＆ スモール',
-            'v_sm_neck': 'Vネック ＆ スモール',
-            'v_lg_neck': 'Vネック ＆ ラージ',
+            default: "未選択",
+            set: "上下セット",
+            shirt: "シャツのみ",
+            pants: "パンツのみ",
+            short: "ショート",
+            long: "ロング",
+            "no-socks": "/ ソックスなし",
+            socks: "/ ソックスあり",
+            tsuru: "ツルツル",
+            zara: "ザラザラ",
+            round: "ラウンドネック",
+            round_neck: "ラウンドネック ＆ スモール",
+            v_sm_neck: "Vネック ＆ スモール",
+            v_lg_neck: "Vネック ＆ ラージ",
           };
 
-          const change_selected = function(id, selected) {
-            $(`#${id}`).text(text_dict[selected]) //contact sectionに反映
-            $(`#${id}-data`).val(text_dict[selected]) //メール送信用に格納
+          const change_selected = function (id, selected) {
+            $(`#${id}`).text(text_dict[selected]); //contact sectionに反映
+            $(`#${id}-data`).val(text_dict[selected]); //メール送信用に格納
           };
 
-          change_selected(id='socks-selected', selected='no-socks');
-          change_selected(id='sleeve-selected', selected='short'); //デフォルトを適用。
+          change_selected((id = "socks-selected"), (selected = "no-socks"));
+          change_selected((id = "sleeve-selected"), (selected = "short")); //デフォルトを適用。
 
-          const checkout = function() {  //selectorの値が変わる毎に、.checkoutに代金を反映させる。
+          const checkout = function () {
+            //selectorの値が変わる毎に、.checkoutに代金を反映させる。
             if (number <= 0) {
-              $('#uni-price').text('¥0');
-              $('#trans-price').text('¥0');
-              $('#delivery-cost').text('¥0');
-              $('#tax').text('¥0');
-              $('#with-tax').text('¥0（税込）');
-              $('#a-set-of-price').text('¥0（税込）');
-            }else{
+              $("#uni-price").text("¥0");
+              $("#trans-price").text("¥0");
+              $("#delivery-cost").text("¥0");
+              $("#tax").text("¥0");
+              $("#with-tax").text("¥0（税込）");
+              $("#a-set-of-price").text("¥0（税込）");
+            } else {
               if (number < 15) {
                 var amount = 0;
-              }else if (number < 50) {
+              } else if (number < 50) {
                 var amount = 1;
-              }else{
+              } else {
                 var amount = 2; //「amount」は、枚数による代金の変わり目。
               }
               var uni_price = uni_dict[uniform][amount] * number; //ユニフォーム代金　現在の枚数における１枚あたりの値段 * 枚数
-              if (sleeve == 'long') { //ロングスリーブの場合
+              if (sleeve == "long") {
+                //ロングスリーブの場合
                 uni_price += long_sleeve_cost * number; //ロングスリーブ代金　750円 * 枚数 を追加
               }
-              if (socks == 'socks') { //ソックスありの場合
+              if (socks == "socks") {
+                //ソックスありの場合
                 uni_price += socks_dict[amount] * number; //ソックス代金　現在の枚数における１枚あたりの値段 * 枚数 を追加。
               }
               if (amount == 0) {
                 var transportation_price = 5000; //国際輸送料 １９枚以下の時。
-              }else{
+              } else {
                 var transportation_price = trans_dict[amount] * number; //国際輸送料　現在の枚数における１枚あたりの送料 * 枚数
               }
-              var without_tax = uni_price + transportation_price + delivery_cost; //税抜合計
+              var without_tax =
+                uni_price + transportation_price + delivery_cost; //税抜合計
               var tax = without_tax * 0.1; //税
               var with_tax = without_tax + tax; //税込合計
               var a_set_of_price = Math.ceil(with_tax / number); //１枚あたり
-              $('#uni-price').text(`¥${uni_price.toLocaleString()}`);
-              $('#trans-price').text(`¥${transportation_price.toLocaleString()}`);
-              $('#delivery-cost').text(`¥${delivery_cost.toLocaleString()}`);
-              $('#tax').text(`¥${tax.toLocaleString()}`);
-              $('#with-tax').text(`¥${with_tax.toLocaleString()}（税込）`);
-              $('#a-set-of-price').text(`¥${a_set_of_price.toLocaleString()}（税込）`);
+              $("#uni-price").text(`¥${uni_price.toLocaleString()}`);
+              $("#trans-price").text(
+                `¥${transportation_price.toLocaleString()}`
+              );
+              $("#delivery-cost").text(`¥${delivery_cost.toLocaleString()}`);
+              $("#tax").text(`¥${tax.toLocaleString()}`);
+              $("#with-tax").text(`¥${with_tax.toLocaleString()}（税込）`);
+              $("#a-set-of-price").text(
+                `¥${a_set_of_price.toLocaleString()}（税込）`
+              );
             }
           };
 
-          $('#uniform').change(function() {
-            uniform = ($(this).val());
-            change_selected(id='uni-selected', selected=uniform);
+          $("#uniform").change(function () {
+            uniform = $(this).val();
+            change_selected((id = "uni-selected"), (selected = uniform));
             checkout();
           });
 
-          $('#sleeve').change(function() {
-            sleeve = ($(this).val());
-            change_selected(id='sleeve-selected', selected=sleeve);
+          $("#sleeve").change(function () {
+            sleeve = $(this).val();
+            change_selected((id = "sleeve-selected"), (selected = sleeve));
             checkout();
           });
 
-          $('#socks').change(function() {
-            socks = ($(this).val());
-            change_selected(id='socks-selected', selected=socks);
+          $("#socks").change(function () {
+            socks = $(this).val();
+            change_selected((id = "socks-selected"), (selected = socks));
             checkout();
           });
 
-          $('#number').change(function() {
-            number = ($(this).val());
-            $('#num-selected').text(`${number}枚`);
-            $('#num-selected-data').val(`${number}枚`);
+          $("#number").change(function () {
+            number = $(this).val();
+            $("#num-selected").text(`${number}枚`);
+            $("#num-selected-data").val(`${number}枚`);
             checkout();
           });
 
-          $('#choices').change(function() {
+          $("#choices").change(function () {
             var fabric = fabric_choices.value;
             var neck = neck_choices.value;
-            change_selected(id='fabric-selected', selected=fabric);
-            change_selected(id='neck-selected', selected=neck);
+            change_selected((id = "fabric-selected"), (selected = fabric));
+            change_selected((id = "neck-selected"), (selected = neck));
           });
 
           //Validation
-          const forms = document.querySelectorAll('.needs-validation');
-          Array.prototype.slice.call(forms)
-          .forEach(form => {
-            form.addEventListener('submit', (event) => {
-              if (!form.checkValidity()) {
-                event.preventDefault();
-                event.stopPropagation();
-              }
+          const forms = document.querySelectorAll(".needs-validation");
+          Array.prototype.slice.call(forms).forEach((form) => {
+            form.addEventListener(
+              "submit",
+              (event) => {
+                if (!form.checkValidity()) {
+                  event.preventDefault();
+                  event.stopPropagation();
+                }
 
-              form.classList.add('was-validated');
-            }, false);
+                form.classList.add("was-validated");
+              },
+              false
+            );
           });
         });
-        </script>
-      </div>
+      </script>
+    </div>
+  </section>
 
-    </section>
+  <!-- Choice Section -->
+  <section id="choice-section" class="before-appear">
+    <span id="choice-nav-target"></span>
+    <!-- navigation btn target -->
+    <hr class="nav-border" />
 
-    <!-- Choice Section -->
-    <section id="choice-section" class="before-appear">
-      <span id="choice-nav-target"></span> <!-- navigation btn target -->
-      <hr class="nav-border">
+    <h1 id="fab-selector" class="header">
+      予算は決まりました。<br />あとは選ぶだけ。
+    </h1>
+    <hr />
+    <p>画像をクリック or タップ！</p>
 
-      <h1 id="fab-selector" class="header">予算は決まりました。<br>あとは選ぶだけ。</h1>
-      <hr>
-      <p>画像をクリック or タップ！</p>
-
-      <form id="choices">
-
-        <div id="fabrics" class="before-appear">
-          <h2 class="choice-header">ファブリック</h2>
-          <div class="row choice-row">
-
-            <div class="col-6">
-              <div class="choice-img-frame">
-                <input id="tsuru" class="choice-btn" type="radio" name="fabric" value="tsuru">
-                <label class="frame-label" for="tsuru">
-                  <i class="check-mark fa-solid fa-check"></i>
-                  <img class="choice-img" src="{% static 'client/images/choice_images/fabric-a.jpg' %}" alt="fabric_a">
-                </label>
-              </div>
-              <h2 class="choice-label">ツルツル</h2>
-              <p>伸縮性を抑え、<br>身体へのフィット感が抜群。<br>
-              トッププロも使用しており、<br>
-              本格的なプレーの<br>支えとなってくれます。</p>
-            </div>
-
-            <div class="col-6">
-              <div class="choice-img-frame">
-                <input id="zara" type="radio" name="fabric" value="zara">
-                <label class="frame-label" for="zara">
-                    <i class="check-mark fa-solid fa-check"></i>
-                    <img class="choice-img" src="{% static 'client/images/choice_images/fabric-b.jpg' %}" alt="fabric_b">
-                </label>
-              </div>
-              <h2 class="choice-label">ザラザラ</h2>
-              <p>高い伸縮性により、<br>ゆったりとした着心地。<br>
-              肌触りがとてもきもちいい。<br>
-              さまざまな用途、<br>幅広い方におすすめできます。</p>
-            </div>
-          </div>
-        </div>
-
-        <a href="#neck-selector"><img id="neck-selector" class="allow-img" src="{% static 'client/images/design_pieces/allow-black.png' %}" alt=""></a>
-
-        <div id="necks" class="before-appear">
-          <h2 class="choice-header">ネック</h2>
-          <div class="row choice-row">
-
-            <div class="col-6">
-              <div class="choice-img-frame">
-                <input id="round" type="radio" name="neck" value="round">
-                <label class="frame-label" for="round">
-                    <i class="check-mark fa-solid fa-check"></i>
-                    <img class="choice-img" src="{% static 'client/images/choice_images/r.jpg' %}" alt="round">
-                </label>
-              </div>
-              <h2 class="choice-label">ラウンド</h2>
-            </div>
-
-            <div class="col-6">
-              <div class="choice-img-frame">
-                <input id="round-neck" type="radio" name="neck" value="round_neck">
-                <label class="frame-label" for="round-neck">
-                    <i class="check-mark fa-solid fa-check"></i>
-                    <img class="choice-img" src="{% static 'client/images/choice_images/dan_r.jpg' %}" alt="round-sm">
-                </label>
-              </div>
-              <h2 class="choice-label">ラウンドスモール</h2>
-            </div>
-
-          </div>
-
-          <div class="row choice-row">
-
-            <div class="col-6">
-              <div class="choice-img-frame">
-                <input id="v-sm" type="radio" name="neck" value="v_sm_neck">
-                <label class="frame-label" for="v-sm">
-                    <i class="check-mark fa-solid fa-check"></i>
-                    <img class="choice-img" src="{% static 'client/images/choice_images/eri_sm.jpg' %}" alt="v-sm"><br>
-                </label>
-              </div>
-              <h2 class="choice-label">Vスモール</h2>
-            </div>
-
-            <div class="col-6">
-              <div class="choice-img-frame">
-                <input id="v-lg" type="radio" name="neck" value="v_lg_neck">
-                <label class="frame-label" for="v-lg">
-                    <i class="check-mark fa-solid fa-check"></i>
-                    <img class="choice-img" src="{% static 'client/images/choice_images/eri_v.jpg' %}" alt="v-lg"><br>
-                </label>
-              </div>
-              <h2 class="choice-label">Vラージ</h2>
-            </div>
-          </div>
-        </div>
-      </form>
-
-    </section>
-
-    <!-- Contact Section -->
-    <section id="preorder-section" class="before-appear">
-      <span id="contact-nav-target"></span> <!-- navigation btn target -->
-      <hr class="nav-border">
-
-      <h1 class="header">あなたのメール、<br>お待ちしております。</h1>
-      <hr>
-      <p class="contact-text">こちらのメールで、<strong>注文が確定することはございません。</strong><br>
-      ご相談がスムーズに進むように、<br>選んでいただいた内容を活用いたします。<br>
-      ただ質問したい方などもこちらからお気軽にどうぞ！<br>
-      気の済むまでやりとりをしていただき、<br>
-      納得していただいた後、<br>データの共有、オーダーしていただければ嬉しいです。</p>
-      <h2 class="contact-small-header small-header">一緒に最高のユニフォームを創りましょう！！</h2>
-
-      <a href="#contact-form"><img id="contact-form" class="allow-img" src="{% static 'client/images/design_pieces/allow-black.png' %}" alt=""></a>
-
-      <h2 class="small-header">選んでいただいた内容</h2>
-
-      <form id="order-mail-form" class="needs-validation" action="{% url 'client:order' %}" method="post" novalidate>
-        {% csrf_token %}  
-        <div class="feedback">
-          <p>ユニフォーム <i class="fa-solid fa-angles-right"></i>
-            <a href="#uni-selector">
-              <span class="selected-item" id="uni-selected">未選択</span>
-              <input type="hidden" id="uni-selected-data" name="form-uniform">
-              <span class="selected-item" id="socks-selected">/ 未選択</span>
-              <input type="hidden" id="socks-selected-data" name="form-socks">
-            </a>
-          </p>
-          <p>スリーブ <i class="fa-solid fa-angles-right"></i>
-            <a href="#uni-selector"><span class="selected-item" id="sleeve-selected">未選択</span></a>
-            <input type="hidden" id="sleeve-selected-data" name="form-sleeve">
-          </p>
-          <p>枚数 <i class="fa-solid fa-angles-right"></i>
-            <a href="#uni-selector"><span class="selected-item" id="num-selected">未選択</span></a>
-            <input type="hidden" id="num-selected-data" name="form-number">
-          </p>
-          <p>ファブリック <i class="fa-solid fa-angles-right"></i>
-            <a href="#fab-selector"><span class="selected-item" id="fabric-selected">未選択</span></a>
-            <input type="hidden" id="fabric-selected-data" name="form-fabric">
-          </p>
-          <p>ネック <i class="fa-solid fa-angles-right"></i>
-            <a href="#neck-selector"><span class="selected-item" id="neck-selected">未選択</span></a>
-            <input type="hidden" id="neck-selected-data" name="form-neck">
-          </p>
-          <!-- Button trigger modal -->
-          <button type="button"
-            class="default-design-btn btn btn-outline-primary rounded-0"
-            data-bs-toggle="modal"
-            data-bs-target="#sample-modal">
-            <div id="default-design-display">デフォルトデザインから選ぶ</div>
-          </button>
-          <br>
-          <button id="default-cancel-btn" type="button" class="btn-close" aria-label="Close"></button>
-          <input type="hidden" id="default-selected-data" name="form-default">
-        </div>
-        <script> 
-          $(function(){
-            const change_default = function(name, url) {
-              $('#default-design-display').html('<img class="choice-img" src="' + url + '" alt="ai data sample">'); //contact sectionに反映
-              $('#default-selected-data').val(name + '[https://ambicion-jp.com/' + url + ']'); //メール送信用に格納
-            };
-            const cancel_default = function() {
-              $('#default-design-display').html('デフォルトデザインから選ぶ'); //contact sectionに反映
-              $('#default-selected-data').val(''); //メール送信用に格納
-            }
-            const default_design_choices = document.getElementById('default-design').design;
-            $('#default-design').change(function() {
-              var default_design_value = default_design_choices.value;
-              var default_design_name = default_design_value.split(':')[0]
-              var default_design_url = default_design_value.split(':')[1]
-              change_default(default_design_name, default_design_url);
-            });
-            $('#default-cancel-btn').on('click', function() {
-              cancel_default();
-            });
-          });
-        </script>
-
-        <div class="submit-area">
-          <div class="input-group mx-auto">
-            <span class="rounded-0 input-group-text"><i class="fa-solid fa-user text-light"></i></span>
-            <input type="text" class="form-input rounded-0 form-control" name="username" placeholder="お名前" required>
-            <div class="invalid-feedback">
-              名前を入力してください。
-            </div>
-          </div>
-
-          <div class="input-group mx-auto">
-            <span class="rounded-0 input-group-text"><i class="fa-solid fa-envelope text-light"></i></span>
-            <input type="email" class="form-input rounded-0 form-control" name="email" placeholder="返信用メールアドレス" required>
-            <div class="invalid-feedback">
-              メールアドレスを入力してください。
-            </div>
-          </div>
-
-          <div class="input-group mx-auto">
-            <span class="rounded-0 input-group-text"><i class="fa-solid fa-pen-to-square text-light"></i></span>
-            <textarea rows="3" maxlength="250" class="form-input rounded-0 form-control" name="free-text"
-             placeholder="フリースペース
-ex)ベースカラー：#249, 模様：#260, エンブレム持参あり。"></textarea>
-          </div>
-          <p class="terms-header">プライバシーポリシー</p>
-          <p class="terms-attention">(メールの送信には最下部の同意が必要です。)</p>
-          <div class="mx-auto terms-container">
-            <h3>個人情報の取り扱いについて</h3>
-            <hr>
-            <p class="terms-text">当社は、お客さまの個人情報を正確かつ最新の状態に保ち、個人情報への不正アクセス・紛失・破損・改ざん・漏洩などを防止するため、セキュリティシステムの維持・管理体制の整備・社員教育の徹底等の必要な措置を講じ、安全対策を実施し個人情報の厳重な管理を行ないます。</p>
-            <h3>個人情報の利用目的</h3>
-            <hr>
-            <p class="terms-text">お客さまからお預かりした個人情報は、当社からのご連絡や業務のご案内やご質問に対する回答として、電子メールや資料のご送付に利用いたします。</p>
-            <h3>個人情報の第三者への開示・提供の禁止</h3>
-            <hr>
-            <p class="terms-text">当社は、お客さまよりお預かりした個人情報を適切に管理し、次のいずれかに該当する場合を除き、個人情報を第三者に開示いたしません。</p>
-            <ul>
-              <li><p class="terms-text">お客さまの同意がある場合</p></li>
-              <li><p class="terms-text">お客さまが希望されるサービスを行なうために当社が業務を委託する業者に対して開示する場合</p></li>
-              <li><p class="terms-text">法令に基づき開示することが必要である場合</p></li>
-            </ul>
-            <h3>個人情報の安全対策</h3>
-            <hr>
-            <p class="terms-text">当社は、個人情報の正確性及び安全性確保のために、セキュリティに万全の対策を講じています。</p>
-            <h3>ご本人の照会</h3>
-            <hr>
-            <p class="terms-text">お客さまがご本人の個人情報の照会・修正・削除などをご希望される場合には、ご本人であることを確認の上、対応させていただきます。</p>
-            <h3>法令、規範の遵守と見直し</h3>
-            <hr>
-            <p class="terms-text">当社は、保有する個人情報に関して適用される日本の法令、その他規範を遵守するとともに、本ポリシーの内容を適宜見直し、その改善に努めます。</p>
-            <br>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="terms-checkbox">
-              <label class="form-check-label" for="terms-checkbox">
-                上記のプライバシーポリシーに同意します。
+    <form id="choices">
+      <div id="fabrics" class="before-appear">
+        <h2 class="choice-header">ファブリック</h2>
+        <div class="row choice-row">
+          <div class="col-6">
+            <div class="choice-img-frame">
+              <input
+                id="tsuru"
+                class="choice-btn"
+                type="radio"
+                name="fabric"
+                value="tsuru"
+              />
+              <label class="frame-label" for="tsuru">
+                <i class="check-mark fa-solid fa-check"></i>
+                <img
+                  class="choice-img"
+                  src="{% static 'client/images/choice_images/fabric-a.jpg' %}"
+                  alt="fabric_a"
+                />
               </label>
             </div>
+            <h2 class="choice-label">ツルツル</h2>
+            <p>
+              伸縮性を抑え、<br />身体へのフィット感が抜群。<br />
+              トッププロも使用しており、<br />
+              本格的なプレーの<br />支えとなってくれます。
+            </p>
           </div>
-          <div class="g-recaptcha input-group mx-auto" data-callback="validateRecaptcha" data-sitekey="{{ recaptcha_sitekey }}"></div>
-          <button class="recaptcha rounded-0 email-submit btn btn-primary btn-lg" type="submit" disabled>メールを送信</button>
-        </div>
-      </form>
 
-    </section>
-    <script> 
-      // if terms checkbox is false, submit btn got be disabled.
-      $(window).on('load', function() {
-        is_terms_checked = false;
-        is_recaptcha_checked = false;
-        const check_terms = function() {
-          is_terms_checked = $('#terms-checkbox').prop('checked');
-          console.log('terms:', is_terms_checked);
-          console.log('recaptcha:', is_recaptcha_checked);
-          if ( is_terms_checked && is_recaptcha_checked ) {
-            $('.recaptcha').prop('disabled', false);
-          }else{
-            $('.recaptcha').prop('disabled', true);
-          }
-        };
-        check_terms();
-        $('#terms-checkbox').change(function() {
-          check_terms();
+          <div class="col-6">
+            <div class="choice-img-frame">
+              <input id="zara" type="radio" name="fabric" value="zara" />
+              <label class="frame-label" for="zara">
+                <i class="check-mark fa-solid fa-check"></i>
+                <img
+                  class="choice-img"
+                  src="{% static 'client/images/choice_images/fabric-b.jpg' %}"
+                  alt="fabric_b"
+                />
+              </label>
+            </div>
+            <h2 class="choice-label">ザラザラ</h2>
+            <p>
+              高い伸縮性により、<br />ゆったりとした着心地。<br />
+              肌触りがとてもきもちいい。<br />
+              さまざまな用途、<br />幅広い方におすすめできます。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <a href="#neck-selector"
+        ><img
+          id="neck-selector"
+          class="allow-img"
+          src="{% static 'client/images/design_pieces/allow-black.png' %}"
+          alt=""
+      /></a>
+
+      <div id="necks" class="before-appear">
+        <h2 class="choice-header">ネック</h2>
+        <div class="row choice-row">
+          <div class="col-6">
+            <div class="choice-img-frame">
+              <input id="round" type="radio" name="neck" value="round" />
+              <label class="frame-label" for="round">
+                <i class="check-mark fa-solid fa-check"></i>
+                <img
+                  class="choice-img"
+                  src="{% static 'client/images/choice_images/r.jpg' %}"
+                  alt="round"
+                />
+              </label>
+            </div>
+            <h2 class="choice-label">ラウンド</h2>
+          </div>
+
+          <div class="col-6">
+            <div class="choice-img-frame">
+              <input
+                id="round-neck"
+                type="radio"
+                name="neck"
+                value="round_neck"
+              />
+              <label class="frame-label" for="round-neck">
+                <i class="check-mark fa-solid fa-check"></i>
+                <img
+                  class="choice-img"
+                  src="{% static 'client/images/choice_images/dan_r.jpg' %}"
+                  alt="round-sm"
+                />
+              </label>
+            </div>
+            <h2 class="choice-label">ラウンドスモール</h2>
+          </div>
+        </div>
+
+        <div class="row choice-row">
+          <div class="col-6">
+            <div class="choice-img-frame">
+              <input id="v-sm" type="radio" name="neck" value="v_sm_neck" />
+              <label class="frame-label" for="v-sm">
+                <i class="check-mark fa-solid fa-check"></i>
+                <img
+                  class="choice-img"
+                  src="{% static 'client/images/choice_images/eri_sm.jpg' %}"
+                  alt="v-sm"
+                /><br />
+              </label>
+            </div>
+            <h2 class="choice-label">Vスモール</h2>
+          </div>
+
+          <div class="col-6">
+            <div class="choice-img-frame">
+              <input id="v-lg" type="radio" name="neck" value="v_lg_neck" />
+              <label class="frame-label" for="v-lg">
+                <i class="check-mark fa-solid fa-check"></i>
+                <img
+                  class="choice-img"
+                  src="{% static 'client/images/choice_images/eri_v.jpg' %}"
+                  alt="v-lg"
+                /><br />
+              </label>
+            </div>
+            <h2 class="choice-label">Vラージ</h2>
+          </div>
+        </div>
+      </div>
+    </form>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="preorder-section" class="before-appear">
+    <span id="contact-nav-target"></span>
+    <!-- navigation btn target -->
+    <hr class="nav-border" />
+
+    <h1 class="header">あなたのメール、<br />お待ちしております。</h1>
+    <hr />
+    <p class="contact-text">
+      こちらのメールで、<strong>注文が確定することはございません。</strong
+      ><br />
+      ご相談がスムーズに進むように、<br />選んでいただいた内容を活用いたします。<br />
+      ただ質問したい方などもこちらからお気軽にどうぞ！<br />
+      気の済むまでやりとりをしていただき、<br />
+      納得していただいた後、<br />データの共有、オーダーしていただければ嬉しいです。
+    </p>
+    <h2 class="contact-small-header small-header">
+      一緒に最高のユニフォームを創りましょう！！
+    </h2>
+
+    <a href="#contact-form"
+      ><img
+        id="contact-form"
+        class="allow-img"
+        src="{% static 'client/images/design_pieces/allow-black.png' %}"
+        alt=""
+    /></a>
+
+    <h2 class="small-header">選んでいただいた内容</h2>
+
+    <form
+      id="order-mail-form"
+      class="needs-validation"
+      action="{% url 'client:order' %}"
+      method="post"
+      novalidate
+    >
+      {% csrf_token %}
+      <div class="feedback">
+        <p>
+          ユニフォーム <i class="fa-solid fa-angles-right"></i>
+          <a href="#uni-selector">
+            <span class="selected-item" id="uni-selected">未選択</span>
+            <input type="hidden" id="uni-selected-data" name="form-uniform" />
+            <span class="selected-item" id="socks-selected">/ 未選択</span>
+            <input type="hidden" id="socks-selected-data" name="form-socks" />
+          </a>
+        </p>
+        <p>
+          スリーブ <i class="fa-solid fa-angles-right"></i>
+          <a href="#uni-selector"
+            ><span class="selected-item" id="sleeve-selected">未選択</span></a
+          >
+          <input type="hidden" id="sleeve-selected-data" name="form-sleeve" />
+        </p>
+        <p>
+          枚数 <i class="fa-solid fa-angles-right"></i>
+          <a href="#uni-selector"
+            ><span class="selected-item" id="num-selected">未選択</span></a
+          >
+          <input type="hidden" id="num-selected-data" name="form-number" />
+        </p>
+        <p>
+          ファブリック <i class="fa-solid fa-angles-right"></i>
+          <a href="#fab-selector"
+            ><span class="selected-item" id="fabric-selected">未選択</span></a
+          >
+          <input type="hidden" id="fabric-selected-data" name="form-fabric" />
+        </p>
+        <p>
+          ネック <i class="fa-solid fa-angles-right"></i>
+          <a href="#neck-selector"
+            ><span class="selected-item" id="neck-selected">未選択</span></a
+          >
+          <input type="hidden" id="neck-selected-data" name="form-neck" />
+        </p>
+        <!-- Button trigger modal -->
+        <button
+          type="button"
+          class="default-design-btn btn btn-outline-primary rounded-0"
+          data-bs-toggle="modal"
+          data-bs-target="#sample-modal"
+        >
+          <div id="default-design-display">デフォルトデザインから選ぶ</div>
+        </button>
+        <br />
+        <button
+          id="default-cancel-btn"
+          type="button"
+          class="btn-close"
+          aria-label="Close"
+        ></button>
+        <input type="hidden" id="default-selected-data" name="form-default" />
+      </div>
+      <script>
+        $(function () {
+          const change_default = function (name, url) {
+            $("#default-design-display").html(
+              '<img class="choice-img" src="' + url + '" alt="ai data sample">'
+            ); //contact sectionに反映
+            $("#default-selected-data").val(
+              name + "[https://ambicion-jp.com/" + url + "]"
+            ); //メール送信用に格納
+          };
+          const cancel_default = function () {
+            $("#default-design-display").html("デフォルトデザインから選ぶ"); //contact sectionに反映
+            $("#default-selected-data").val(""); //メール送信用に格納
+          };
+          const default_design_choices =
+            document.getElementById("default-design").design;
+          $("#default-design").change(function () {
+            var default_design_value = default_design_choices.value;
+            var default_design_name = default_design_value.split(":")[0];
+            var default_design_url = default_design_value.split(":")[1];
+            change_default(default_design_name, default_design_url);
+          });
+          $("#default-cancel-btn").on("click", function () {
+            cancel_default();
+          });
         });
+      </script>
+
+      <div class="submit-area">
+        <div class="input-group mx-auto">
+          <span class="rounded-0 input-group-text"
+            ><i class="fa-solid fa-user text-light"></i
+          ></span>
+          <input
+            type="text"
+            class="form-input rounded-0 form-control"
+            name="username"
+            placeholder="お名前"
+            required
+          />
+          <div class="invalid-feedback">名前を入力してください。</div>
+        </div>
+
+        <div class="input-group mx-auto">
+          <span class="rounded-0 input-group-text"
+            ><i class="fa-solid fa-envelope text-light"></i
+          ></span>
+          <input
+            type="email"
+            class="form-input rounded-0 form-control"
+            name="email"
+            placeholder="返信用メールアドレス"
+            required
+          />
+          <div class="invalid-feedback">メールアドレスを入力してください。</div>
+        </div>
+
+        <div class="input-group mx-auto">
+          <span class="rounded-0 input-group-text"
+            ><i class="fa-solid fa-pen-to-square text-light"></i
+          ></span>
+          <textarea
+            rows="3"
+            maxlength="250"
+            class="form-input rounded-0 form-control"
+            name="free-text"
+            placeholder="フリースペース
+ex)ベースカラー：#249, 模様：#260, エンブレム持参あり。"
+          ></textarea>
+        </div>
+        <p class="terms-header">プライバシーポリシー</p>
+        <p class="terms-attention">
+          (メールの送信には最下部の同意が必要です。)
+        </p>
+        <div class="mx-auto terms-container">
+          <h3>個人情報の取り扱いについて</h3>
+          <hr />
+          <p class="terms-text">
+            当社は、お客さまの個人情報を正確かつ最新の状態に保ち、個人情報への不正アクセス・紛失・破損・改ざん・漏洩などを防止するため、セキュリティシステムの維持・管理体制の整備・社員教育の徹底等の必要な措置を講じ、安全対策を実施し個人情報の厳重な管理を行ないます。
+          </p>
+          <h3>個人情報の利用目的</h3>
+          <hr />
+          <p class="terms-text">
+            お客さまからお預かりした個人情報は、当社からのご連絡や業務のご案内やご質問に対する回答として、電子メールや資料のご送付に利用いたします。
+          </p>
+          <h3>個人情報の第三者への開示・提供の禁止</h3>
+          <hr />
+          <p class="terms-text">
+            当社は、お客さまよりお預かりした個人情報を適切に管理し、次のいずれかに該当する場合を除き、個人情報を第三者に開示いたしません。
+          </p>
+          <ul>
+            <li><p class="terms-text">お客さまの同意がある場合</p></li>
+            <li>
+              <p class="terms-text">
+                お客さまが希望されるサービスを行なうために当社が業務を委託する業者に対して開示する場合
+              </p>
+            </li>
+            <li>
+              <p class="terms-text">法令に基づき開示することが必要である場合</p>
+            </li>
+          </ul>
+          <h3>個人情報の安全対策</h3>
+          <hr />
+          <p class="terms-text">
+            当社は、個人情報の正確性及び安全性確保のために、セキュリティに万全の対策を講じています。
+          </p>
+          <h3>ご本人の照会</h3>
+          <hr />
+          <p class="terms-text">
+            お客さまがご本人の個人情報の照会・修正・削除などをご希望される場合には、ご本人であることを確認の上、対応させていただきます。
+          </p>
+          <h3>法令、規範の遵守と見直し</h3>
+          <hr />
+          <p class="terms-text">
+            当社は、保有する個人情報に関して適用される日本の法令、その他規範を遵守するとともに、本ポリシーの内容を適宜見直し、その改善に努めます。
+          </p>
+          <br />
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="terms-checkbox"
+            />
+            <label class="form-check-label" for="terms-checkbox">
+              上記のプライバシーポリシーに同意します。
+            </label>
+          </div>
+        </div>
+        <div
+          class="g-recaptcha input-group mx-auto"
+          data-callback="validateRecaptcha"
+          data-sitekey="{{ recaptcha_sitekey }}"
+        ></div>
+        <button
+          class="recaptcha rounded-0 email-submit btn btn-primary btn-lg"
+          type="submit"
+          disabled
+        >
+          メールを送信
+        </button>
+      </div>
+    </form>
+  </section>
+  <script>
+    // if terms checkbox is false, submit btn got be disabled.
+    $(window).on("load", function () {
+      is_terms_checked = false;
+      is_recaptcha_checked = false;
+      const check_terms = function () {
+        is_terms_checked = $("#terms-checkbox").prop("checked");
+        console.log("terms:", is_terms_checked);
+        console.log("recaptcha:", is_recaptcha_checked);
+        if (is_terms_checked && is_recaptcha_checked) {
+          $(".recaptcha").prop("disabled", false);
+        } else {
+          $(".recaptcha").prop("disabled", true);
+        }
+      };
+      check_terms();
+      $("#terms-checkbox").change(function () {
+        check_terms();
       });
-    
-    
-      // reCAPTCHA succeeded, enable submit button
-      function validateRecaptcha ( code ) {
-        if ( !!code ) {
-          is_recaptcha_checked = true;
-          console.log('terms:', is_terms_checked);
-          console.log('recaptcha:', is_recaptcha_checked);
-          if ( is_terms_checked ) {
-            $('.recaptcha').prop('disabled', false);
-          }
+    });
+
+    // reCAPTCHA succeeded, enable submit button
+    function validateRecaptcha(code) {
+      if (!!code) {
+        is_recaptcha_checked = true;
+        console.log("terms:", is_terms_checked);
+        console.log("recaptcha:", is_recaptcha_checked);
+        if (is_terms_checked) {
+          $(".recaptcha").prop("disabled", false);
         }
       }
-    </script>
+    }
+  </script>
 
-{% endblock %}
+  {% endblock %}
+</head>

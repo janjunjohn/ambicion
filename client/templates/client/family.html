@@ -1,140 +1,173 @@
-{% extends 'client/white_page_base.html' %}
-{% load static %}
-
-  {% block OGP %}
-    <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/ fb# prefix属性: http://ogp.me/ns/ prefix属性#">
-    <meta property="og:url" content="https://ambicion-jp.com/about" />
-    <meta property="og:type" content="article" />
-    <meta property="og:title" content="アバウトページ" />
-    <meta property="og:description" content="    スリランカという縫製が盛んな国と旅するサッカー選手。この出会いが、唯一無二のコストパフォーマンスを実現しました。
-    価格と質。その両方でみなさんを驚かせることができると自負しております。" />
-    <meta property="og:site_name" content="AMBICIÓNとは？" />
-    <meta property="og:image" content="{% static 'client/images/ryota_bay.jpg' %}" />
-    <meta name="twitter:card" content="Summary Card" />
-    <meta name="twitter:site" content="@Ryota410h" />
-  {% endblock OGP %}
-
-  {% block heading %}
-      <h1 class="heading-text">AMBICIÓNとは？</h1>
-  {% endblock %}
-  {% block bg_picture %}
-    <img class="background-img container-fluid" src="{% static 'client/images/stadium.jpg' %}" alt="stadium">
-  {% endblock %}
-  {% block navigation %}
-    <a href="#greeting-nav-target">
-        <div class="nav-btn">グリーティング</div>
-    </a>
-    <a href="#product-nav-target">
-        <div class="nav-btn">プロダクト</div>
-    </a>
-    <a href="#photo-gallery-nav-target">
-        <div class="nav-btn">ギャラリー</div>
-    </a>
-  {% endblock %}
-
-{% block contents %}
-<section id="greeting-section" class="before-appear">
-
+{% extends 'client/white_page_base.html' %} {% load static %} {% block OGP %}
+<head
+  prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/ fb# prefix属性: http://ogp.me/ns/ prefix属性#"
+>
+  <meta property="og:url" content="https://ambicion-jp.com/about" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="アバウトページ" />
+  <meta
+    property="og:description"
+    content="    スリランカという縫製が盛んな国と旅するサッカー選手。この出会いが、唯一無二のコストパフォーマンスを実現しました。
+    価格と質。その両方でみなさんを驚かせることができると自負しております。"
+  />
+  <meta property="og:site_name" content="AMBICIÓNとは？" />
+  <meta
+    property="og:image"
+    content="{% static 'client/images/ryota_bay.jpg' %}"
+  />
+  <meta name="twitter:card" content="Summary Card" />
+  <meta name="twitter:site" content="@Ryota410h" />
+  {% endblock OGP %} {% block heading %}
+  <h1 class="heading-text">AMBICIÓNとは？</h1>
+  {% endblock %} {% block bg_picture %}
+  <img
+    class="background-img container-fluid"
+    src="{% static 'client/images/stadium.jpg' %}"
+    alt="stadium"
+  />
+  {% endblock %} {% block navigation %}
+  <a href="#greeting-nav-target">
+    <div class="nav-btn">グリーティング</div>
+  </a>
+  <a href="#product-nav-target">
+    <div class="nav-btn">プロダクト</div>
+  </a>
+  <a href="#photo-gallery-nav-target">
+    <div class="nav-btn">ギャラリー</div>
+  </a>
+  {% endblock %} {% block contents %}
+  <section id="greeting-section" class="before-appear">
     <h1 class="header">代表あいさつ。</h1>
-    <hr>
-    <div id="greeting-first" class="before-appear greeting-container row container-fluid">
-        <div class="col-lg-6">
-            <img class="section-img" src="{% static 'client/images/ryota_bay.jpg' %}" alt="ryota bay">
-        </div>
-        <div class="col-lg-6">
-            <h1 class="text-header">はじめまして！</h1>
-            <p class="section-text">
-                旅するサッカー選手、林　遼太です。<br>
-                現在も現役のプロサッカー選手であり、<br>
-                AMBICIÓNを立ち上げた張本人です。<br>
-                きっかけは、 <br>僕がスリランカのSEA HAWKS FCに所属したことから。 <br>
-                スリランカという国は、実は衣類産業が盛んで、<br>高い技術を持った工場が多い国です。<br>
-                そして偶然出会った１つの工場。<br>その品質の高さと、働く人々の暖かさに心を動かされました。<br><br>
-                「こんなに素晴らしいユニフォームたちを、<br>スリランカのなかだけにとどめておくのは、もったいない！」<br>
-                この情熱を彼らにぶつけました。
-            </p>
-
-        </div>
+    <hr />
+    <div
+      id="greeting-first"
+      class="before-appear greeting-container row container-fluid"
+    >
+      <div class="col-lg-6">
+        <img
+          class="section-img"
+          src="{% static 'client/images/ryota_bay.jpg' %}"
+          alt="ryota bay"
+        />
+      </div>
+      <div class="col-lg-6">
+        <h1 class="text-header">はじめまして！</h1>
+        <p class="section-text">
+          旅するサッカー選手、林　遼太です。<br />
+          現在も現役のプロサッカー選手であり、<br />
+          AMBICIÓNを立ち上げた張本人です。<br />
+          きっかけは、 <br />僕がスリランカのSEA HAWKS FCに所属したことから。
+          <br />
+          スリランカという国は、実は衣類産業が盛んで、<br />高い技術を持った工場が多い国です。<br />
+          そして偶然出会った１つの工場。<br />その品質の高さと、働く人々の暖かさに心を動かされました。<br /><br />
+          「こんなに素晴らしいユニフォームたちを、<br />スリランカのなかだけにとどめておくのは、もったいない！」<br />
+          この情熱を彼らにぶつけました。
+        </p>
+      </div>
     </div>
 
-    <div id="greeting-second" class="before-appear greeting-container row container-fluid">
+    <div
+      id="greeting-second"
+      class="before-appear greeting-container row container-fluid"
+    >
+      <div class="col-lg-6 order-lg-2">
+        <img
+          class="section-img"
+          src="{% static 'client/images/stuff.jpg' %}"
+          alt="stuff"
+        />
+      </div>
 
-        <div class="col-lg-6 order-lg-2">
-            <img class="section-img" src="{% static 'client/images/stuff.jpg' %}" alt="stuff">
-        </div>
-
-        <div class="col-lg-6 order-lg-1">
-            <h1 class="text-header">日本、そして世界へ！</h1>
-            <p class="section-text">
-                写真は工場を運営するスミス夫妻と僕です。<br>
-                彼らもまた、自分達の製品を世界に届けたいという<br>
-                熱い志をもっていました。<br>
-                一致した僕らの志（アンビシオン）を胸に、 <br>AMBICIÓNを立ち上げることを決心しました。 <br><br>
-                「新しいサッカーチームのユニフォームを作りたい。」<br>
-                「チーム運営をより経済的に、でも質は落としたくない。」<br>
-                「オリジナルユニフォームで、<br>所属するサークルの気持ちを一つにしたい。」<br>
-                さまざまなみなさんの志を、<br>
-                AMBICIÓNと共に叶えましょう！<br>
-            </p>
-        </div>
-
+      <div class="col-lg-6 order-lg-1">
+        <h1 class="text-header">日本、そして世界へ！</h1>
+        <p class="section-text">
+          写真は工場を運営するスミス夫妻と僕です。<br />
+          彼らもまた、自分達の製品を世界に届けたいという<br />
+          熱い志をもっていました。<br />
+          一致した僕らの志（アンビシオン）を胸に、
+          <br />AMBICIÓNを立ち上げることを決心しました。 <br /><br />
+          「新しいサッカーチームのユニフォームを作りたい。」<br />
+          「チーム運営をより経済的に、でも質は落としたくない。」<br />
+          「オリジナルユニフォームで、<br />所属するサークルの気持ちを一つにしたい。」<br />
+          さまざまなみなさんの志を、<br />
+          AMBICIÓNと共に叶えましょう！<br />
+        </p>
+      </div>
     </div>
+  </section>
 
-</section>
-
-<section id="product-section" class="before-appear">
+  <section id="product-section" class="before-appear">
     <span id="product-nav-target"></span>
-    <hr class="nav-border">
+    <hr class="nav-border" />
     <h1 class="header">私たちが作ります。</h1>
-    <hr>
+    <hr />
     <div class="product-heading">
-        <h2 class="text-header">工場の様子、スミスさんの想い。</h2>
-        <iframe class="youtube-about" src="https://www.youtube.com/embed/FSo8q9kxkPE"
-                title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-        </iframe>
+      <h2 class="text-header">工場の様子、スミスさんの想い。</h2>
+      <iframe
+        class="youtube-about"
+        src="https://www.youtube.com/embed/FSo8q9kxkPE"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      >
+      </iframe>
     </div>
-    <a href="#product-detail"><img id="product-detail" class="allow-img" src="{% static 'client/images/design_pieces/allow-black.png' %}" alt=""></a>
+    <a href="#product-detail"
+      ><img
+        id="product-detail"
+        class="allow-img"
+        src="{% static 'client/images/design_pieces/allow-black.png' %}"
+        alt=""
+    /></a>
     <div class="product-detail row container-fluid">
-        <div class="section-text col-lg-6">
-            <h2 class="text-header">プロクオリティ。</h2>
-            <p class="section-text">
-                現地の工場では、<br>
-                専門の機械と熟練された技術者たちにより、<br>
-                プロクオリティのユニフォームを作成しています。<br>
-                代表自身がプロサッカー選手であり、<br>本人がその質の高さに驚いたほどです。<br>
-            </p>
-        </div>
-        <div class="section-text col-lg-6">
-            <h1 class="text-header">圧倒的安さ。</h1>
-            <p class="section-text">
-                AMBICIÓNでは、<br>
-                工場と代表の信頼関係のもと、 <br>代理店などは一切通しておりません。 <br>
-                工場から直接みなさんのところまで <br>ユニフォームをお届けしております。<br>
-            </p>
-        </div>
+      <div class="section-text col-lg-6">
+        <h2 class="text-header">プロクオリティ。</h2>
+        <p class="section-text">
+          現地の工場では、<br />
+          専門の機械と熟練された技術者たちにより、<br />
+          プロクオリティのユニフォームを作成しています。<br />
+          代表自身がプロサッカー選手であり、<br />本人がその質の高さに驚いたほどです。<br />
+        </p>
+      </div>
+      <div class="section-text col-lg-6">
+        <h1 class="text-header">圧倒的安さ。</h1>
+        <p class="section-text">
+          AMBICIÓNでは、<br />
+          工場と代表の信頼関係のもと、 <br />代理店などは一切通しておりません。
+          <br />
+          工場から直接みなさんのところまで
+          <br />ユニフォームをお届けしております。<br />
+        </p>
+      </div>
 
-        <div class="container-fluid">
-            <div class="section-text">
-                <p class="conclusion">
-                    <strong>スリランカ</strong>という縫製が盛んな国と<strong>旅するサッカー選手。</strong><br>
-                    この出会いが、<strong>唯一無二のコストパフォーマンス</strong>を実現しました。<br>
-                    <strong>価格と質。</strong><br>その両方でみなさんを驚かせることができると自負しております。<br>
-                </p>
-            </div>
-            <a href="{% url 'client:order' %}">
-                <button type="button" class="rounded-0 section-btn btn btn-primary ">見積もり</button>
-            </a>
-
+      <div class="container-fluid">
+        <div class="section-text">
+          <p class="conclusion">
+            <strong>スリランカ</strong>という縫製が盛んな国と<strong
+              >旅するサッカー選手。</strong
+            ><br />
+            この出会いが、<strong>唯一無二のコストパフォーマンス</strong>を実現しました。<br />
+            <strong>価格と質。</strong
+            ><br />その両方でみなさんを驚かせることができると自負しております。<br />
+          </p>
         </div>
-    <span id="photo-gallery-nav-target"></span>
+        <a href="{% url 'client:order' %}">
+          <button type="button" class="rounded-0 section-btn btn btn-primary">
+            見積もり
+          </button>
+        </a>
+      </div>
+      <span id="photo-gallery-nav-target"></span>
     </div>
+  </section>
 
-</section>
+  <section id="photo-gallery-section" class="before-appear">
+    <hr class="gallery-border" />
 
-<section id="photo-gallery-section" class="before-appear">
-    <hr class="gallery-border">
-
-    <h2 class="small-header"><i class="fa-solid fa-camera-retro"></i>フォトギャラリー</h2>
+    <h2 class="small-header">
+      <i class="fa-solid fa-camera-retro"></i>フォトギャラリー
+    </h2>
     <div class="row">
       <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
         <img
@@ -201,10 +234,8 @@
           alt="game scene"
         />
       </div>
-</div>
+    </div>
+  </section>
 
-
-</section>
-
-
-{% endblock %}
+  {% endblock %}
+</head>
