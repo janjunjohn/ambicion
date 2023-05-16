@@ -65,7 +65,7 @@ class GoogleDriveClient:
         for parents_folder in FOLDER_LIST:
             if parents_folder['name'] == folder_name:
                 parents_folder_id = parents_folder['gd_id']
-        
+
         file_path = file_path[1:]  # MediaFileUploadに合わせ、先頭の"/"を削除
         media = MediaFileUpload(file_path, mimetype=mine_type, resumable=True)
         file_metadata = {

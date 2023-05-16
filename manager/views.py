@@ -61,6 +61,7 @@ class MainSlideView(LoginRequiredMixin, CreateView):
             messages.success(request, '更新完了！')
         except:
             import traceback
+
             traceback.print_exc()
             messages.error(request, '同じタイトルは使えない！')
         return redirect('manager:main_slide')
@@ -99,6 +100,7 @@ class SampleView(CreateView, LoginRequiredMixin):
             messages.success(request, '更新完了！')
         except:
             import traceback
+
             traceback.print_exc()
             messages.error(request, '同じ名前は使えない！')
         return redirect('manager:sample')
