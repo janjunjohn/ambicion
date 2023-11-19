@@ -120,6 +120,10 @@ nav {
   color: #3b5998;
 }
 
+#line:hover {
+  color: rgb(6,199,85);
+}
+
 .before-appear {
   opacity: 0;
 }
