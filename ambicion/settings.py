@@ -10,13 +10,13 @@ AUTH_USER_MODEL = 'manager.User'
 LOGIN_URL = 'login/'
 
 
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+
 # Set Environment Variables
 env = environ.Env()
 environ.Env.read_env()
-
-
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -84,8 +84,8 @@ WSGI_APPLICATION = 'ambicion.wsgi.application'
 
 from socket import gethostname
 hostname = gethostname()
-
-if "JUNnoMacBook-Air-2.local" in hostname:
+print(f'#################### {hostname} ####################')
+if "JUNs-MacBook-Pro.local" in hostname:
     # デバッグ環境
     # DEBUG = True 
     DATABASES = {
