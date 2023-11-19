@@ -153,6 +153,26 @@ nav {
   padding: 0 4rem;
   border: 0;
 }
+
+.line-banner-container {
+  height: 40px;
+  width: 100%;
+  display: none;
+}
+
+.line-banner {
+  background-color: rgba(6,199,85,0.9); 
+  color: #fff;
+  padding: auto;
+  font-weight: bold;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.line-banner:hover {
+  background-color: rgba(6, 199, 86, 0.638); 
+  color: #fff;
+}
 /* Gallery Section ****************************************************************************************************/
 
 #carouselExampleControls {
@@ -785,6 +805,10 @@ nav {
 
   p {
     font-size: 1.8rem;
+  }
+  
+  .line-banner-container {
+    display: table;
   }
 
   .small-header {

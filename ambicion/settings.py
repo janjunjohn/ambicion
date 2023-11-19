@@ -84,8 +84,8 @@ WSGI_APPLICATION = 'ambicion.wsgi.application'
 
 from socket import gethostname
 hostname = gethostname()
-
-if "JUNnoMacBook-Air-2.local" in hostname:
+print(f'#################### {hostname} ####################')
+if "JUNs-MacBook-Pro.local" in hostname:
     # デバッグ環境
     # DEBUG = True 
     DATABASES = {
