@@ -14,14 +14,6 @@ LOGIN_URL = 'login/'
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-<<<<<<< HEAD
-# Set Environment Variables
-env = environ.Env()
-environ.Env.read_env()
-
-
-=======
->>>>>>> local_test
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
