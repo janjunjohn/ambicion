@@ -14,11 +14,6 @@ LOGIN_URL = 'login/'
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Set Environment Variables
-env = environ.Env()
-environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
-
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -88,6 +83,11 @@ print(f'#################### {hostname} ####################')
 if "JUNs-MacBook-Pro.local" in hostname:
     # デバッグ環境
     # DEBUG = True 
+
+    # Set Environment Variables
+    env = environ.Env()
+    environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
@@ -98,6 +98,11 @@ if "JUNs-MacBook-Pro.local" in hostname:
 else:
     # 本番環境
     # DEBUG = False
+
+    # Set Environment Variables
+    env = environ.Env()
+    environ.Env.read_env()
+
     import dj_database_url
     db_from_env = dj_database_url.config()
     DATABASES = {
