@@ -146,17 +146,39 @@
                   class="icons8-icon"
                   src="https://img.icons8.com/external-kmg-design-glyph-kmg-design/32/000000/external-pants-american-football-kmg-design-glyph-kmg-design.png"
                 />
+                <i class="price-list-icon fa-solid fa-socks"></i>
+                3点セット
+              </div>
+            </th>
+            <td>
+              <div class="price-list-row">¥7,500 / 枚</div>
+            </td>
+            <td>
+              <div class="price-list-row">¥6,000 / 枚</div>
+            </td>
+            <td>
+              <div class="price-list-row">¥5,500 / 枚</div>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">
+              <div class="price-list-row">
+                <i class="price-list-icon fa-solid fa-shirt"></i>
+                <img
+                  class="icons8-icon"
+                  src="https://img.icons8.com/external-kmg-design-glyph-kmg-design/32/000000/external-pants-american-football-kmg-design-glyph-kmg-design.png"
+                />
                 上下セット
               </div>
             </th>
             <td>
-              <div class="price-list-row">¥5,500 / 枚</div>
+              <div class="price-list-row">¥6,000 / 枚</div>
+            </td>
+            <td>
+              <div class="price-list-row">¥5,000 / 枚</div>
             </td>
             <td>
               <div class="price-list-row">¥4,500 / 枚</div>
-            </td>
-            <td>
-              <div class="price-list-row">¥4,000 / 枚</div>
             </td>
           </tr>
           <tr>
@@ -188,41 +210,7 @@
               <div class="price-list-row">シャツ代金 + ¥750 / 枚</div>
             </td>
           </tr>
-          <tr>
-            <th scope="row">
-              <div class="price-list-row">
-                <img
-                  class="icons8-icon"
-                  src="https://img.icons8.com/external-kmg-design-glyph-kmg-design/32/000000/external-pants-american-football-kmg-design-glyph-kmg-design.png"
-                />
-                パンツのみ
-              </div>
-            </th>
-            <td>
-              <div class="price-list-row">¥3,000 / 枚</div>
-            </td>
-            <td colspan="2">
-              <div class="price-list-row">¥2,500 / 枚</div>
-            </td>
-          </tr>
         </tbody>
-        <tbody>
-          <tr>
-            <th scope="row">
-              <div class="price-list-row">
-                <i class="price-list-icon fa-solid fa-socks"></i>
-                ソックス
-              </div>
-            </th>
-            <td>
-              <div class="price-list-row">¥1,500 / 枚</div>
-            </td>
-            <td colspan="2">
-              <div class="price-list-row">¥1,000 / 枚</div>
-            </td>
-          </tr>
-        </tbody>
-
         <tbody>
           <tr>
             <th scope="row" class="">
@@ -254,9 +242,10 @@
           </tr>
         </tbody>
       </table>
+      <p class="table-option-text">※ソックスのみ、パンツのみ、指定した枚数のみロングスリーブに変更等の細かなご注文も承っております。</p>
+      <p class="table-option-text">詳しくはメールでお気軽にお問い合わせください。</p>
       <a href="https://icons8.com/icon/FKMLK2Dk1YDz/pants"
-        ><p class="icons8-link">Pants icon by Icons8</p></a
-      >
+        ><p class="icons8-link">Pants icon by Icons8</p></a>
       <br />
       <a
         target="_blank"
@@ -276,31 +265,24 @@
 
     <h2 class="small-header">内容を打ち込むと、予算が分かります。</h2>
     <div class="price-selector row">
-      <div class="col-lg-2"></div>
-      <div class="col-lg-2 col-3">
+      <div class="col-lg-3"></div>
+      <div class="col-lg-2 col-4">
         <label for="uniform" class="form-label">ユニフォーム</label>
         <select class="rounded-0 select-text form-select" id="uniform" required>
           <option value="default">ユニフォームを選択</option>
+          <option value="three_set">3点セット</option>
           <option value="set">上下セット</option>
           <option value="shirt">シャツのみ</option>
-          <option value="pants">パンツのみ</option>
         </select>
       </div>
-      <div class="col-lg-2 col-3">
+      <div class="col-lg-2 col-4">
         <label for="uniform" class="form-label">スリーブ</label>
         <select class="rounded-0 select-text form-select" id="sleeve" required>
           <option value="short">ショート</option>
           <option value="long">ロング</option>
         </select>
       </div>
-      <div class="col-lg-2 col-3">
-        <label for="socks" class="form-label">ソックス</label>
-        <select class="rounded-0 select-text form-select" id="socks" required>
-          <option value="no-socks">なし</option>
-          <option value="socks">あり</option>
-        </select>
-      </div>
-      <div class="col-lg-2 col-3">
+      <div class="col-lg-2 col-4">
         <label for="number" class="form-label">枚数</label>
         <input
           type="number"
@@ -357,30 +339,26 @@
         $(function () {
           var uniform = $("#uniform").val();
           var sleeve = $("#sleeve").val();
-          var socks = $("#socks").val();
           var number = $("#number").val();
           const choices = document.getElementById("choices");
           const fabric_choices = choices.fabric;
           const neck_choices = choices.neck;
           const uni_dict = {
             default: { 0: 0, 1: 0, 2: 0 },
-            set: { 0: 5500, 1: 4500, 2: 4000 },
+            three_set: { 0: 7500, 1: 6000, 2: 5500 },
+            set: { 0: 6000, 1: 5000, 2: 4500 },
             shirt: { 0: 4000, 1: 3500, 2: 3500 },
-            pants: { 0: 3000, 1: 2500, 2: 2500 },
           };
           const long_sleeve_cost = 750;
-          const socks_dict = { 0: 1500, 1: 1000, 2: 1000 };
           const trans_dict = { 1: 250, 2: 250 };
           const delivery_cost = 1000;
           const text_dict = {
             default: "未選択",
+            three_set: "3点セット",
             set: "上下セット",
             shirt: "シャツのみ",
-            pants: "パンツのみ",
             short: "ショート",
             long: "ロング",
-            "no-socks": "/ ソックスなし",
-            socks: "/ ソックスあり",
             tsuru: "ツルツル",
             zara: "ザラザラ",
             round: "ラウンドネック",
@@ -394,7 +372,6 @@
             $(`#${id}-data`).val(text_dict[selected]); //メール送信用に格納
           };
 
-          change_selected((id = "socks-selected"), (selected = "no-socks"));
           change_selected((id = "sleeve-selected"), (selected = "short")); //デフォルトを適用。
 
           const checkout = function () {
@@ -418,10 +395,6 @@
               if (sleeve == "long") {
                 //ロングスリーブの場合
                 uni_price += long_sleeve_cost * number; //ロングスリーブ代金　750円 * 枚数 を追加
-              }
-              if (socks == "socks") {
-                //ソックスありの場合
-                uni_price += socks_dict[amount] * number; //ソックス代金　現在の枚数における１枚あたりの値段 * 枚数 を追加。
               }
               if (amount == 0) {
                 var transportation_price = 5000; //国際輸送料 １９枚以下の時。
@@ -455,12 +428,6 @@
           $("#sleeve").change(function () {
             sleeve = $(this).val();
             change_selected((id = "sleeve-selected"), (selected = sleeve));
-            checkout();
-          });
-
-          $("#socks").change(function () {
-            socks = $(this).val();
-            change_selected((id = "socks-selected"), (selected = socks));
             checkout();
           });
 
@@ -689,8 +656,6 @@
           <a href="#uni-selector">
             <span class="selected-item" id="uni-selected">未選択</span>
             <input type="hidden" id="uni-selected-data" name="form-uniform" />
-            <span class="selected-item" id="socks-selected">/ 未選択</span>
-            <input type="hidden" id="socks-selected-data" name="form-socks" />
           </a>
         </p>
         <p>
