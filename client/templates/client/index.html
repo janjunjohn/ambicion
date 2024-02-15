@@ -154,6 +154,34 @@
         </div>
       </div>
     </nav>
+    <!-- catalog button -->
+      <button
+        type="button"
+        class="catalog-btn modal-btn btn"
+        data-bs-toggle="modal"
+        data-bs-target="#catalog-modal"
+      >
+       カタ<br>ログ
+      </button>
+      <script>
+      $(function(){
+        var btn = $('.catalog-btn');
+        var timer;
+        
+        $(window).scroll(function() {
+          //スクロール開始するとボタンを非表示
+          btn.removeClass('catalog-btn-is-active');
+          
+          //スクロール中はイベントの発火をキャンセルする
+          clearTimeout(timer);
+          
+          //スクロールが停止して0.2秒後にイベントを発火する
+          timer = setTimeout(function() {
+            btn.addClass('catalog-btn-is-active');
+          }, 200);
+        });
+      });          
+      </script>
     <!-- LINE banner -->
     <div class="fixed-bottom line-banner-container">
       <a href="https://liff.line.me/1645278921-kWRPP32q/?accountId=zpj2562z" class="line-banner">

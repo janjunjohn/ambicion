@@ -35,7 +35,8 @@
     src="{% static 'client/images/ryota-with-stuff.jpg' %}"
     alt="ryota and stuffs"
   />
-  {% endblock %} {% block navigation %}
+  {% endblock %}
+  {% block navigation %}
   <a href="#price-nav-target">
     <div class="nav-btn">プライス</div>
   </a>
@@ -45,7 +46,8 @@
   <a href="#contact-nav-target">
     <div class="nav-btn">コンタクト</div>
   </a>
-  {% endblock %} {% block contents %}
+  {% endblock %} 
+  {% block contents %}
   <!-- Modal -->
   <div
     class="modal fade"
