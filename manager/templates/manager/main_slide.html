@@ -1,5 +1,5 @@
-{% extends 'manager/base.html' %} {% load static %} {% load widget_tweaks %} {%
-block contents %}
+{% extends 'manager/base.html' %} {% load static %} {% load widget_tweaks %}
+{% block contents %}
 <div class="main-slide-contents">
   {% for message in messages %}
   <div {% if message.tags %}class="{{ message.tags }}" {% endif %}>
