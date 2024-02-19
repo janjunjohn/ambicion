@@ -35,11 +35,12 @@ class MainSlideView(LoginRequiredMixin, CreateView):
         target_pk = request.POST.get('pk')
         target_img = request.FILES.get('img')
         before_img_name = Gallery.objects.get(pk=target_pk).img.name
+        target_title = request.POST.get('title')
+        is_update_img = False
         if target_img is None:
             target_img = Gallery.objects.get(pk=target_pk).img
         else:
             is_update_img = True
-        target_title = request.POST.get('title')
         if target_title == '':
             target_title = Gallery.objects.get(pk=target_pk).title
         try:
@@ -79,13 +80,13 @@ class SampleView(CreateView, LoginRequiredMixin):
     def post(self, request, *args, **kwargs):
         target_pk = request.POST.get('pk')
         target_img = request.FILES.get('img')
+        target_name = request.POST.get('name')
         before_img_name = Sample.objects.get(pk=target_pk).img.name
         is_update_img = False
         if target_img is None:
             target_img = Sample.objects.get(pk=target_pk).img
         else:
             is_update_img = True
-        target_name = request.POST.get('name')
         if target_name == '':
             target_name = Sample.objects.get(pk=target_pk).name
         try:
@@ -95,7 +96,8 @@ class SampleView(CreateView, LoginRequiredMixin):
             )
             if is_update_img:
                 gdc = GoogleDriveClient()
-                if len(before_img_name) > 2:
+                num_check_is_exist_file_name = 2
+                if len(before_img_name) > num_check_is_exist_file_name:
                     gdc.delete_file(before_img_name, 'sample')
                 gdc.upload_file(Sample.objects.get(pk=target_pk).img.url, 'sample')
             messages.success(request, '更新完了！')
