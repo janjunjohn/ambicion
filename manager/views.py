@@ -34,8 +34,8 @@ class MainSlideView(LoginRequiredMixin, CreateView):
     def post(self, request, *args, **kwargs):
         target_pk = request.POST.get('pk')
         target_img = request.FILES.get('img')
-        before_img_name = Gallery.objects.get(pk=target_pk).img.name
         target_title = request.POST.get('title')
+        before_img_name = Gallery.objects.get(pk=target_pk).img.name
         is_update_img = False
         if target_img is None:
             target_img = Gallery.objects.get(pk=target_pk).img
