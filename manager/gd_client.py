@@ -17,6 +17,11 @@ FAMILY_FOLDER = {'name': 'family', 'gd_id': env('GD_FAMILY_FOLDER_ID')}
 FOLDER_LIST = [GALLERY_FOLDER, SAMPLE_FOLDER, FAMILY_FOLDER]
 
 
+class DeleteFailedError(Exception):
+    """googleドライブの写真消去失敗時のエラー"""
+    pass
+
+
 class GoogleDriveClient:
     def __init__(self):
         self.scopes = SCOPES
@@ -92,5 +97,8 @@ class GoogleDriveClient:
         files = file_results.get('files', [])
         target_file_id = files[0]['id']
         if target_file_id:
-            self.service.files().delete(fileId=target_file_id).execute()
-            print(f'delete file completed. <{files[0]["name"]}>')
+            try:
+                self.service.files().delete(fileId=target_file_id).execute()
+                print(f'delete file completed. <{files[0]["name"]}>')
+            except:
+                raise DeleteFailedError('ファイルの削除に失敗しました。googleドライブにて、不要なファイルを削除してください。')

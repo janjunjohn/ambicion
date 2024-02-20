@@ -5,7 +5,7 @@ from django.views.generic import TemplateView, CreateView, View
 from client.models import Gallery, Sample, Family
 from .forms import GalleryForm, SampleForm, LoginForm
 from django.contrib import messages
-from .gd_client import GoogleDriveClient
+from .gd_client import GoogleDriveClient, DeleteFailedError
 
 
 class Login(LoginView):
@@ -54,13 +54,14 @@ class MainSlideView(LoginRequiredMixin, CreateView):
             )
             if is_update_img:
                 gdc = GoogleDriveClient()
+                gdc.upload_file(Gallery.objects.get(pk=target_pk).img.url, 'gallery')
                 if len(before_img_name) > 2:
                     print(before_img_name)
                     gdc.delete_file(before_img_name, 'gallery')
-                gdc.upload_file(Gallery.objects.get(pk=target_pk).img.url, 'gallery')
-
             messages.success(request, '更新完了！')
-        except:
+        except DeleteFailedError:
+            messages.error(request, 'googleドライブのファイル削除に失敗！不要なファイルを削除してください。')
+        except Exception:
             import traceback
 
             traceback.print_exc()
@@ -97,11 +98,13 @@ class SampleView(CreateView, LoginRequiredMixin):
             if is_update_img:
                 gdc = GoogleDriveClient()
                 num_check_is_exist_file_name = 2
+                gdc.upload_file(Sample.objects.get(pk=target_pk).img.url, 'sample')
                 if len(before_img_name) > num_check_is_exist_file_name:
                     gdc.delete_file(before_img_name, 'sample')
-                gdc.upload_file(Sample.objects.get(pk=target_pk).img.url, 'sample')
             messages.success(request, '更新完了！')
-        except:
+        except DeleteFailedError:
+            messages.error(request, 'googleドライブのファイル削除に失敗！不要なファイルを削除してください。')
+        except Exception:
             import traceback
 
             traceback.print_exc()
