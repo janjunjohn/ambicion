@@ -148,6 +148,10 @@
               <hr class="nav-hr" />
             </li>
             <li class="nav-item">
+              <a class="nav-link" href="#sns-nav-target">SNS</a>
+              <hr class="nav-hr" />
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="#contact-nav-target">コンタクト</a>
             </li>
           </ul>
@@ -335,7 +339,6 @@
             >
             </iframe>
             <br />
-            <div id="contact-nav-target"></div>
             <a href="{% url 'client:about' %}">
               <button type="button" class="section-btn btn btn-primary">
                 詳しく
@@ -344,6 +347,38 @@
           </div>
         </div>
       </section>
+        <a href="#sns-nav-target">
+          <img
+            id="sns-nav-target"
+            class="allow-img"
+            src="{% static 'client/images/design_pieces/allow-white.png' %}"
+            alt=""
+          />
+        </a>
+      <!--  SNS Section -->
+      <section id="sns-section" class="before-appear">
+        <!-- Section Header -->
+        <h1 class="header">SNS</h1>
+        <div
+        id="carouselExampleControls"
+        class="carousel slide"
+        data-bs-ride="carousel"
+        data-bs-interval="3800"
+        data-bs-pause="False"
+        >
+          <div class="row carousel-inner">
+            <div class="card col-3"">
+              <img src="{{ instagram_post_list.1.media_url }}" class="card-img-top" alt="...">
+              <div class="card-body">
+                <p class="card-text instagram-post-text">{{ instagram_post_list.1.caption }}</p>
+                <a href="{{ instagram_post_list.1.permalink }}" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Go Instagram</a>
+              </div>
+            </div>
+          </div>
+      <div id="contact-nav-target"></div>
+        </div>
+      </section>
+
       <!-- Contact Section -->
       <section id="contact-mail-section" class="before-appear">
         <h1>質問はこちらから。</h1>
@@ -535,6 +570,7 @@
           "#order-section",
           "#product-section",
           "#about-section",
+          "#sns-section",
           "#contact-mail-section",
         ]; //each section
         if (url_hash) {

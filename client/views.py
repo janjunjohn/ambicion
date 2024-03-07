@@ -1,9 +1,12 @@
+from datetime import datetime
+import environ
+
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.core.mail import send_mail
-import environ
+
 from .models import Gallery, Sample, Family
-from datetime import datetime
+from .services.instagram_api_service import InstagramAPIService
 
 # Set Environment Variables
 env = environ.Env()
@@ -29,6 +32,9 @@ class TopView(TemplateView):
     context['gallery_list'] = Gallery.objects.filter(is_standby=False).all()
     context['sample_list'] = Sample.objects.filter(is_standby=False).all()
     context['recaptcha_sitekey'] = RECAPTCHA_SITEKEY
+    # instagramの投稿を取得
+    instagram_post_list = InstagramAPIService.get_recent_posts(post_num=9)
+    context['instagram_post_list'] = instagram_post_list
     return context
   
   def post(self, request, *args, **kwargs):

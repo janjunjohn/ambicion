@@ -253,10 +253,8 @@ nav {
   margin-top: 5.5rem;
 }
 
-.instagram-media {
-  margin: 0 auto !important;
-  max-width: 20rem !important;
-  height: 30rem !important;
+.instagram-post-text {
+  color: #121212;
 }
 
 /* Contact Section ****************************************************************************************************/
