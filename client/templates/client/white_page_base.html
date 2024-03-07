@@ -107,10 +107,36 @@
         />
       </div>
     </div>
+    <!-- Modal -->
+    <div
+    class="modal fade"
+    id="catalog-modal"
+    tabindex="-1"
+    aria-labelledby="catalog-modal-label"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-fullscreen modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-body">
+          <embed src="{% static 'client/images/catalog.pdf' %}" type="application/pdf" class="catalog-pdf">
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="modal-quit btn btn-primary"
+            data-bs-dismiss="modal"
+          >
+            とじる
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
     <div id="price-nav-target"></div>
     <!-- navigation btn target -->
     <div id="greeting-nav-target"></div>
-    <!-- Order Navigation -->
+    <!-- Navigation -->
     <div class="navigation">
       <div id="second-navigation" class="before-appear">
         <button

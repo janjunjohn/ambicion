@@ -82,6 +82,11 @@ nav {
   visibility: visible;
 }
 
+.catalog-pdf {
+  width: 1600px;
+  height: 1450px;
+}
+
 #footer {
   background-color: #fff;
   color: #121212;
