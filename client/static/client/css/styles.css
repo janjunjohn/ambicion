@@ -179,7 +179,7 @@ nav {
 }
 /* Gallery Section ****************************************************************************************************/
 
-#carouselExampleControls {
+#carouselGalleryControls {
   margin-bottom: 4.5rem;
 }
 
@@ -245,16 +245,17 @@ nav {
 }
 
 /* SNS Section ******************************************************************************************************/
-#sns-section {
+#post-section {
   margin-bottom: 10rem;
 }
 
-#snsSlide {
-  margin-top: 5.5rem;
+.instagram-row {
+  margin-top: 4rem;
 }
 
-.instagram-post-text {
-  color: #121212;
+.instagram-img {
+  width: 39rem;
+  height: 39rem;
 }
 
 /* Contact Section ****************************************************************************************************/

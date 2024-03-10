@@ -148,7 +148,7 @@
               <hr class="nav-hr" />
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#sns-nav-target">SNS</a>
+              <a class="nav-link" href="#post-nav-target">ポスト</a>
               <hr class="nav-hr" />
             </li>
             <li class="nav-item">
@@ -184,7 +184,7 @@
         <h1 class="header">ユニフォームを作ろう。</h1>
         {% endif %}
         <div
-          id="carouselExampleControls"
+          id="carouselGalleryControls"
           class="carousel slide"
           data-bs-ride="carousel"
           data-bs-interval="3800"
@@ -214,7 +214,7 @@
           <button
             class="carousel-control-prev"
             type="button"
-            data-bs-target="#carouselExampleControls"
+            data-bs-target="#carouselGalleryControls"
             data-bs-slide="prev"
           >
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -223,7 +223,7 @@
           <button
             class="carousel-control-next"
             type="button"
-            data-bs-target="#carouselExampleControls"
+            data-bs-target="#carouselGalleryControls"
             data-bs-slide="next"
           >
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
@@ -347,36 +347,52 @@
           </div>
         </div>
       </section>
-        <a href="#sns-nav-target">
+        <a href="#post-nav-target">
           <img
-            id="sns-nav-target"
+            id="post-nav-target"
             class="allow-img"
             src="{% static 'client/images/design_pieces/allow-white.png' %}"
             alt=""
           />
         </a>
-      <!--  SNS Section -->
-      <section id="sns-section" class="before-appear">
+      <!--  Post Section -->
+      <section id="post-section" class="before-appear">
         <!-- Section Header -->
-        <h1 class="header">SNS</h1>
-        <div
-        id="carouselExampleControls"
-        class="carousel slide"
-        data-bs-ride="carousel"
-        data-bs-interval="3800"
-        data-bs-pause="False"
-        >
-          <div class="row carousel-inner">
-            <div class="card col-3"">
-              <img src="{{ instagram_post_list.1.media_url }}" class="card-img-top" alt="...">
-              <div class="card-body">
-                <p class="card-text instagram-post-text">{{ instagram_post_list.1.caption }}</p>
-                <a href="{{ instagram_post_list.1.permalink }}" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Go Instagram</a>
-              </div>
+        <h1 class="header">Instagram</h1>
+          <div class="row container-fluid instagram-row">
+            <div class="col-4">
+              <a href="{{ instagram_post_list.1.permalink }}" target="_blank" rel="noopener noreferrer">
+                <img src="{{ instagram_post_list.1.media_url }}" class="instagram-img" alt="...">
+              </a>
+            </div>
+            <div class="col-4"">
+              <a href="{{ instagram_post_list.2.permalink }}" target="_blank" rel="noopener noreferrer">
+                <img src="{{ instagram_post_list.2.media_url }}" class="instagram-img" alt="...">
+              </a>
+            </div>
+            <div class="col-4"">
+              <a href="{{ instagram_post_list.3.permalink }}" target="_blank" rel="noopener noreferrer">
+                <img src="{{ instagram_post_list.3.media_url }}" class="instagram-img" alt="...">
+              </a>
             </div>
           </div>
-      <div id="contact-nav-target"></div>
-        </div>
+          <div class="row container-fluid instagram-row">
+            <div class="col-4"">
+              <a href="{{ instagram_post_list.4.permalink }}" target="_blank" rel="noopener noreferrer">
+                <img src="{{ instagram_post_list.4.media_url }}" class="instagram-img" alt="...">
+              </a>
+            </div>
+            <div class="col-4"">
+              <a href="{{ instagram_post_list.5.permalink }}" target="_blank" rel="noopener noreferrer">
+                <img src="{{ instagram_post_list.5.media_url }}" class="instagram-img" alt="...">
+              </a>
+            </div>
+            <div class="col-4"">
+              <a href="{{ instagram_post_list.6.permalink }}" target="_blank" rel="noopener noreferrer">
+                <img src="{{ instagram_post_list.6.media_url }}" class="instagram-img" alt="...">
+              </a>
+            </div>
+          </div>
       </section>
 
       <!-- Contact Section -->
@@ -570,7 +586,7 @@
           "#order-section",
           "#product-section",
           "#about-section",
-          "#sns-section",
+          "#post-section",
           "#contact-mail-section",
         ]; //each section
         if (url_hash) {
