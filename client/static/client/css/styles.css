@@ -82,9 +82,10 @@ nav {
   visibility: visible;
 }
 
-.catalog-pdf {
-  width: 1600px;
-  height: 1450px;
+.catalog-img {
+  width: 130rem;
+  height: 100rem;
+  border-bottom: 1rem solid #121212;
 }
 
 #footer {
@@ -873,6 +874,10 @@ nav {
     left: auto;
     bottom: 6.2rem;
     right: 1.2rem;
+  }
+  .catalog-img {
+    width: 110;
+    height: 72;
   }
 
   .gallery-img {
