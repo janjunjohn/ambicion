@@ -60,6 +60,34 @@ nav {
   margin: 0;
 }
 
+.catalog-btn {
+  z-index: 10;
+  opacity: 0;
+  visibility: hidden;
+  transition: .25s all;
+  background-color: #fff;
+  color: #121212;
+  position: fixed;
+  bottom: 2rem;
+  left: 3.3rem;
+  width: 7.2rem;
+}
+
+.catalog-btn:hover {
+  opacity: 1;
+}
+
+.catalog-btn-is-active {
+  opacity: 0.7;
+  visibility: visible;
+}
+
+.catalog-img {
+  width: 130rem;
+  height: 100rem;
+  border-bottom: 1rem solid #121212;
+}
+
 #footer {
   background-color: #fff;
   color: #121212;
@@ -403,6 +431,7 @@ nav {
 
 .nav-btn {
   display: inline-block;
+  background-color: #121212;
   color: #fff;
   font-size: 1.6rem;
   width: 20rem;
@@ -871,6 +900,21 @@ nav {
 
   .modal-quit {
     font-size: 3rem;
+  }
+  
+  .nav-btn {
+    width: 15rem;
+  }
+
+  .catalog-btn {
+    width: 7rem;
+    left: auto;
+    bottom: 6.2rem;
+    right: 1.2rem;
+  }
+  .catalog-img {
+    width: 110;
+    height: 72;
   }
 
   .gallery-img {

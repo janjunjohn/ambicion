@@ -111,12 +111,58 @@
         />
       </div>
     </div>
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="catalog-modal"
+      tabindex="-1"
+      aria-labelledby="catalog-modal-label"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-fullscreen modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title" id="sample-modal-label">
+              カタログ
+            </h1>
+          </div>
+          <div class="modal-body">
+            <img class="catalog-img" src="{% static 'client/images/catalog/catalog_01.jpg' %}" alt="catalog slide">
+            <img class="catalog-img" src="{% static 'client/images/catalog/catalog_02.jpg' %}" alt="catalog slide">
+            <img class="catalog-img" src="{% static 'client/images/catalog/catalog_03.jpg' %}" alt="catalog slide">
+            <img class="catalog-img" src="{% static 'client/images/catalog/catalog_04.jpg' %}" alt="catalog slide">
+            <img class="catalog-img" src="{% static 'client/images/catalog/catalog_05.jpg' %}" alt="catalog slide">
+            <img class="catalog-img" src="{% static 'client/images/catalog/catalog_06.jpg' %}" alt="catalog slide">
+            <img class="catalog-img" src="{% static 'client/images/catalog/catalog_07.jpg' %}" alt="catalog slide">
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="modal-quit btn btn-primary"
+              data-bs-dismiss="modal"
+            >
+              とじる
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
     <div id="price-nav-target"></div>
     <!-- navigation btn target -->
     <div id="greeting-nav-target"></div>
-    <!-- Order Navigation -->
+    <!-- Navigation -->
     <div class="navigation">
       <div id="second-navigation" class="before-appear">
+        <button
+          class="nav-btn"
+          type="button"
+          data-bs-toggle="modal"
+          data-bs-target="#catalog-modal"
+        >
+         カタログ
+        </button>
         {% block navigation %}{% endblock %}
       </div>
     </div>

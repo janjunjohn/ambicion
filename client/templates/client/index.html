@@ -112,6 +112,41 @@
         </div>
       </div>
     </div>
+    <div
+      class="modal fade"
+      id="catalog-modal"
+      tabindex="-1"
+      aria-labelledby="catalog-modal-label"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-fullscreen modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title" id="sample-modal-label">
+              カタログ
+            </h1>
+          </div>
+          <div class="modal-body">
+            <img class="catalog-img" src="{% static 'client/images/catalog/catalog_01.jpg' %}" alt="catalog slide">
+            <img class="catalog-img" src="{% static 'client/images/catalog/catalog_02.jpg' %}" alt="catalog slide">
+            <img class="catalog-img" src="{% static 'client/images/catalog/catalog_03.jpg' %}" alt="catalog slide">
+            <img class="catalog-img" src="{% static 'client/images/catalog/catalog_04.jpg' %}" alt="catalog slide">
+            <img class="catalog-img" src="{% static 'client/images/catalog/catalog_05.jpg' %}" alt="catalog slide">
+            <img class="catalog-img" src="{% static 'client/images/catalog/catalog_06.jpg' %}" alt="catalog slide">
+            <img class="catalog-img" src="{% static 'client/images/catalog/catalog_07.jpg' %}" alt="catalog slide">
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="modal-quit btn btn-primary"
+              data-bs-dismiss="modal"
+            >
+              とじる
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- Navigation Bar-->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top">
       <div class="container-fluid">
@@ -158,6 +193,34 @@
         </div>
       </div>
     </nav>
+    <!-- catalog button -->
+      <button
+        type="button"
+        class="catalog-btn modal-btn btn"
+        data-bs-toggle="modal"
+        data-bs-target="#catalog-modal"
+      >
+       カタ<br>ログ
+      </button>
+      <script>
+      $(function(){
+        var btn = $('.catalog-btn');
+        var timer;
+        
+        $(window).scroll(function() {
+          //スクロール開始するとボタンを非表示
+          btn.removeClass('catalog-btn-is-active');
+          
+          //スクロール中はイベントの発火をキャンセルする
+          clearTimeout(timer);
+          
+          //スクロールが停止して0.2秒後にイベントを発火する
+          timer = setTimeout(function() {
+            btn.addClass('catalog-btn-is-active');
+          }, 200);
+        });
+      });          
+      </script>
     <!-- LINE banner -->
     <div class="fixed-bottom line-banner-container">
       <a href="https://liff.line.me/1645278921-kWRPP32q/?accountId=zpj2562z" class="line-banner">
