@@ -984,6 +984,11 @@ nav {
     width: 55rem;
     height: 30rem;
   }
+  
+  .instagram-img {
+    width: 20rem;
+    height: 20rem;
+  }
 
   .product-detail {
     margin: 5rem 0 5rem 0;
