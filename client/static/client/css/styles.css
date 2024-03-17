@@ -881,6 +881,22 @@ nav {
     font-size: 1.8rem;
   }
   
+  .instagram-post {
+    width: 19rem;
+    height: 19rem;
+    margin: 0.35rem;
+  }
+  
+  .instagram-img {
+    width: 19rem;
+    height: 19rem;
+  }
+  
+  .instagram-hover-container {
+    width: 19rem;
+    height: 19rem;
+  }
+
   .line-banner-container {
     display: table;
   }
@@ -985,22 +1001,6 @@ nav {
     height: 30rem;
   }
   
-  .instagram-post {
-    width: 19rem;
-    height: 19rem;
-    margin: 0.35rem;
-  }
-  
-  .instagram-img {
-    width: 19rem;
-    height: 19rem;
-  }
-  
-  .instagram-hover-container {
-    width: 19rem;
-    height: 19rem;
-  }
-
   .product-detail {
     margin: 5rem 0 5rem 0;
   }
