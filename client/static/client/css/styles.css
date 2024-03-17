@@ -91,6 +91,22 @@ nav {
   margin: 3rem auto;
 }
 
+.shadow-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  padding: 0;
+  z-index: 1;
+}
+
+.shadow {
+  padding: 0;
+  margin: 0;
+  opacity: 0.68;
+  z-index: 1;
+  height: 100%;
+}
+
 .allow-img {
   width: 6rem;
   margin: 0rem 0 2.8rem 0;
@@ -244,18 +260,56 @@ nav {
   margin: 0;
 }
 
-/* SNS Section ******************************************************************************************************/
+/* Post Section ******************************************************************************************************/
 #post-section {
   margin-bottom: 10rem;
 }
 
+.instagram-header {
+  margin-bottom: 3rem;
+}
+
 .instagram-row {
-  margin-top: 4rem;
+  display: flex;
+  justify-content: center;
+}
+
+.instagram-post {
+  position: relative;
+  width: 30rem;
+  height: 30rem;
+  margin: 0.5rem;
 }
 
 .instagram-img {
-  width: 39rem;
-  height: 39rem;
+  position: absolute;
+  left: 0;
+  width: 30rem;
+  height: 30rem;
+  object-fit: cover;
+}
+
+.instagram-hover-container {
+  width: 30rem;
+  height: 30rem;
+  opacity: 0;
+  transition: 0.2s;
+}
+
+.instagram-hover-container:hover {
+  visibility: visible;
+  opacity: 1;
+}
+
+.instagram-likes {
+  position: absolute;
+  left: 0;
+  top: 45%;
+  right: 0;
+  bottom: 0;
+  color: #fff;
+  font-size: 2rem;
+  z-index: 2;
 }
 
 /* Contact Section ****************************************************************************************************/
@@ -308,22 +362,6 @@ nav {
 
 .page-heading {
   position: relative;
-}
-
-.shadow-container {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  padding: 0;
-  z-index: 1;
-}
-
-.shadow {
-  padding: 0;
-  margin: 0;
-  opacity: 0.68;
-  z-index: 1;
-  height: 100%;
 }
 
 .background-img {

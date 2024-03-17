@@ -15,7 +15,7 @@ class InstagramAPIService:
     @classmethod
     def get_recent_posts(self, post_num: int) -> dict[str, str]:
         parameters = {
-            "fields":"media_url,caption,permalink",
+            "fields":"media_url,like_count,permalink",
             "limit":post_num,
             "access_token":_GRAPH_API_ACCESS_TOKEN
         }
