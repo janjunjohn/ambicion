@@ -425,6 +425,22 @@
         <h1 class="header instagram-header">Instagram</h1>
           <div class="instagram-row">
             <div class="instagram-post">
+              <a href="{{ instagram_post_list.0.permalink }}" target="_blank" rel="noopener noreferrer">
+                <img src="{{ instagram_post_list.0.media_url }}" class="instagram-img" alt="...">
+                <div class="instagram-hover-container">
+                  <!--Shadow -->
+                  <div class="shadow-container container-fluid">
+                    <img
+                      class="shadow container-fluid"
+                      src="{% static 'client/images/design_pieces/black-square.png' %}"
+                      alt="shadow"
+                    />
+                  </div>
+                  <p class="instagram-likes"><i class="far fa-heart"></i> {{ instagram_post_list.0.like_count }}</p>
+                </div>
+              </a>
+            </div>
+            <div class="instagram-post">
               <a href="{{ instagram_post_list.1.permalink }}" target="_blank" rel="noopener noreferrer">
                 <img src="{{ instagram_post_list.1.media_url }}" class="instagram-img" alt="...">
                 <div class="instagram-hover-container">
@@ -456,6 +472,8 @@
                 </div>
               </a>
             </div>
+          </div>
+          <div class="instagram-row">
             <div class="instagram-post">
               <a href="{{ instagram_post_list.3.permalink }}" target="_blank" rel="noopener noreferrer">
                 <img src="{{ instagram_post_list.3.media_url }}" class="instagram-img" alt="...">
@@ -472,8 +490,6 @@
                 </div>
               </a>
             </div>
-          </div>
-          <div class="instagram-row">
             <div class="instagram-post">
               <a href="{{ instagram_post_list.4.permalink }}" target="_blank" rel="noopener noreferrer">
                 <img src="{{ instagram_post_list.4.media_url }}" class="instagram-img" alt="...">
@@ -503,22 +519,6 @@
                     />
                   </div>
                   <p class="instagram-likes"><i class="far fa-heart"></i> {{ instagram_post_list.5.like_count }}</p>
-                </div>
-              </a>
-            </div>
-            <div class="instagram-post">
-              <a href="{{ instagram_post_list.6.permalink }}" target="_blank" rel="noopener noreferrer">
-                <img src="{{ instagram_post_list.6.media_url }}" class="instagram-img" alt="...">
-                <div class="instagram-hover-container">
-                  <!--Shadow -->
-                  <div class="shadow-container container-fluid">
-                    <img
-                      class="shadow container-fluid"
-                      src="{% static 'client/images/design_pieces/black-square.png' %}"
-                      alt="shadow"
-                    />
-                  </div>
-                  <p class="instagram-likes"><i class="far fa-heart"></i> {{ instagram_post_list.6.like_count }}</p>
                 </div>
               </a>
             </div>
