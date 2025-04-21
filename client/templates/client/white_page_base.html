@@ -155,14 +155,15 @@
     <!-- Navigation -->
     <div class="navigation">
       <div id="second-navigation" class="before-appear">
-        <button
-          class="nav-btn"
-          type="button"
+        <a
+          href="#catalog-modal"
           data-bs-toggle="modal"
           data-bs-target="#catalog-modal"
         >
-         カタログ
-        </button>
+          <div class="nav-btn">
+            カタログ
+          </div>
+        </a>
         {% block navigation %}{% endblock %}
       </div>
     </div>
