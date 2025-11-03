@@ -1,5 +1,6 @@
 from datetime import datetime
 import environ
+import requests
 
 from django.shortcuts import render
 from django.views.generic import TemplateView
@@ -16,10 +17,29 @@ environ.Env.read_env()
 PYTHON_EMAIL = env('PYTHON_EMAIL')
 AMBICION_EMAIL = env('AMBICION_EMAIL')
 SECRET_KEY = env('SECRET_KEY')
-RECAPTCHA_SITEKEY = env('RECAPTCHA_SITEKEY')
-RECAPTCHA_SECRET_KEY = env('RECAPTCHA_SECRET_KEY')
-RECAPTCHA_URL = 'https://www.google.com/recaptcha/api/siteverify'
+TURNSTILE_SITEKEY = env('TURNSTILE_SITEKEY')
+TURNSTILE_SECRET_KEY = env('TURNSTILE_SECRET_KEY')
 BLOCK_LIST = env('BLOCK_LIST')
+
+
+def validate_turnstile(token, secret, remoteip=None):
+    url = 'https://challenges.cloudflare.com/turnstile/v0/siteverify'
+
+    data = {
+        'secret': secret,
+        'response': token
+    }
+
+    if remoteip:
+        data['remoteip'] = remoteip
+
+    try:
+        response = requests.post(url, data=data, timeout=10)
+        response.raise_for_status()
+        return response.json()
+    except requests.RequestException as e:
+        print(f"Turnstile validation error: {e}")
+        return {'success': False, 'error-codes': ['internal-error']}
 
 
 class TopView(TemplateView):
@@ -31,7 +51,7 @@ class TopView(TemplateView):
     context['year'] = current_year
     context['gallery_list'] = Gallery.objects.filter(is_standby=False).all()
     context['sample_list'] = Sample.objects.filter(is_standby=False).all()
-    context['recaptcha_sitekey'] = RECAPTCHA_SITEKEY
+    context['turnstile_sitekey'] = TURNSTILE_SITEKEY
     # instagramの投稿を取得
     instagram_post_list = InstagramAPIService.get_recent_posts(post_num=9)
     context['instagram_post_list'] = instagram_post_list
@@ -39,12 +59,13 @@ class TopView(TemplateView):
   
   def post(self, request, *args, **kwargs):
     context = self.get_context_data(**kwargs)
-    # recaptcha_response = request.POST.get('g-recaptcha-response')
-    # is_success_recaptcha = requests.post(url=RECAPTCHA_URL,
-    #                                       params={'secret': RECAPTCHA_SECRET_KEY,
-    #                                               'response': recaptcha_response}).json()['success']
-    is_success_recaptcha = True
-    if is_success_recaptcha:
+    token = request.POST.get('cf-turnstile-response')
+    remoteip = request.headers.get('CF-Connecting-IP') or \
+               request.headers.get('X-Forwarded-For') or \
+               request.remote_addr
+
+    validation = validate_turnstile(token, TURNSTILE_SECRET_KEY, remoteip)
+    if validation['success']:
       username = request.POST.get('username')
       user_email = request.POST.get('email')
       message = request.POST.get('free-text')
@@ -74,18 +95,19 @@ class OrderView(TemplateView):
     context = super().get_context_data(**kwargs)
     current_year = datetime.now().year
     context['year'] = current_year
-    context['recaptcha_sitekey'] = RECAPTCHA_SITEKEY
+    context['turnstile_sitekey'] = TURNSTILE_SITEKEY
     context['sample_list'] = Sample.objects.filter(is_standby=False).all()
     return context
   
   def post(self, request, *args, **kwargs):
     context = self.get_context_data(**kwargs)
-    # recaptcha_response = request.POST.get('g-recaptcha-response')
-    # is_success_recaptcha = requests.post(url=RECAPTCHA_URL,
-    #                                       params={'secret': RECAPTCHA_SECRET_KEY,
-    #                                               'response': recaptcha_response}).json()['success']
-    is_success_recaptcha = True
-    if is_success_recaptcha:
+    token = request.POST.get('cf-turnstile-response')
+    remoteip = request.headers.get('CF-Connecting-IP') or \
+               request.headers.get('X-Forwarded-For') or \
+               request.remote_addr
+
+    validation = validate_turnstile(token, TURNSTILE_SECRET_KEY, remoteip)
+    if validation['success']:
       username = request.POST.get('username')
       user_email = request.POST.get('email')
       uniform = request.POST.get('form-uniform')
