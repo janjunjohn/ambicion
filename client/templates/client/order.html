@@ -836,12 +836,16 @@ ex)ベースカラー：#249, 模様：#260, エンブレム持参あり。"
           </div>
         </div>
         <div
-          class="g-recaptcha input-group mx-auto"
-          data-callback="validateRecaptcha"
-          data-sitekey="{{ recaptcha_sitekey }}"
+          class="cf-turnstile"
+          data-sitekey="{{ turnstile_site_key }}"
+          data-theme="auto"
+          data-size="flexible"
+          data-callback="onTurnstileSuccess"
+          data-error-callback="onTurnstileError"
+          data-expired-callback="onTurnstileExpired"
         ></div>
         <button
-          class="recaptcha rounded-0 email-submit btn btn-primary btn-lg"
+          class="turnstile rounded-0 email-submit btn btn-primary btn-lg"
           type="submit"
           disabled
         >
@@ -851,37 +855,43 @@ ex)ベースカラー：#249, 模様：#260, エンブレム持参あり。"
     </form>
   </section>
   <script>
-    // if terms checkbox is false, submit btn got be disabled.
-    $(window).on("load", function () {
-      is_terms_checked = false;
-      is_recaptcha_checked = false;
-      const check_terms = function () {
-        is_terms_checked = $("#terms-checkbox").prop("checked");
-        console.log("terms:", is_terms_checked);
-        console.log("recaptcha:", is_recaptcha_checked);
-        if (is_terms_checked && is_recaptcha_checked) {
-          $(".recaptcha").prop("disabled", false);
-        } else {
-          $(".recaptcha").prop("disabled", true);
-        }
-      };
-      check_terms();
-      $("#terms-checkbox").change(function () {
+      // if terms checkbox is false, submit btn got be disabled.
+      $(window).on("load", function () {
+        is_terms_checked = false;
+        is_turnstile_checked = false;
+        const check_terms = function () {
+          is_terms_checked = $("#terms-checkbox").prop("checked");
+          console.log("terms:", is_terms_checked);
+          console.log("turnstile:", is_turnstile_checked);
+          if (is_terms_checked && is_turnstile_checked) {
+            $(".turnstile").prop("disabled", false);
+          } else {
+            $(".turnstile").prop("disabled", true);
+          }
+        };
         check_terms();
+        $("#terms-checkbox").change(function () {
+          check_terms();
+        });
       });
-    });
 
-    // reCAPTCHA succeeded, enable submit button
-    function validateRecaptcha(code) {
-      if (!!code) {
-        is_recaptcha_checked = true;
-        console.log("terms:", is_terms_checked);
-        console.log("recaptcha:", is_recaptcha_checked);
-        if (is_terms_checked) {
-          $(".recaptcha").prop("disabled", false);
+      function onTurnstileSuccess(token) {
+        console.log("Turnstile success");
+        is_turnstile_checked = true;
+        if (is_terms_checked && is_turnstile_checked) {
+          $(".turnstile").prop("disabled", false);
         }
       }
-    }
+      function onTurnstileError(errorCode) {
+        console.error("Turnstile error:", errorCode);
+        is_turnstile_checked = false;
+        $(".turnstile").prop("disabled", true);
+      }
+      function onTurnstileExpired() {
+        console.warn("Turnstile token expired");
+        is_turnstile_checked = false;
+        $(".turnstile").prop("disabled", true);
+      }
   </script>
 
   {% endblock %}
