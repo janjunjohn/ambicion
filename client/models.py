@@ -42,3 +42,15 @@ class Family(models.Model):  # ファミリー
         if self.is_standby:
             return f'[{self.pk}]is on standby.'
         return f'[{self.pk}]{self.title}: {self.img.url}'
+
+
+class LineUser(models.Model):
+    user_id = models.CharField(max_length=50, unique=True)
+    name = models.CharField(max_length=100, unique=True)
+    is_receiver = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['pk']
+
+    def __str__(self):
+        return f'Line User ID: {self.user_id}'
