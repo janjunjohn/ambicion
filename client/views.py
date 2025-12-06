@@ -1,5 +1,6 @@
 from datetime import datetime
 import json
+from django.http import HttpResponse
 import environ
 import requests
 
@@ -202,8 +203,7 @@ class LineWebhookView(TemplateView):
             return False
 
         if not self._check_signature(request):
-            print("Invalid LINE signature.")
-            return
+            return HttpResponse("Invalid signature", status=400)
 
         body = json.loads(request.body.decode("utf-8"))
         events = body.get("events", [])
@@ -215,3 +215,4 @@ class LineWebhookView(TemplateView):
             message = event.get("message", {})
             user_id = event["source"]["userId"]  # 必ず source から取る
             _ = _handle_service(message["text"], user_id)
+        return HttpResponse("OK")
