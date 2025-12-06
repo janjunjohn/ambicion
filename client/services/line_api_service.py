@@ -72,7 +72,8 @@ class LINE_API_Service:
     def get_line_user_list(self, token: str, user_id: str) -> bool:
         try:
             user_list = LineUser.objects.values_list('name', 'is_receiver')
-            message = f"ユーザー一覧:\n {'\n'.join([name if not is_receiver else name + ' (受信者)' for name, is_receiver in user_list])}"
+            user_list_text = '\n'.join([name if not is_receiver else name + ' (受信者)' for name, is_receiver in user_list])
+            message = "ユーザー一覧:\n" + user_list_text
             return self.send_line_message(token, user_id, message)
         except LineUser.DoesNotExist:
             return self.send_line_message(token, user_id, "ユーザーが存在しません。")
