@@ -4,6 +4,7 @@ import environ
 import requests
 
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
 from django.core.mail import send_mail
 
@@ -186,18 +187,18 @@ class LineWebhookView(TemplateView):
 
         return hmac.compare_digest(signature, expected_signature)
 
-    def post(self, request, *args, **kwargs):
+    @csrf_exempt
+    def post(self, request, *args, **kwargs) -> None:
         def _handle_service(message: str, user_id: str) -> bool:
             service = LINE_API_Service()
             if message == 'list':
-                service.get_line_user_list(self._LINE_TOKEN_DEV, user_id)
+                return service.get_line_user_list(self._LINE_TOKEN_DEV, user_id)
             elif message == 'receiver':
-                service.update_receiver_status(self._LINE_TOKEN_DEV, user_id)
+                return service.update_receiver_status(self._LINE_TOKEN_DEV, user_id)
             elif message.startswith('add '):
                 name = message[4:].strip()
-                service.add_line_user(self._LINE_TOKEN_DEV, user_id, name)
-            else:
-                pass
+                return service.add_line_user(self._LINE_TOKEN_DEV, user_id, name)
+            return False
 
         if not self._check_signature(request):
             print("Invalid LINE signature.")
@@ -212,4 +213,4 @@ class LineWebhookView(TemplateView):
                 continue  # message イベント以外は無視
             message = event.get("message", {})
             user_id = event["source"]["userId"]  # 必ず source から取る
-            _handle_service(message["text"], user_id)
+            _ = _handle_service(message["text"], user_id)
