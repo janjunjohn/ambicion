@@ -4,6 +4,7 @@ import environ
 import requests
 
 from django.shortcuts import render
+from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
 from django.core.mail import send_mail
@@ -170,6 +171,7 @@ class FamilyView(TemplateView):
         return context
 
 
+@method_decorator(csrf_exempt, name='dispatch')
 class LineWebhookView(TemplateView):
     _LINE_TOKEN_DEV = env("LINE_TOKEN_DEV")
 
@@ -187,7 +189,6 @@ class LineWebhookView(TemplateView):
 
         return hmac.compare_digest(signature, expected_signature)
 
-    @csrf_exempt
     def post(self, request, *args, **kwargs) -> None:
         def _handle_service(message: str, user_id: str) -> bool:
             service = LINE_API_Service()
