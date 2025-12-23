@@ -62,14 +62,14 @@ class TopView(TemplateView):
         instagram_post_list = InstagramAPIService.get_recent_posts(post_num=9)
         context['instagram_post_list'] = instagram_post_list
         return context
-  
+
     def post(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
         token = request.POST.get('cf-turnstile-response')
         remoteip = request.headers.get('CF-Connecting-IP') or \
             request.headers.get('X-Forwarded-For') or \
             request.remote_addr
-       
+
         validation = validate_turnstile(token, TURNSTILE_SECRET_KEY, remoteip)
         if validation['success']:
             username = request.POST.get('username')
@@ -80,8 +80,8 @@ class TopView(TemplateView):
             message += f'お名前: {username} \n'
             message += f'Email: {user_email} \n'
             if not user_email in BLOCK_LIST:
-                line_token = env("LINE_TOKEN_DEV")
-                line_secret = env("LINE_SECRET_DEV")
+                line_token = env("LINE_TOKEN_ALPHA")
+                line_secret = env("LINE_SECRET_ALPHA")
                 line_service = LINE_API_Service(token=line_token, secret=line_secret)
 
                 receiver_line_user_id = line_service.get_receiver_user_id()
@@ -90,18 +90,28 @@ class TopView(TemplateView):
                         user_id=receiver_line_user_id,
                         message=message
                     )
-                except MessageConsumptionLimitError as e:
-                    print(f"Failed to send LINE message: {e}")
+                    context['submitted'] = 'success'
+                except MessageConsumptionLimitError:
+                    line_token = env("LINE_TOKEN_BETA")
+                    line_secret = env("LINE_SECRET_BETA")
+                    line_service = LINE_API_Service(token=line_token, secret=line_secret)
+                    try:
+                        _ = line_service.send_line_message(
+                            user_id=receiver_line_user_id,
+                            message=message
+                        )
+                        context['submitted'] = 'success'
+                    except Exception:
+                        context['submitted'] = 'fail'
+                except Exception:
+                    context['submitted'] = 'fail'
 
-                context['submitted'] = 'success'
                 context['username'] = username
-                return render(request, self.template_name, context=context)
             else:
                 context['submitted'] = 'fail'
-                return render(request, self.template_name, context=context) 
         else:
             context['submitted'] = 'fail'
-            return render(request, self.template_name, context=context)
+        return render(request, self.template_name, context=context)
 
 
 class OrderView(TemplateView):
@@ -134,7 +144,7 @@ class OrderView(TemplateView):
             sleeve = request.POST.get('form-sleeve')
             default = request.POST.get('form-default')
             free_text = request.POST.get('free-text')
-            message = '注文内容が届きました！\n\n'
+            message = '注文が届きました！\n\n'
             message += f'お名前: {username} \n'
             message += f'Email: {user_email} \n'
             message += f'ユニフォーム: {uniform} {socks} \n'
@@ -146,8 +156,8 @@ class OrderView(TemplateView):
             message += f'備考: \n{free_text} \n'
             
             if not user_email in BLOCK_LIST:
-                line_token = env("LINE_TOKEN_DEV")
-                line_secret = env("LINE_SECRET_DEV")
+                line_token = env("LINE_TOKEN_ALPHA")
+                line_secret = env("LINE_SECRET_ALPHA")
                 line_service = LINE_API_Service(token=line_token, secret=line_secret)
 
                 receiver_line_user_id = line_service.get_receiver_user_id()
@@ -156,18 +166,28 @@ class OrderView(TemplateView):
                         user_id=receiver_line_user_id,
                         message=message
                     )
-                except MessageConsumptionLimitError as e:
-                    print(f"Failed to send LINE message: {e}")
+                    context['submitted'] = 'success'
+                except MessageConsumptionLimitError:
+                    line_token = env("LINE_TOKEN_BETA")
+                    line_secret = env("LINE_SECRET_BETA")
+                    line_service = LINE_API_Service(token=line_token, secret=line_secret)
+                    try:
+                        _ = line_service.send_line_message(
+                            user_id=receiver_line_user_id,
+                            message=message
+                        )
+                        context['submitted'] = 'success'
+                    except Exception:
+                        context['submitted'] = 'fail'
+                except Exception:
+                    context['submitted'] = 'fail'
 
-                context['submitted'] = 'success'
                 context['username'] = username
-                return render(request, self.template_name, context=context)
             else:
                 context['submitted'] = 'fail'
-                return render(request, self.template_name, context=context) 
         else:
             context['submitted'] = 'fail'
-            return render(request, self.template_name, context=context)
+        return render(request, self.template_name, context=context)
 
 
 class AboutView(TemplateView):
