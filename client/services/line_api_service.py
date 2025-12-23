@@ -37,7 +37,7 @@ class LINE_API_Service:
             "https://api.line.me/v2/bot/message/quota/consumption", headers={"Authorization": f"Bearer {self.token}"}
         )
         r.raise_for_status()
-        return r.json()["consumption"]
+        return r.json()["totalUsage"]
 
     def send_line_message(self, user_id: str, message: str) -> bool:
         """
