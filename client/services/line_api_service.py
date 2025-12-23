@@ -15,7 +15,7 @@ class LINE_API_Service:
         self.token = token
         self.secret = secret
 
-    def _check_signature(self, request) -> bool:
+    def _check_signature(self, request: requests.Request) -> bool:
         import hmac
         import hashlib
         import base64
