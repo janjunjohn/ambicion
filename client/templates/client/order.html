@@ -23,7 +23,13 @@
     ありがとうございます！！
   </h1>
   {% elif submitted == 'fail' %}
-  <h1 class="heading-text">メールの送信に失敗しました。</h1>
+    <h1 class="header">
+      {{ username }}さん、
+      <br />
+      申し訳ございません！ただいまサーバーが混み合っております...
+      <br />
+      ページ最下部のSNSからのご連絡をお試しください。
+    </h1>
   {% else %}
   <h1 class="heading-text">
     あなたのデザインを、<br />
