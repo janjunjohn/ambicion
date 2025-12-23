@@ -175,31 +175,18 @@ class FamilyView(TemplateView):
 @method_decorator(csrf_exempt, name='dispatch')
 class LineWebhookView(TemplateView):
     _LINE_TOKEN_DEV = env("LINE_TOKEN_DEV")
-
-    def _check_signature(self, request) -> bool:
-        import hmac
-        import hashlib
-        import base64
-
-        channel_secret = self._LINE_TOKEN_DEV.encode('utf-8')
-        signature = request.headers.get('X-Line-Signature', '')
-        body = request.body
-
-        hash = hmac.new(channel_secret, body, hashlib.sha256).digest()
-        expected_signature = base64.b64encode(hash).decode('utf-8')
-
-        return hmac.compare_digest(signature, expected_signature)
+    _LINE_SECRET_DEV = env("LINE_SECRET_DEV")
+    service = LINE_API_Service(token=_LINE_TOKEN_DEV, secret=_LINE_SECRET_DEV)
 
     def post(self, request, *args, **kwargs) -> None:
         def _handle_service(message: str, user_id: str) -> bool:
-            service = LINE_API_Service()
             if message == 'list':
-                return service.get_line_user_list(self._LINE_TOKEN_DEV, user_id)
+                return self.service.get_line_user_list(user_id)
             elif message == 'receiver':
-                return service.update_receiver_status(self._LINE_TOKEN_DEV, user_id)
+                return self.service.update_receiver_status(user_id)
             elif message.startswith('add '):
                 name = message[4:].strip()
-                return service.add_line_user(self._LINE_TOKEN_DEV, user_id, name)
+                return self.service.add_line_user(user_id, name)
             return False
 
         if not self._check_signature(request):
