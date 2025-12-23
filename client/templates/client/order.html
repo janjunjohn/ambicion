@@ -849,7 +849,7 @@ ex)ベースカラー：#249, 模様：#260, エンブレム持参あり。"
           type="submit"
           disabled
         >
-          メンテナンス中...
+          メールを送信
         </button>
       </div>
     </form>
@@ -864,8 +864,7 @@ ex)ベースカラー：#249, 模様：#260, エンブレム持参あり。"
           console.log("terms:", is_terms_checked);
           console.log("turnstile:", is_turnstile_checked);
           if (is_terms_checked && is_turnstile_checked) {
-            console.log("maintenance...");
-            // $(".turnstile").prop("disabled", false);
+            $(".turnstile").prop("disabled", false);
           } else {
             $(".turnstile").prop("disabled", true);
           }
@@ -880,7 +879,7 @@ ex)ベースカラー：#249, 模様：#260, エンブレム持参あり。"
         console.log("Turnstile success");
         is_turnstile_checked = true;
         if (is_terms_checked && is_turnstile_checked) {
-          // $(".turnstile").prop("disabled", false);
+          $(".turnstile").prop("disabled", false);
         }
       }
       function onTurnstileError(errorCode) {

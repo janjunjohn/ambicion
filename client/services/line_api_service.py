@@ -8,6 +8,10 @@ env = environ.Env()
 environ.Env.read_env()
 
 
+class MessageConsumptionLimitError(Exception):
+    pass
+
+
 class LINE_API_Service:
     _LIMIT_COUNT = 200
 
@@ -39,6 +43,12 @@ class LINE_API_Service:
         r.raise_for_status()
         return r.json()["totalUsage"]
 
+    def get_receiver_user_id(self) -> LineUser | None:
+        """
+        受信者ユーザーを取得
+        """
+        return LineUser.objects.filter(is_receiver=True).first().user_id
+
     def send_line_message(self, user_id: str, message: str) -> bool:
         """
         LINE Messaging APIでメッセージを送信
@@ -46,7 +56,8 @@ class LINE_API_Service:
         consumption: int = self._get_consumption()
         if consumption >= self._LIMIT_COUNT:
             print("LINE message limit reached for this month.")
-            return False
+            raise MessageConsumptionLimitError("LINE message limit reached for this month.")
+
         message_no = consumption + 1
         message_with_count = f"[{message_no}/{self._LIMIT_COUNT}]\n {message}"
         url = "https://api.line.me/v2/bot/message/push"
@@ -68,7 +79,7 @@ class LINE_API_Service:
             user = LineUser(user_id=user_id, name=name)
             user.save()
         except IntegrityError:
-            return self.send_line_message(user_id, "その名前は既に登録されています。")
+            return self.send_line_message(user_id, "その名前は既に使用されているか、 ユーザーがすでに存在します。")
 
         return self.send_line_message(user_id, "登録完了！")
     
@@ -93,7 +104,5 @@ class LINE_API_Service:
             user_list_text = '\n'.join([name if not is_receiver else name + ' (受信者)' for name, is_receiver in user_list])
             message = "ユーザー一覧:\n" + user_list_text
             return self.send_line_message(user_id, message)
-        except LineUser.DoesNotExist:
-            return self.send_line_message(user_id, "ユーザーが存在しません。")
         except Exception:
             return self.send_line_message(user_id, "ユーザー一覧の取得に失敗しました。")

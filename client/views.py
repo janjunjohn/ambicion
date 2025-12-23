@@ -10,7 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
 from django.core.mail import send_mail
 
-from client.services.line_api_service import LINE_API_Service
+from client.services.line_api_service import LINE_API_Service, MessageConsumptionLimitError
 
 from .models import Gallery, Sample, Family
 from .services.instagram_api_service import InstagramAPIService
@@ -74,16 +74,25 @@ class TopView(TemplateView):
         if validation['success']:
             username = request.POST.get('username')
             user_email = request.POST.get('email')
-            message = request.POST.get('free-text')
+            free_text = request.POST.get('free-text')
+            message = "お問い合わせ内容\n"
+            message += free_text + "\n\n"
+            message += f'お名前: {username} \n'
+            message += f'Email: {user_email} \n'
             if not user_email in BLOCK_LIST:
-                send_mail(f'質問：{username} 様',
-                        f'お名前: {username} \n' \
-                        f'Email: {user_email} \n' \
-                        f'備考: {message} \n',
-                        PYTHON_EMAIL,
-                        [AMBICION_EMAIL],
-                        fail_silently=False,
-                        )
+                line_token = env("LINE_TOKEN_DEV")
+                line_secret = env("LINE_SECRET_DEV")
+                line_service = LINE_API_Service(token=line_token, secret=line_secret)
+
+                receiver_line_user_id = line_service.get_receiver_user_id()
+                try:
+                    _ = line_service.send_line_message(
+                        user_id=receiver_line_user_id,
+                        message=message
+                    )
+                except MessageConsumptionLimitError as e:
+                    print(f"Failed to send LINE message: {e}")
+
                 context['submitted'] = 'success'
                 context['username'] = username
                 return render(request, self.template_name, context=context)
@@ -124,22 +133,32 @@ class OrderView(TemplateView):
             neck = request.POST.get('form-neck')
             sleeve = request.POST.get('form-sleeve')
             default = request.POST.get('form-default')
-            message = request.POST.get('free-text')
+            free_text = request.POST.get('free-text')
+            message = f'{username}様の注文内容\n'
+            message += f'お名前: {username} \n'
+            message += f'Email: {user_email} \n'
+            message += f'ユニフォーム: {uniform} {socks} \n'
+            message += f'枚数: {number} \n'
+            message += f'生地: {fabric} \n'
+            message += f'襟: {neck} \n'
+            message += f'袖: {sleeve} \n'
+            message += f'デフォルトデザイン: {default} \n'
+            message += f'備考: {free_text} \n'
+            
             if not user_email in BLOCK_LIST:
-                send_mail(f'{username} 様',
-                          f'お名前: {username} \n' \
-                          f'Email: {user_email} \n' \
-                          f'ユニフォーム: {uniform} {socks} \n' \
-                          f'枚数: {number} \n' \
-                          f'生地: {fabric} \n' \
-                          f'襟: {neck} \n' \
-                          f'袖: {sleeve} \n' \
-                          f'デフォルトデザイン: {default} \n' \
-                          f'備考: {message} \n',
-                          PYTHON_EMAIL,
-                          [AMBICION_EMAIL],
-                          fail_silently=False,
-                          )
+                line_token = env("LINE_TOKEN_DEV")
+                line_secret = env("LINE_SECRET_DEV")
+                line_service = LINE_API_Service(token=line_token, secret=line_secret)
+
+                receiver_line_user_id = line_service.get_receiver_user_id()
+                try:
+                    _ = line_service.send_line_message(
+                        user_id=receiver_line_user_id,
+                        message=message
+                    )
+                except MessageConsumptionLimitError as e:
+                    print(f"Failed to send LINE message: {e}")
+
                 context['submitted'] = 'success'
                 context['username'] = username
                 return render(request, self.template_name, context=context)
