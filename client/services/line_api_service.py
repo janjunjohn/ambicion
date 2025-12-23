@@ -72,6 +72,7 @@ class LINE_API_Service:
         except requests.RequestException as e:
             print(f"LINE message sending failed: {e}")
             return False
+        print("LINE message sent successfully.")
         return True
 
     def add_line_user(self, user_id: str, name: str) -> bool:
