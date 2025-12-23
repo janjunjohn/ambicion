@@ -24,12 +24,17 @@
   </h1>
   {% elif submitted == 'fail' %}
     <h1 class="header">
-      {{ username }}さん、
-      <br />
-      申し訳ございません！ただいまサーバーが混み合っております...
-      <br />
-      ページ最下部のSNSからのご連絡をお試しください。
+      ただいまサーバーが混み合っております...
+      <br/>
+      SNSからのご連絡をお試しください。
     </h1>
+    <a href="#footer"
+      ><img
+        id="uni-selector"
+        class="allow-img"
+        src="{% static 'client/images/design_pieces/allow-black.png' %}"
+        alt=""
+    /></a>
   {% else %}
   <h1 class="heading-text">
     あなたのデザインを、<br />
