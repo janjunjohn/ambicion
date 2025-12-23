@@ -189,7 +189,7 @@ class LineWebhookView(TemplateView):
                 return self.service.add_line_user(user_id, name)
             return False
 
-        if not self._check_signature(request):
+        if not self.service._check_signature(request):
             return HttpResponse("Invalid signature", status=400)
 
         body = json.loads(request.body.decode("utf-8"))
