@@ -134,7 +134,7 @@ class OrderView(TemplateView):
             sleeve = request.POST.get('form-sleeve')
             default = request.POST.get('form-default')
             free_text = request.POST.get('free-text')
-            message = f'{username}様の注文内容\n'
+            message = '注文内容が届きました！\n\n'
             message += f'お名前: {username} \n'
             message += f'Email: {user_email} \n'
             message += f'ユニフォーム: {uniform} {socks} \n'
@@ -143,7 +143,7 @@ class OrderView(TemplateView):
             message += f'襟: {neck} \n'
             message += f'袖: {sleeve} \n'
             message += f'デフォルトデザイン: {default} \n'
-            message += f'備考: {free_text} \n'
+            message += f'備考: \n{free_text} \n'
             
             if not user_email in BLOCK_LIST:
                 line_token = env("LINE_TOKEN_DEV")
