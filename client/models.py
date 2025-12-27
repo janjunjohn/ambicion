@@ -45,12 +45,14 @@ class Family(models.Model):  # ファミリー
 
 
 class LineUser(models.Model):
-    user_id = models.CharField(max_length=50, unique=True)
-    name = models.CharField(max_length=100, unique=True)
+    account = models.CharField(max_length=50, default='dev')
+    user_id = models.CharField(max_length=50)
+    name = models.CharField(max_length=100)
     is_receiver = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['pk']
+        unique_together = [['account', 'user_id'], ['account', 'name']]
 
     def __str__(self):
         return f'Line User ID: {self.user_id}'

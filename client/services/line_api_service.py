@@ -15,9 +15,10 @@ class MessageConsumptionLimitError(Exception):
 class LINE_API_Service:
     _LIMIT_COUNT = 200
 
-    def __init__(self, token: str, secret: str) -> None:
-        self.token = token
-        self.secret = secret
+    def __init__(self, account: str, token: str, secret: str) -> None:
+        self.account: str = account
+        self.token: str = token
+        self.secret: str = secret
 
     def _check_signature(self, request: requests.Request) -> bool:
         import hmac
@@ -47,7 +48,8 @@ class LINE_API_Service:
         """
         受信者ユーザーを取得
         """
-        return LineUser.objects.filter(is_receiver=True).first().user_id
+        receiver = LineUser.objects.filter(account=self.account, is_receiver=True).first()
+        return receiver.user_id if receiver else None
 
     def send_line_message(self, user_id: str, message: str) -> bool:
         """
@@ -77,32 +79,34 @@ class LINE_API_Service:
 
     def add_line_user(self, user_id: str, name: str) -> bool:
         try:
-            user = LineUser(user_id=user_id, name=name)
+            user = LineUser(account=self.account, user_id=user_id, name=name)
             user.save()
         except IntegrityError:
             return self.send_line_message(user_id, "その名前は既に使用されているか、 ユーザーがすでに存在します。")
 
         return self.send_line_message(user_id, "登録完了！")
-    
+
     def update_receiver_status(self, user_id: str) -> bool:
         try:
-            receiver = LineUser.objects.filter(is_receiver=True).first()
+            receiver = LineUser.objects.filter(account=self.account, is_receiver=True).first()
             if receiver:
                 receiver.is_receiver = False
                 receiver.save()
 
-            user_update = LineUser.objects.get(user_id=user_id)
+            user_update = LineUser.objects.get(account=self.account, user_id=user_id)
             user_update.is_receiver = True
             user_update.save()
-            assert LineUser.objects.filter(is_receiver=True).count() == 1
+            assert LineUser.objects.filter(account=self.account, is_receiver=True).count() == 1
             return self.send_line_message(user_id, "あなたを新しい受信者に設定しました！")
         except Exception:
             return self.send_line_message(user_id, "受信者の更新に失敗しました。")
 
     def get_line_user_list(self, user_id: str) -> bool:
         try:
-            user_list = LineUser.objects.values_list('name', 'is_receiver')
-            user_list_text = '\n'.join([name if not is_receiver else name + ' (受信者)' for name, is_receiver in user_list])
+            user_list = LineUser.objects.filter(account=self.account).values_list('name', 'is_receiver')
+            user_list_text = '\n'.join(
+                [name if not is_receiver else name + ' (受信者)' for name, is_receiver in user_list]
+            )
             message = "ユーザー一覧:\n" + user_list_text
             return self.send_line_message(user_id, message)
         except Exception:
