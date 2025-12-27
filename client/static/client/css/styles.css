@@ -415,7 +415,7 @@ nav {
 .submitted-fail-text {
   font-size: 4rem;
   line-height: 2;
-  color: #fff;
+  color: #fff !important;
   opacity: 1;
 }
 
