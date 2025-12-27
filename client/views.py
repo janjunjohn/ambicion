@@ -82,7 +82,7 @@ class TopView(TemplateView):
             if not user_email in BLOCK_LIST:
                 line_token = env("LINE_TOKEN_ALPHA")
                 line_secret = env("LINE_SECRET_ALPHA")
-                line_service = LINE_API_Service(token=line_token, secret=line_secret)
+                line_service = LINE_API_Service(account="alpha", token=line_token, secret=line_secret)
 
                 receiver_line_user_id = line_service.get_receiver_user_id()
                 try:
@@ -94,7 +94,8 @@ class TopView(TemplateView):
                 except MessageConsumptionLimitError:
                     line_token = env("LINE_TOKEN_BETA")
                     line_secret = env("LINE_SECRET_BETA")
-                    line_service = LINE_API_Service(token=line_token, secret=line_secret)
+                    line_service = LINE_API_Service(account="beta", token=line_token, secret=line_secret)
+                    receiver_line_user_id = line_service.get_receiver_user_id()
                     try:
                         _ = line_service.send_line_message(
                             user_id=receiver_line_user_id,
@@ -158,7 +159,7 @@ class OrderView(TemplateView):
             if not user_email in BLOCK_LIST:
                 line_token = env("LINE_TOKEN_ALPHA")
                 line_secret = env("LINE_SECRET_ALPHA")
-                line_service = LINE_API_Service(token=line_token, secret=line_secret)
+                line_service = LINE_API_Service(account="alpha", token=line_token, secret=line_secret)
 
                 receiver_line_user_id = line_service.get_receiver_user_id()
                 try:
@@ -170,7 +171,8 @@ class OrderView(TemplateView):
                 except MessageConsumptionLimitError:
                     line_token = env("LINE_TOKEN_BETA")
                     line_secret = env("LINE_SECRET_BETA")
-                    line_service = LINE_API_Service(token=line_token, secret=line_secret)
+                    line_service = LINE_API_Service(account="beta", token=line_token, secret=line_secret)
+                    receiver_line_user_id = line_service.get_receiver_user_id()
                     try:
                         _ = line_service.send_line_message(
                             user_id=receiver_line_user_id,
@@ -213,11 +215,16 @@ class FamilyView(TemplateView):
 
 @method_decorator(csrf_exempt, name='dispatch')
 class LineWebhookView(TemplateView):
-    _LINE_TOKEN_DEV = env("LINE_TOKEN_DEV")
-    _LINE_SECRET_DEV = env("LINE_SECRET_DEV")
-    service = LINE_API_Service(token=_LINE_TOKEN_DEV, secret=_LINE_SECRET_DEV)
+    _ACCOUNT: str
+    _LINE_TOKEN: str
+    _LINE_SECRET: str
 
-    def post(self, request, *args, **kwargs) -> None:
+    def setup(self, request, *args, **kwargs):
+        """初期化時にトークンとシークレットを設定"""
+        super().setup(request, *args, **kwargs)
+        self.service = LINE_API_Service(account=self._ACCOUNT, token=self._LINE_TOKEN, secret=self._LINE_SECRET)
+
+    def post(self, request, *args, **kwargs) -> HttpResponse:
         def _handle_service(message: str, user_id: str) -> bool:
             if message == 'list':
                 return self.service.get_line_user_list(user_id)
@@ -240,5 +247,26 @@ class LineWebhookView(TemplateView):
                 continue  # message イベント以外は無視
             message = event.get("message", {})
             user_id = event["source"]["userId"]  # 必ず source から取る
-            _ = _handle_service(message["text"], user_id)
+            _ = _handle_service(message.get("text", ""), user_id)
         return HttpResponse("OK")
+
+
+class LineWebhookDevView(LineWebhookView):
+    """開発環境用LINE Webhook"""
+    _ACCOUNT = 'dev'
+    _LINE_TOKEN = env("LINE_TOKEN_DEV")
+    _LINE_SECRET = env("LINE_SECRET_DEV")
+
+
+class LineWebhookAlphaView(LineWebhookView):
+    """ALPHA環境用LINE Webhook"""
+    _ACCOUNT = 'alpha'
+    _LINE_TOKEN = env("LINE_TOKEN_ALPHA")
+    _LINE_SECRET = env("LINE_SECRET_ALPHA")
+
+
+class LineWebhookBetaView(LineWebhookView):
+    """BETA環境用LINE Webhook"""
+    _ACCOUNT = 'beta'
+    _LINE_TOKEN = env("LINE_TOKEN_BETA")
+    _LINE_SECRET = env("LINE_SECRET_BETA")
