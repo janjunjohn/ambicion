@@ -162,13 +162,15 @@ class OrderView(TemplateView):
                 line_service = LINE_API_Service(account="alpha", token=line_token, secret=line_secret)
 
                 receiver_line_user_id = line_service.get_receiver_user_id()
+                print("DEBUG: user_idの取得に成功")
                 try:
                     _ = line_service.send_line_message(
                         user_id=receiver_line_user_id,
                         message=message
                     )
                     context['submitted'] = 'success'
-                except MessageConsumptionLimitError:
+                except MessageConsumptionLimitError as e:
+                    print(f"DEBUG: MessageConsumptionLimitError caught: {e}")
                     line_token = env("LINE_TOKEN_BETA")
                     line_secret = env("LINE_SECRET_BETA")
                     line_service = LINE_API_Service(account="beta", token=line_token, secret=line_secret)
@@ -179,9 +181,11 @@ class OrderView(TemplateView):
                             message=message
                         )
                         context['submitted'] = 'success'
-                    except Exception:
+                    except Exception as e:
+                        print(f"DEBUG: Beta send failed: {e}")
                         context['submitted'] = 'fail'
-                except Exception:
+                except Exception as e:
+                    print(f"DEBUG: Alpha send failed: {e}")
                     context['submitted'] = 'fail'
 
                 context['username'] = username
